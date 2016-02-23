@@ -1,18 +1,41 @@
 var express = require('express')
     , exphbr = require('express3-handlebars')
     , formidable = require("formidable")
-    , mongoose = require('mongoose')
     , util = require('util')
-    , connectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI
     , app = express()
+    , path = require('path')
+    , methodOverride = require('method-override')
+    , router = express.Router()
     , handlebars
-    , mongoose.connect(connectionString)
+    , mongoose = require('mongoose')
+    , connectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI
+    
+console.log('server.js')
 
-// Create `ExpressHandlebars` instance with a default layout.
+//Database
+mongoose.connect(connectionString)
+// If the Node process ends, close the Mongoose connection
+process.on('SIGINT', function() {  
+    mongoose.connection.close(function () { 
+        console.log('Mongoose default connection disconnected through app termination')
+        process.exit(0) 
+    })
+})
+var db = mongoose.connection
+db.on('error', console.error.bind(console, 'mongoose connection error:'));
+db.once('open', function() {
+    console.log("we're connected!")
+})
+
+//Schemas
+var Person = mongoose.model('Person', mongoose.Schema({
+    name: String
+    , email: String
+}))
+
 handlebars = exphbr.create({
     defaultLayout: 'main'
-    , extname: '.html' //set extension to .html so handlebars knows what to look for
-
+    , extname: '.html' 
     // Uses multiple partials dirs, templates in "shared/templates/" are shared
     // with the client-side of the app (see below).
     , partialsDir: [
@@ -24,40 +47,8 @@ handlebars = exphbr.create({
 app.engine('html', handlebars.engine)
 app.set('view engine', 'html')
 
-app.route('/personalize')
-.get(function(req, res) {
-    //Renders the Views/index.mustache file with the view {'test': 'somevalue'} using the mu2 engine 
-	res.render('./partial/index', {
-		'locals' : {
-			'test' : 'somevalue'
-		}
-	})
-})
-.post(function(req, res) {
-    processAllFieldsOfTheForm(req, res);
-})
-
-
-function processAllFieldsOfTheForm(req, res) {
-    var form = new formidable.IncomingForm();
-
-    form.parse(req, function (err, fields, files) {
-        //Store the data from the fields in your data store.
-        //The data store could be a file or database or any other store based
-        //on your application.
-        res.writeHead(200, {
-            'content-type': 'text/plain'
-        });
-        res.write('received the data:\n\n');
-        res.end(util.inspect({
-            fields: fields,
-            files: files
-        }));
-    });
-}
-
-
-
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 })
+
+routes = require('./routes/index')(app)

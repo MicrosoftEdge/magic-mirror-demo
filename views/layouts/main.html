@@ -1,26 +1,27 @@
 <!doctype html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <title>Example App</title>
-</head>
-<body>
+    <head>
+        <meta charset="utf-8" />
+        <title>Example App</title>
+    </head>
+   <link rel="stylesheet" type="text/css" href="{{templateStyle}}" />
+    <body>
 
-    {{{body}}}
+        {{{body}}}
 
-  {{#if templates}}
-    <script src="/libs/handlebars.runtime.js"></script>
-    <script>
-        (function () {
-            var template  = Handlebars.template,
-                templates = Handlebars.templates = Handlebars.templates || {};
+    {{#if templates}}
+        <script src="/libs/handlebars.runtime.js"></script>
+        <script>
+            (function () {
+                var template  = Handlebars.template,
+                    templates = Handlebars.templates = Handlebars.templates || {};
 
-          {{#templates}}
-            templates['{{{name}}}'] = template({{{template}}});
-          {{/templates}}
-        }());
-    </script>
-  {{/if}}
+            {{#templates}}
+                templates['{{{name}}}'] = template({{{template}}});
+            {{/templates}}
+            }());
+        </script>
+    {{/if}}
 
-</body>
+    </body>
 </html>
