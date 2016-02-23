@@ -1,0 +1,64 @@
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background: #000;
+	color: #fff;
+	font-family: Segoe UI Light, Tahoma, sans-serif;
+}
+
+#container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#timestamp {
+	position: absolute;
+	top: 0;
+	right: 20px;
+	text-align: right;
+}
+
+#time {
+	font-size: 140px;
+	line-height: 140px;
+}
+
+#date, #day {
+	font-size: 40px;
+	line-height: 40px;
+}
+
+#weather {
+	position: absolute;
+	top: 0;
+	left: 20px;
+}
+
+#weather .icon,
+#weather .temperature {
+	display: inline-block;
+	line-height: 140px;
+}
+
+#weather .icon {
+	font-size: 140px;
+}
+
+#weather .icon:before {
+	font-family: "Segoe MDL2 Assets";
+	content: "\E753";
+}
+
+#weather .temperature {
+	font-size: 120px;
+	vertical-align: top;
+}
+
+#weather .report {
+	font-size: 32px;
+	width: 375px;
+}
