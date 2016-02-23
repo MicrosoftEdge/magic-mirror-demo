@@ -8,9 +8,8 @@ module.exports = function(app, settings){
     })
     
     rootRouter.get('/', function(req, res, next) {
-        res.send('Magic miror home using router... go to /create route to personalize')
+        res.send('Magic miror home using router... go to /create route to personalize and /mirror for mirror UI')
     })
     
-	app.use('/home', rootRouter)
     app.use('/', rootRouter)
 }

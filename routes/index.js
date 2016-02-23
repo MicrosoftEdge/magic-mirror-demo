@@ -3,4 +3,5 @@
 module.exports = function(app){ 
     require('./home')(app)
     require('./create')(app)
+    require('./mirror')(app)
 } 
