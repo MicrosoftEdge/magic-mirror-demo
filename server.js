@@ -4,14 +4,13 @@ var express = require('express')
     , util = require('util')
     , app = express()
     , path = require('path')
+    , http = require('http')
     , methodOverride = require('method-override')
     , router = express.Router()
     , handlebars
     , mongoose = require('mongoose')
     , connectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI
     
-console.log('server.js')
-
 //Database
 mongoose.connect(connectionString)
 // If the Node process ends, close the Mongoose connection
@@ -46,9 +45,10 @@ handlebars = exphbr.create({
 
 app.engine('html', handlebars.engine)
 app.set('view engine', 'html')
+app.set('port', process.env.PORT || 3000)
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+http.createServer(app).listen(app.get('port'), function(){
+  console.log("Express server listening on port " + app.get('port'));
 })
 
 routes = require('./routes/index')(app)

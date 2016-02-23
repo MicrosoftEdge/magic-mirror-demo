@@ -4,9 +4,11 @@ module.exports = function(app, settings){
         rootRouter = express.Router()
          
     rootRouter.use(function(req, res, next) {
-        console.log('inside home get ')
-        res.send('Magic miror home using router... go to /create-user route to personalize')
-        res.end()
+        next()
+    })
+    
+    rootRouter.get('/', function(req, res, next) {
+        res.send('Magic miror home using router... go to /create route to personalize')
     })
     
 	app.use('/home', rootRouter)
