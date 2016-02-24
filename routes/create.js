@@ -5,6 +5,8 @@ module.exports = function(app){
         , mongoose = require('mongoose')
         , util = require('util')
         , url = require('url')
+        , fs = require('fs')
+        , path = require('path')
         
     var Person = mongoose.model('Person')
     
@@ -16,10 +18,16 @@ module.exports = function(app){
         res.render('./../views/partial/create', {})
     })
     
+    createUserRouter.get('/create.js', function(req, res, next) {
+        res.writeHead(200, {'Content-Type': 'text/js'});
+        res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/create.js'), 'utf8'))
+        res.end()
+    })
+
     createUserRouter.post('/', function(req, res, next) {
         processAllFieldsOfTheForm(req, res)
     })
-    
+
     function processAllFieldsOfTheForm(req, res) {
         var form = new formidable.IncomingForm();
 

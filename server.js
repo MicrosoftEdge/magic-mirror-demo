@@ -30,6 +30,7 @@ db.once('open', function() {
 var Person = mongoose.model('Person', mongoose.Schema({
     name: String
     , email: String
+    , zipcode: String
 }))
 
 handlebars = exphbr.create({
