@@ -8,9 +8,8 @@
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
     "formidable": "^1.0.17",
-    "jsdom": "^8.0.4",
-    "method-override": "^2.3.5",
-    "mongoose": "^4.4.5"
+    "mongoose": "^4.4.5",
+    "request": "^2.69.0"
   },
   "devDependencies": {},
   "scripts": {
