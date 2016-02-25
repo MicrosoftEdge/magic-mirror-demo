@@ -1,6 +1,6 @@
 var express = require('express')
     , bodyParser = require('body-parser')
-    , exphbr = require('express3-handlebars')
+    , exphbr = require('express-handlebars')
     , formidable = require("formidable")
     , util = require('util')
     , app = express()
@@ -11,14 +11,14 @@ var express = require('express')
     , handlebars
     , mongoose = require('mongoose')
     , connectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI
-    
+
 //Database
 mongoose.connect(connectionString)
 // If the Node process ends, close the Mongoose connection
-process.on('SIGINT', function() {  
-    mongoose.connection.close(function () { 
+process.on('SIGINT', function() {
+    mongoose.connection.close(function () {
         console.log('Mongoose default connection disconnected through app termination')
-        process.exit(0) 
+        process.exit(0)
     })
 })
 var db = mongoose.connection
@@ -36,7 +36,7 @@ var Person = mongoose.model('Person', mongoose.Schema({
 
 handlebars = exphbr.create({
     defaultLayout: 'main'
-    , extname: '.html' 
+    , extname: '.html'
     // Uses multiple partials dirs, templates in "shared/templates/" are shared
     // with the client-side of the app (see below).
     , partialsDir: [
