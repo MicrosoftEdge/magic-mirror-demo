@@ -1,2 +1,4 @@
+.DS_Store
+*.log
 environment.txt
-
+node_modules
