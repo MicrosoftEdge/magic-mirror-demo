@@ -15,12 +15,12 @@ module.exports = function(app){
     })
     
     createUserRouter.get('/', function(req, res, next) {
-        res.render('./../views/partial/create', {})
+        res.render('./../views/partial/createProfile', {})
     })
     
-    createUserRouter.get('/create.js', function(req, res, next) {
+    createUserRouter.get('/createProfile.js', function(req, res, next) {
         res.writeHead(200, {'Content-Type': 'text/js'});
-        res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/create.js'), 'utf8'))
+        res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/createProfile.js'), 'utf8'))
         res.end()
     })
 

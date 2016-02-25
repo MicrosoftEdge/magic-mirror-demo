@@ -1,3 +1,15 @@
+/*General*/
+.center
+{
+    position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-ms-transform: translateX(-50%) translateY(-50%);
+	-o-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+}
 /*Magic mirror home UI*/
 body {
 	width: 100%;
@@ -64,18 +76,6 @@ body {
 	width: 375px;
 }
 /*Create user form*/
-form
-{
-    position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translateX(-50%) translateY(-50%);
-	-moz-transform: translateX(-50%) translateY(-50%);
-	-ms-transform: translateX(-50%) translateY(-50%);
-	-o-transform: translateX(-50%) translateY(-50%);
-	transform: translateX(-50%) translateY(-50%);
-}
-
 form .field-symbol
 {
     padding:10px;
@@ -97,4 +97,65 @@ form input[type=submit]{
 }
 form #error{
     color:red;
+}
+/*Capture*/
+.capture-face
+{
+    overflow-y:visible;
+}
+.capture-face .header
+{
+    margin: 0 auto;
+    width:500px;
+    text-align: center;
+}
+.capture-face .title
+{
+    font-size: 24px;
+    font-weight: 600;
+}
+.capture-face .sub-title
+{
+    margin:10px 20px 10px 10px;
+    font-size: 20px;
+}
+.capture-face .controls
+{
+    text-align: center;
+}
+.capture-face button
+{
+    margin: 10px;
+    padding: 6px 12px;
+}
+#video {
+    width: 640px;
+    height: 480px;
+    position: relative;
+}
+
+#cameraPreview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 640px;
+    height: 480px;
+}
+
+#facesCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 640px;
+    height: 480px;
+}
+
+#message, #snapshot {
+    width: 640px;
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'Segoe UI Light', Tahoma, sans-serif;
+    font-size: 24px;
 }

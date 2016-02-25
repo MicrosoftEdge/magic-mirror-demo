@@ -1,4 +1,5 @@
 var express = require('express')
+    , bodyParser = require('body-parser')
     , exphbr = require('express3-handlebars')
     , formidable = require("formidable")
     , util = require('util')
@@ -47,6 +48,7 @@ handlebars = exphbr.create({
 app.engine('html', handlebars.engine)
 app.set('view engine', 'html')
 app.set('port', process.env.PORT || 3000)
+app.use(bodyParser.raw())
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
