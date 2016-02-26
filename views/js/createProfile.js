@@ -22,7 +22,17 @@
         if(!validateInputs()){   
             console.log(errors)
            $('#error').html(getErrors()[0]) 
-           return false
+       } else {
+         $.ajax({
+          url: '/create',
+          type: 'POST',
+          data : $('form').serialize(),
+          success: function(body){
+            console.log('/capture/' + JSON.parse(body))
+            window.location.href = '/capture/' + JSON.parse(body)
+          }
+        })
        }
+      return false;
     })
 })()

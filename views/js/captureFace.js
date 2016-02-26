@@ -61,6 +61,7 @@
         dataReader.readBytes(byteArray);
 
         var base64 = Uint8ToBase64(byteArray);
+        /*
         var img = document.createElement('img');
         img.src = 'data: image/jpeg;base64,' + base64;
 
@@ -68,8 +69,9 @@
           img.style.transform = 'scale(-1, 1)';
         }
         snapshot.appendChild(img);
-
+        */
         if (addFace) {
+          console.log('/capture/addface')
           // Add a face to a face list
           $.ajax({
             url: '/capture/addFace',
@@ -81,8 +83,7 @@
             processData: false
           })
           .done(function(result) {
-            console.log(result);
-            message.innerText = 'Successfully added face to list!';
+            message.innerText = result;
           })
           .fail(function(e) {
             console.error(e);
@@ -90,6 +91,7 @@
         }
         else {
           // Detect the face to get a face ID
+          console.log('/capture/authenticate')
           $.ajax({
             url: '/capture/authenticate',
             beforeSend: function(xhrObj) {
@@ -99,8 +101,8 @@
             data: byteArray,
             processData: false
           })
-          .done(function(faceEntries) {
-            console.log('get face is successful')
+          .done(function(result) {
+            message.innerText = result;
           })
           .fail(function(e) {
             console.error(e);
@@ -131,7 +133,6 @@
     message = document.getElementById('message');
     snapshot = document.getElementById('snapshot');
     video = document.getElementById('video');
-
     facesCanvas.width = video.offsetWidth;
     facesCanvas.height = video.offsetHeight;
     findCameraDeviceByPanelAsync(DeviceEnumeration.Panel.back).then(

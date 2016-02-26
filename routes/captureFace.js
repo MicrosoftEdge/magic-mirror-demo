@@ -6,19 +6,24 @@ module.exports = function(app) {
     , fs = require('fs')
     , request = require('request')
     , oxfordKey = process.env.OXFORD_SECRET_KEY // Subscription key for Project Oxford
-    , oxfordList = "magic-mirror-hwa-test";
+    , oxfordList = "magic-mirror-hwa-test"
+    , minConfidence = 0.5
+    , mongoose = require('mongoose')
+    , user_id;
 
   captureFaceRouter.use(function(req, res, next) {
     next();
   });
 
-  captureFaceRouter.get('/', function(req, res, next) {
+  captureFaceRouter.get('/:user_id', function(req, res, next) {
     res.render('./../views/partial/captureFace', {});
+    user_id = req.params.user_id
   });
-
+  
   captureFaceRouter.post('/addFace', function(req, res, next) {
+    console.log('addface server route post')
     request.post({
-      url: 'https://api.projectoxford.ai/face/v1.0/facelists/' + oxfordList + 'persistedFaces',
+      url: 'https://api.projectoxford.ai/face/v1.0/facelists/' + oxfordList + '/persistedFaces',
       headers: {
         'Content-Type': 'application/octet-stream',
         'Ocp-Apim-Subscription-Key': oxfordKey
@@ -26,11 +31,26 @@ module.exports = function(app) {
       body: req.body
     },
     function(error, response, body) {
-      console.log(error, body);
-    });
+      if(error)
+        console.log(error)
+      else {
+        body = JSON.parse(body)
+        var model = mongoose.model('Person')
+        model.update({ '_id': user_id }, { $set: { face_id: body.persistedFaceId }}, function (err, user){
+          if(err) {
+            console.log(err)
+            res.write('Please try again.')
+          } else {
+            res.write('Success!')
+          }
+          res.end()
+        })
+      }
+    })
   });
-
+  
   captureFaceRouter.post('/authenticate', function(req, res, next) {
+    console.log('authenticate server route post')
     request.post({
       url: 'https://api.projectoxford.ai/face/v1.0/detect',
       headers: {
@@ -40,78 +60,52 @@ module.exports = function(app) {
       body: req.body
     },
     function(error, response, body) {
-      console.log(error, body);
-      /*
-      if (faceEntries.length > 0) {
-        console.log(faceEntries)
+      body = JSON.parse(body)
+      if (body.length > 0) {
         // There should only be one face, but in the event there are more, the largest one is returned first
-        var faceId = faceEntries[0].faceId;
-        var request = {
+        var faceId = body[0].faceId;
+        console.log('faceid', faceId)
+        var req = {
           faceId: faceId,
           faceListId: oxfordList,
           maxNumOfCandidatesReturned: 1
-        };
-
-        // Then, use the face ID to find a similar face in the face list
-        $.ajax({
-          url: "https://api.projectoxford.ai/face/v1.0/findsimilars",
-          beforeSend: function (xhrObj) {
-              xhrObj.setRequestHeader("Content-Type", "application/json");
-              xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", oxfordKey);
-          },
-          type: "POST",
-          data: JSON.stringify(request)
-        })
-        .done(function (candidate) {
-          if (candidate.length > 0) {
-            var user = candidate[0].persistedFaceId;
-            var confidence = candidate[0].confidence;
-            var name;
-
-            // TODO: Query user database for face ID
-            switch (user) {
-              case "1eec9152-add3-4415-a207-ddca27a42226":
-              case "8e43f7de-dc18-4051-8bf1-c803f7f084c4":
-              case "009c065f-731d-4777-b769-d4b5b87228ae":
-              case "ce3b16b7-a469-4bf5-b143-9530bd049cd4":
-                name = "Josh";
-                break;
-
-              case "51608f54-d0cb-49a8-86ec-fb557f01d44f":
-              case "26f5907e-e7e4-4fc4-8352-7b6bbd7deed0":
-                name = "Kiril";
-                break;
-
-              case "01af5cdb-b131-4a74-ab3e-957edcce84f0":
-              case "684e01e1-51fc-4e52-9e62-90614c09b593":
-                name = "Andy";
-                break;
-
-              case "abefef04-4b93-42f4-b487-96a5953271ac":
-              case "b57f001e-6c10-49da-9162-262b39f59d0e":
-                name = "Ali";
-                break;
-
-              default:
-                name = "Unknown";
-                break;
-            }
-            if (confidence >= minConfidence) {
-              console.log(`Successfully logged in as ${name}! Confidence level was ${confidence}.`)
-            }
-            else {
-              console.log(`Unable to find a strong enough match. Confidence level was ${confidence}.`)
-            }
-          }
-          else {
-             console.log("Unable to find any matches.")
-          }
         }
-        */
-    });
+        request.post({
+          url: "https://api.projectoxford.ai/face/v1.0/findsimilars",
+          headers: {
+              'Content-Type': 'application/json',
+              'Ocp-Apim-Subscription-Key': oxfordKey
+          },
+          body: JSON.stringify(req)
+        }, function(error, response, body) {
+          body = JSON.parse(body)
+          if(error)
+            console.log(error)
+          else {
+            if(body.length > 0){
+              var face_id = body[0].persistedFaceId
+                , confidence = body[0].confidence
+              var model = mongoose.model('Person')
+              model.findOne({ 'face_id': face_id }, function (err, user){
+                if(err)
+                  res.write('There was an error with authentication.')
+                if(user){
+                  if (confidence >= minConfidence) {
+                    res.write(`Successfully logged in as ${user.name}! Confidence level was ${confidence}.`)
+                  } else {
+                    res.write(`Unable to find a strong enough match. Confidence level was ${confidence}.`)
+                  }
+                  res.end()
+                }
+              }) 
+            }
+          }
+        })
+      }
+    })
   });
 
-  captureFaceRouter .get('/captureFace.js', function(req, res, next) {
+  captureFaceRouter.get('/file/captureFace.js', function(req, res, next) {
     res.writeHead(200, {'Content-Type': 'text/js'});
     res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/captureFace.js'), 'utf8'));
     res.end();

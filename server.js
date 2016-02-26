@@ -6,7 +6,6 @@ var express = require('express')
   , app = express()
   , path = require('path')
   , http = require('http')
-  , methodOverride = require('method-override')
   , router = express.Router()
   , handlebars
   , mongoose = require('mongoose')
@@ -33,7 +32,8 @@ db.once('open', function() {
 var Person = mongoose.model('Person', mongoose.Schema({
   name: String,
   email: String,
-  zipcode: String
+  zipcode: String,
+  face_id: String
 }));
 
 handlebars = exphbr.create({
