@@ -130,10 +130,16 @@ body {
     text-align:center;
 }
 /*Create user form*/
+form
+{
+  border: 2px groove threedface;
+  width: 500px;
+}
 form fieldset
 {
   width: 340px;
   margin: 0 auto;
+  border:none;
 }
 form .field-symbol
 {
