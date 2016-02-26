@@ -37,6 +37,21 @@
     margin:10px 20px 10px 10px;
     font-size: 20px;
 }
+.dark-contrast-btn
+{
+  cursor:pointer;
+  outline: 0;
+  padding: 8px 16px;
+  font-size:16px;
+  color: white;
+  border: none;
+  background-color: #2980b9; 
+  text-decoration:none;
+}
+.dark-contrast-btn:hover
+{
+  background-color:#1569aa; 
+}
 /*Magic mirror home UI*/
 body {
   overflow-y: auto;
@@ -117,27 +132,26 @@ body {
 /*Create user form*/
 form fieldset
 {
-  width: 300px;
+  width: 340px;
   margin: 0 auto;
 }
 form .field-symbol
 {
-    padding:10px;
+    padding:20px;
 }
 form .field-symbol label
 {
     padding-right:20px;
+    font-size: 18px;
 }
 form .field-symbol input 
 {
     float:right;
+    padding: 5px;
 }
 form .submit-wrapper{
     text-align: center;
-    padding:10px;
-}
-form input[type=submit]{
-    padding:6px 12px;
+    padding:30px;
 }
 form #error{
     color:red;
@@ -147,14 +161,28 @@ form #error{
 {
     overflow-y:visible;
 }
+#back
+{
+  top:0px;
+  left:0px;
+  position: fixed;
+  padding:20px;
+  text-decoration: none;
+  color:white;
+}
 .capture-face .controls
 {
     text-align: center;
 }
+.capture-face .controls.bottom
+{
+    position: relative;
+    margin: 10px;
+    bottom:0px;
+}
 .capture-face button
 {
     margin: 10px;
-    padding: 6px 12px;
 }
 #video {
     width: 640px;

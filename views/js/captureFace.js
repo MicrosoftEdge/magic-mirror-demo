@@ -200,6 +200,6 @@
   var effectDefinition = new Windows.Media.Core.FaceDetectionEffectDefinition();
   var isAuthenticated = false;
   var mediaStreamType = Capture.MediaStreamType.videoRecord;
-
+  
   document.addEventListener('DOMContentLoaded', init);
 }());

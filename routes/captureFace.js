@@ -90,10 +90,11 @@ module.exports = function(app) {
                 if(err)
                   res.write('There was an error with authentication.')
                 if(user){
+                  var percConf = confidence.toFixed(4) * 100 
                   if (confidence >= minConfidence) {
-                    res.write(`Successfully logged in as ${user.name}! Confidence level was ${confidence}.`)
+                    res.write(`Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`)
                   } else {
-                    res.write(`Unable to find a strong enough match. Confidence level was ${confidence}.`)
+                    res.write(`Unable to find a strong enough match. Confidence level was ${percConf}%.`)
                   }
                   res.end()
                 }
