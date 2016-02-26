@@ -1,24 +1,26 @@
 <!doctype html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <title>Example App</title>
-</head>
-<link rel="stylesheet" type="text/css" href="/style.css" />
-<body>
-  {{{body}}}
-{{#if templates}}
-  <script src="/libs/handlebars.runtime.js"></script>
-  <script>
-    (function() {
-      var template  = Handlebars.template,
-          templates = Handlebars.templates = Handlebars.templates || {};
+    <head>
+        <meta charset="utf-8" />
+        <title>Example App</title>
+    </head>
+   <link rel="stylesheet" type="text/css" href="/style.css" />
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <body>
 
-    {{#templates}}
-        templates['{{{name}}}'] = template({{{template}}});
-    {{/templates}}
-    }());
-  </script>
-  {{/if}}
-</body>
+        {{{body}}}
+    {{#if templates}}
+        <script src="/libs/handlebars.runtime.js"></script>
+        <script>
+            (function () {
+                var template  = Handlebars.template,
+                    templates = Handlebars.templates = Handlebars.templates || {};
+
+            {{#templates}}
+                templates['{{{name}}}'] = template({{{template}}});
+            {{/templates}}
+            }());
+        </script>
+    {{/if}}
+    </body>
 </html>

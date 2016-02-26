@@ -57,7 +57,7 @@ Weather.getForecast = function (city, callback) {
 
   return this._getJSON(url, function (data) {
     callback(new Weather.Forecast(data));
-  } );
+  });
 };
 
 Weather._getJSON = function( url, callback ) {
@@ -66,7 +66,9 @@ Weather._getJSON = function( url, callback ) {
       return callback(response.body);
     } );
   } else {
-    jsonp(url).then(callback);
+    jsonp(url).then(callback).catch(function(e) {
+        console.log(e);
+    });
   }
 };
 
@@ -166,9 +168,14 @@ Weather.Current.prototype.temperature = function () {
   return this.data.main.temp;
 };
 
+Weather.Current.prototype.city = function () {
+  return this.data.name;
+};
+
 Weather.Current.prototype.conditions = function () {
   return this.data.weather[0].description;
 };
 
 if (isModule) { module.exports = Weather; }
 else { window.Weather = Weather; }
+

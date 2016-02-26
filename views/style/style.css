@@ -61,21 +61,38 @@ body {
 	font-size: 140px;
 }
 
-#weather .icon:before {
-	font-family: "Segoe MDL2 Assets";
-	content: "\E753";
-}
-
 #weather .temperature {
 	font-size: 120px;
 	vertical-align: top;
 }
-
-#weather .report {
+#weather .temp-wrapper {
+  text-align: center;
+}
+#weather .location {
+	font-size: 44px;
+	width: 375px;
+  weight: 600;
+  text-transform: capitalize;
+  text-align:center;
+}
+#weather .report,.description {
 	font-size: 32px;
 	width: 375px;
+  text-transform: capitalize;
+  text-align:center;
 }
 /*Create user form*/
+form
+{
+  position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-ms-transform: translateX(-50%) translateY(-50%);
+	-o-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+}
 form .field-symbol
 {
   padding:10px;
