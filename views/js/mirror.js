@@ -1,49 +1,30 @@
-(function () {
-    "use strict";
+;(function() {
+  'use strict';
 
-    var time, oTime, monthNames, date, dayNames, day;
+  var time, date, day;
 
-    function displayTime() {
-        date = document.getElementById("date");
-        day = document.getElementById("day");
-        time = document.getElementById("time");
-        dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        updateTime();
-        oTime = setTimeout(updateTime, 1000);
-    }
+  function updateTime() {
+    var now = moment();
+    time.innerText = now.format('h:mm');
+    date.innerText = now.format('MMMM D');
+    day.innerText = now.format('dddd');
+  }
 
-    function updateTime() {
-        var currentTime = new Date();
-        var currHours = currentTime.getHours();
-        var currMinutes = currentTime.getMinutes();
-        var currMonth = currentTime.getMonth();
-        var currDay = currentTime.getDate();
-        var currDayOfWeek = currentTime.getDay();
+  function init() {
+    date = document.getElementById('date');
+    day = document.getElementById('day');
+    time = document.getElementById('time');
 
-        if (currMinutes < 10) {
-            currMinutes = "0" + currMinutes;
-        }
+    setInterval(updateTime, 1000);
 
-        if (currHours >= 12) {
-            currHours -= 12;
-        }
-        
-        if (currHours == 0) {
-            currHours = 12;
-        }
+    Weather.getCurrent('98077', function(current) {
+      console.log(['currently:', Weather.kelvinToFahrenheit( current.temperature() ), 'and', current.conditions()].join(' '));
+    });
 
-        var newTime = `${currHours}:${currMinutes}`;
-        time.innerText = newTime;
-        var newDate = `${monthNames[currMonth - 1]} ${currDay}`;
-        date.innerText = newDate;
-        day.innerText = dayNames[currDayOfWeek];
-        oTime = setTimeout(updateTime, 1000);
-    }
+    Weather.getForecast('98077', function(forecast) {
+      console.log('Forecast High in ' + Weather.kelvinToFahrenheit( forecast.low() ));
+    });
+  }
 
-    function init() {
-        displayTime();
-    }
-
-    document.addEventListener("DOMContentLoaded", init);
-})();
+  document.addEventListener('DOMContentLoaded', init);
+}());
