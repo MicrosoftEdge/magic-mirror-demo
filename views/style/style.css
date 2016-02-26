@@ -221,3 +221,16 @@ form #error{
     font-family: 'Segoe UI Light', Tahoma, sans-serif;
     font-size: 24px;
 }
+
+#watchList {
+  position: absolute;
+  top: 300px;
+  left: 20px;
+  font-size: 36px;
+}
+
+#newsFeed {
+  position: absolute;
+  top: 300px;
+  right: 20px;
+}
