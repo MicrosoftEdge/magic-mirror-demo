@@ -1,7 +1,7 @@
 /*General*/
 .center
 {
-    position: absolute;
+  position: absolute;
 	top: 50%;
 	left: 50%;
 	-webkit-transform: translateX(-50%) translateY(-50%);
@@ -78,84 +78,84 @@ body {
 /*Create user form*/
 form .field-symbol
 {
-    padding:10px;
+  padding:10px;
 }
 form .field-symbol label
 {
-    padding-right:20px;
+  padding-right:20px;
 }
-form .field-symbol input 
+form .field-symbol input
 {
-    float:right;
+  float:right;
 }
 form .submit-wrapper{
-    text-align: center;
-    padding:10px;
+  text-align: center;
+  padding:10px;
 }
 form input[type=submit]{
-    padding:6px 12px;
+  padding:6px 12px;
 }
 form #error{
-    color:red;
+  color:red;
 }
 /*Capture*/
 .capture-face
 {
-    overflow-y:visible;
+  overflow-y:visible;
 }
 .capture-face .header
 {
-    margin: 0 auto;
-    width:500px;
-    text-align: center;
+  margin: 0 auto;
+  width:500px;
+  text-align: center;
 }
 .capture-face .title
 {
-    font-size: 24px;
-    font-weight: 600;
+  font-size: 24px;
+  font-weight: 600;
 }
 .capture-face .sub-title
 {
-    margin:10px 20px 10px 10px;
-    font-size: 20px;
+  margin:10px 20px 10px 10px;
+  font-size: 20px;
 }
 .capture-face .controls
 {
-    text-align: center;
+  text-align: center;
 }
 .capture-face button
 {
-    margin: 10px;
-    padding: 6px 12px;
+  margin: 10px;
+  padding: 6px 12px;
 }
 #video {
-    width: 640px;
-    height: 480px;
-    position: relative;
+  width: 640px;
+  height: 480px;
+  position: relative;
 }
 
 #cameraPreview {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    width: 640px;
-    height: 480px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 640px;
+  height: 480px;
 }
 
 #facesCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    width: 640px;
-    height: 480px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 640px;
+  height: 480px;
 }
 
 #message, #snapshot {
-    width: 640px;
-    text-align: center;
-    margin-top: 20px;
-    font-family: 'Segoe UI Light', Tahoma, sans-serif;
-    font-size: 24px;
+  width: 640px;
+  text-align: center;
+  margin-top: 20px;
+  font-family: 'Segoe UI Light', Tahoma, sans-serif;
+  font-size: 24px;
 }
