@@ -19,6 +19,18 @@ module.exports = function(app) {
     res.end();
   });
 
+  mirrorRouter.get('/news.js', function(req, res, next) {
+    res.writeHead(200, {'Content-Type': 'text/js'});
+    res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/news.js'), 'utf8'));
+    res.end();
+  });
+
+  mirrorRouter.get('/stock.js', function(req, res, next) {
+    res.writeHead(200, {'Content-Type': 'text/js'});
+    res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/stock.js'), 'utf8'));
+    res.end();
+  });
+
   mirrorRouter.get('/mirror.js', function(req, res, next) {
     res.writeHead(200, {'Content-Type': 'text/js'});
     res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/mirror.js'), 'utf8'));

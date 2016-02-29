@@ -34,6 +34,8 @@
         loc = $('.location') 
         updateTime()
         updateWeather()
+        Stock.init()
+        News.init()
     }
     document.addEventListener('DOMContentLoaded', init);
 })();
