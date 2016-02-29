@@ -13,4 +13,5 @@ On the prompt, you will see that the there is a warning regarding connecting to 
 - **OXFORD_SECRET_KEY**: your secret API key to the [Oxford service] (https://www.projectoxford.ai/)
 
 Once you have set your local environment variables, let's create a UWP hosted web app that points to your local server. This is needed so the hosted web app can use the camera (i.e. the app needs WinRT access). 
-Follow the steps in (this tutorial) [http://microsoftedge.github.io/WebAppsDocs/en-US/win10/CreateHWA.htm}, but replace the starting URL with http://localhost:your-port-number/. You will also need to declare that your app uses the Camera.
+
+We won't go over the steps on how to create the hosted web app here because (this tutorial) [http://microsoftedge.github.io/WebAppsDocs/en-US/win10/CreateHWA.htm} does a great job explaning how to do it. You need to change your hosted web app's starting URL to http://localhost:your-port-number/ so it points to your local server. Since our app will be using the camera, you need to declare this too.
