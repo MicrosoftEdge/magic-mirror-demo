@@ -2,6 +2,15 @@
 
 ##Run Locally
 
-Open command prompt and navigate to root folder. Type: node server.js. This will create a local node server.
+To run the project locally, clone the project and navigate to the root folder through the command prompt. Once there, run the following command: 
+```
+node server.js. 
+```
+This will create a local node server and one the prompt you will see the port that the server is using. Go to your browser and type: http://localhost:your-port-number/ to verify is working.
 
-Follow this tutorial: http://microsoftedge.github.io/WebAppsDocs/en-US/win10/CreateHWA.htm to create a UWP with WinRT access. You will also need to declare that your app uses the Camera.
+On the prompt, you will see that the there is a warning regarding connecting to the database. To solve this, you need to add local environment variables to your project. More specifically, you need to set:
+- **CUSTOMCONNSTR_MONGOLAB_URI**: your connection string to your MongoDB service (e.g. MongoLab)
+- **OXFORD_SECRET_KEY**: your secret API key to the [Oxford service] (https://www.projectoxford.ai/)
+
+Once you have set your local environment variables, let's create a UWP hosted web app that points to your local server. This is needed so the hosted web app can use the camera (i.e. the app needs WinRT access). 
+Follow the steps in (this tutorial) [http://microsoftedge.github.io/WebAppsDocs/en-US/win10/CreateHWA.htm}, but replace the starting URL with http://localhost:your-port-number/. You will also need to declare that your app uses the Camera.
