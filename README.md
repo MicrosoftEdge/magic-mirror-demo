@@ -2,6 +2,12 @@
 
 ##Run Locally
 
+###Prerequisites
+
+- [Node](https://nodejs.org/en/)
+
+
+
 ###Setting up a local server
 
 To run the project locally, clone the project and navigate to the root folder through the command prompt. Once there, run the following command: 
