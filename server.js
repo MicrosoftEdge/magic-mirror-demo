@@ -9,8 +9,10 @@ var express = require('express')
   , router = express.Router()
   , handlebars
   , mongoose = require('mongoose')
-  , connectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI;
-
+  , nconf = require('nconf').file({file: 'environment.json'}).env()
+  , connectionString = nconf.get('CUSTOMCONNSTR_MONGOLAB_URI');
+  
+  //process.env.CUSTOMCONNSTR_MONGOLAB_URI;
 //Database
 mongoose.connect(connectionString);
 

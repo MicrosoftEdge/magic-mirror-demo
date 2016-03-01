@@ -19,7 +19,7 @@ On the prompt, you will see that the there is a warning regarding connecting to 
 - **CUSTOMCONNSTR_MONGOLAB_URI**, connection string to your MongoDB service (e.g. MongoLab)
 - **OXFORD_SECRET_KEY**, your secret API key to the [Oxford service](https://www.projectoxford.ai/)
 
-For MSFT folks, you can find the demo API keys here: //iefs/Users/apavia/WebApps/magicMirror/environment.txt
+For MSFT folks, you can find the demo API keys here: \\iefs\Users\apavia\WebApps\magicMirror\environment.txt
 
 ###Making a UWP hosted web app
 
