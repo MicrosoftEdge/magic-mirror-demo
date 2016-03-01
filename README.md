@@ -22,14 +22,18 @@ For MSFT folks, you can find the demo API keys here: //iefs/Users/apavia/WebApps
 
 ###Making a UWP hosted web app
 
-Once you have set your local environment variables, you'll need to create UWP hosted web app that points to the local server. This will allow the app to access the camera. 
+Once you have set your local environment variables, you'll need to create UWP hosted web app that points to the local server. 
 
 We won't go over the steps on how to create the hosted web app here because  [this tutorial](http://microsoftedge.github.io/WebAppsDocs/en-US/win10/CreateHWA.htm) already does a great job going over it. You need to change your hosted web app's starting URL to `http://localhost:your-port-number/` so it points to the local server. 
 
-You will also need to declare camera capabilities on the **appxmanifest**. You can add the line below within the `<Package>` tags:
+You will also need to declare camera capabilities on the **appxmanifest**. If you are using Visual Studio, you can double-click `package.appxmanifest` on the solution explorer, go to `Declartions` tab, and select **Webcam**.
+
+If you are not using Visual Studio, you can open the `package.appxmanifest` and add the snippet below within the `<Package>` tags:
 ```
-<DeviceCapability Name="webcam" />
+<Capabilities>
+  <DeviceCapability Name="webcam" />
+</Capabilities>
 ```
-If you are using Visual Studio, you can double-click `package.appxmanifest` on the solution explorer, go to `Declartions` tab, and select **Webcam**.
+
  
  
