@@ -2,6 +2,8 @@
 
 ##Run Locally
 
+###Setting up a local server
+
 To run the project locally, clone the project and navigate to the root folder through the command prompt. Once there, run the following command: 
 ```
 node server.js. 
@@ -12,7 +14,9 @@ On the prompt, you will see that the there is a warning regarding connecting to 
 - **CUSTOMCONNSTR_MONGOLAB_URI**: your connection string to your MongoDB service (e.g. MongoLab)
 - **OXFORD_SECRET_KEY**: your secret API key to the [Oxford service](https://www.projectoxford.ai/)
 
-**ERASE** You can find the demo API keys [here](\\iefs\Users\apavia\WebApps\magicMirror\environment.txt).
+You can find the demo API keys [here](\\iefs\Users\apavia\WebApps\magicMirror\environment.txt).
+
+###Making a UWP hosted web app
 
 Once you have set your local environment variables, let's create a UWP hosted web app that points to your local server. This will allow the app to access the camera. 
 
