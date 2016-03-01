@@ -8,8 +8,9 @@
 
 ###Setting up a local server
 
-To run the project locally, clone the project and navigate to the root folder through the command prompt. Once there, run the following command: 
+To run the project locally, clone the project and navigate to the root folder through the command prompt. Once there, run the following commands: 
 ```
+npm i
 node server.js. 
 ```
 This will create a local node server. Take note of the port that the server is using. Go to your browser and type: `http://localhost:your-port-number/` to verify is working.
