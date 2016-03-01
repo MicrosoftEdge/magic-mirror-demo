@@ -11,6 +11,7 @@ This will create a local node server. Take note of the port that the server is u
 On the prompt, you will see that the there is a warning regarding connecting to the database. To solve this, you need to add local environment variables to your project. More specifically, you need to set:
 - **CUSTOMCONNSTR_MONGOLAB_URI**: your connection string to your MongoDB service (e.g. MongoLab)
 - **OXFORD_SECRET_KEY**: your secret API key to the [Oxford service](https://www.projectoxford.ai/)
+
 **ERASE** You can find the demo API keys [here](\\iefs\Users\apavia\WebApps\magicMirror\environment.txt).
 
 Once you have set your local environment variables, let's create a UWP hosted web app that points to your local server. This will allow the app to access the camera. 
