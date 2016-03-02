@@ -10,7 +10,7 @@ module.exports = function(app, settings) {
   });
 
   rootRouter.get('/', function(req, res, next) {
-    res.send('Magic miror home using router... go to /create route to personalize and /mirror for mirror UI');
+    res.send('Magic miror home using router... go to <a href="/create">/create</a> route to personalize and <a href="/mirror">/mirror</a> for mirror UI');
   });
 
   rootRouter.get('/style.css', function(req, res, next) {

@@ -10,6 +10,7 @@ module.exports = function(app) {
     , oxfordList = "magic-mirror-hwa-test"
     , minConfidence = 0.5
     , mongoose = require('mongoose')
+    , bandname = require('bandname')
     , user_id;
 
   captureFaceRouter.use(function(req, res, next) {
