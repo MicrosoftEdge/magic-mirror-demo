@@ -21,9 +21,9 @@ On the prompt, you will see that the there is a warning regarding connecting to 
 
 Once you have set your local environment variables, you'll need to create UWP hosted web app that points to the local server. 
 
-We won't go over the steps on how to create the hosted web app here because [this tutorial](http://microsoftedge.github.io/WebAppsDocs/en-US/win10/CreateHWA.htm) already does a great job going over it. While following the tutorial, use `http://localhost:your-port-number/` as the hosted web app's starting URL. 
+We won't go over the steps on how to create the hosted web app here because [this tutorial](http://microsoftedge.github.io/WebAppsDocs/en-US/win10/CreateHWA.htm) already does a great job going over it. While following the tutorial, use `http://localhost:your-port-number/create` as the hosted web app's starting URL.
 
-You will also need to declare camera capabilities on the **appxmanifest**. If you are using Visual Studio, you can double-click `package.appxmanifest` on the solution explorer, go to `Declartions` tab, and select **Webcam**.
+You will also need to declare camera capabilities on the **appxmanifest**. If you are using Visual Studio, you can double-click `package.appxmanifest` on the solution explorer, go to `Capabilities` tab, and select **Webcam**.
 
 If you are not using Visual Studio, you can open the `package.appxmanifest` and add the snippet below within the `<Package>` tags:
 ```
