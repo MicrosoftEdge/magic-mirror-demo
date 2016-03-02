@@ -7,7 +7,7 @@ The magic mirror project is a great IoT & maker project to get started in making
 
 ###Prerequisites
 
-- [Node](https://nodejs.org/en/)
+Begin with installing [Node](https://nodejs.org/en/).
 
 ###Setting up a local server
 
