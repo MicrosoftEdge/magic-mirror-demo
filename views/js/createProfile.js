@@ -31,7 +31,7 @@
           var url = ["https://s.yimg.com/aq/autoc?query=" + request.term + "&region=CA&lang=en-CA&callback=YAHOO.util.ScriptNodeDataSource.callbacks"];       
           $.getScript(url +"");
       },
-        minLength: 2
+        minLength: 1
     });
     function getErrors() {
         return _.values(errors)
