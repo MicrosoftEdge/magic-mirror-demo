@@ -13,7 +13,7 @@ To run the project locally, clone the project and navigate to the root folder th
 npm i
 node server.js 
 ```
-This will install/update all the node packages and create a local node server. Take note of the port that the server is using. Go to your browser and type: `http://localhost:your-port-number/` to verify is working.
+This will install/update all the node packages and create a local node server. Take note of the port that the server is using. Go to your browser and type: `http://localhost:your-port-number/` to verify it is working.
 
 On the prompt, you will see that the there is a warning regarding connecting to the database. To solve this, you need to add local environment variables to your project. For MSFT folks, you can do this by saving the following file to the root folder: \\\\iefs\Users\apavia\WebApps\magicMirror\environment.json
 
