@@ -4,6 +4,7 @@
   "description": "A magic mirror that leverages a hosted web app as the GUI",
   "main": "server.js",
   "dependencies": {
+    "bandname": "^1.0.0",
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
