@@ -29,7 +29,7 @@ module.exports = function(app) {
   });
 
   function processAllFieldsOfTheForm(req, res) {
-    var form = new formidable.IncomingForm();
+    var form = new formidable.IncomingForm();    
     form.parse(req, function (err, fields, files) {
       //Store the data from the fields in your data store.
       //The data store could be a file or database or any other store based
@@ -38,7 +38,7 @@ module.exports = function(app) {
         'content-type': 'text/plain'
       })
       var person = new Person(fields)
-      person.save(function (err, fluffy) {
+      person.save(function (err, fluffy) {        
         if (err) return console.error(err)
       })
       res.write(JSON.stringify(person._id))
