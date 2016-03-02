@@ -15,11 +15,7 @@ node server.js
 ```
 This will install/update all the node packages and create a local node server. Take note of the port that the server is using. Go to your browser and type: `http://localhost:your-port-number/` to verify is working.
 
-On the prompt, you will see that the there is a warning regarding connecting to the database. To solve this, you need to add local environment variables to your project. More specifically, you need to set:
-- **CUSTOMCONNSTR_MONGOLAB_URI**, connection string to your MongoDB service (e.g. MongoLab)
-- **OXFORD_SECRET_KEY**, your secret API key to the [Oxford service](https://www.projectoxford.ai/)
-
-For MSFT folks, you can find the demo API keys here: \\\\iefs\Users\apavia\WebApps\magicMirror\environment.json
+On the prompt, you will see that the there is a warning regarding connecting to the database. To solve this, you need to add local environment variables to your project. For MSFT folks, you can do this by saving the following file to the root folder: \\\\iefs\Users\apavia\WebApps\magicMirror\environment.json
 
 ###Making a UWP hosted web app
 
