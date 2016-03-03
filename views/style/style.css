@@ -1,7 +1,7 @@
 /*General*/
 .center
 {
-    position: absolute;
+  position: absolute;
 	top: 50%;
 	left: 50%;
 	-webkit-transform: translateX(-50%) translateY(-50%);
@@ -10,8 +10,55 @@
 	-o-transform: translateX(-50%) translateY(-50%);
 	transform: translateX(-50%) translateY(-50%);
 }
+.horizontal-center
+{
+  position: absolute;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+.header
+{
+    margin: 30px auto;
+    padding-top:60px;
+    width:500px;
+    text-align: center;
+}
+.header .title
+{
+    font-size: 40px;
+    font-weight: 600;
+}
+.header .sub-title
+{
+    margin:10px 20px 10px 10px;
+    font-size: 20px;
+}
+button
+{
+  cursor:pointer;
+}
+.dark-contrast-btn
+{
+  cursor:pointer;
+  outline: 0;
+  padding: 8px 16px;
+  font-size:16px;
+  color: white;
+  border: none;
+  background-color: #2980b9; 
+  text-decoration:none;
+}
+.dark-contrast-btn:hover
+{
+  background-color:#1569aa; 
+}
 /*Magic mirror home UI*/
 body {
+  overflow-y: auto;
 	width: 100%;
 	height: 100%;
 	margin: 0;
@@ -70,30 +117,90 @@ body {
 	font-size: 120px;
 	vertical-align: top;
 }
-
-#weather .report {
+#weather .temp-wrapper {
+    text-align: center;
+}
+#weather .location {
+	font-size: 44px;
+	width: 375px;
+    weight: 600;
+    text-transform: capitalize;
+    text-align:center;
+}
+#weather .report,.description {
 	font-size: 32px;
 	width: 375px;
+    text-transform: capitalize;
+    text-align:center;
 }
+.mirror .controls
+{
+  position: absolute;
+  bottom:0px;
+}
+.mirror a 
+{
+  bottom:0px;
+  position: absolute;
+  right:10px;
+  color:white;
+  text-decoration: none;
+}
+.mirror #video {
+    width: 96px;
+    height: 72px;
+    position: absolute;
+    bottom:20px;
+    right:10px;
+}
+
+.mirror #cameraPreview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 96px;
+    height: 72px;
+}
+
+.mirror #facesCanvas {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    width: 96px;
+    height: 72px;
+}
+
 /*Create user form*/
+form
+{
+  border: 2px groove threedface;
+  width: 500px;
+}
+form fieldset
+{
+  width: 340px;
+  margin: 0 auto;
+  border:none;
+}
 form .field-symbol
 {
-    padding:10px;
+    padding:20px;
 }
 form .field-symbol label
 {
     padding-right:20px;
+    font-size: 18px;
 }
 form .field-symbol input 
 {
     float:right;
+    padding: 5px;
 }
 form .submit-wrapper{
     text-align: center;
-    padding:10px;
-}
-form input[type=submit]{
-    padding:6px 12px;
+    padding:30px;
 }
 form #error{
     color:red;
@@ -103,38 +210,36 @@ form #error{
 {
     overflow-y:visible;
 }
-.capture-face .header
+#back
 {
-    margin: 0 auto;
-    width:500px;
-    text-align: center;
-}
-.capture-face .title
-{
-    font-size: 24px;
-    font-weight: 600;
-}
-.capture-face .sub-title
-{
-    margin:10px 20px 10px 10px;
-    font-size: 20px;
+  top:0px;
+  left:0px;
+  position: fixed;
+  padding:20px;
+  text-decoration: none;
+  color:white;
 }
 .capture-face .controls
 {
     text-align: center;
 }
+.capture-face .controls.bottom
+{
+    position: relative;
+    margin: 10px;
+    bottom:0px;
+}
 .capture-face button
 {
     margin: 10px;
-    padding: 6px 12px;
 }
-#video {
+.capture-face #video {
     width: 640px;
     height: 480px;
     position: relative;
 }
 
-#cameraPreview {
+.capture-face #cameraPreview {
     position: absolute;
     top: 0;
     left: 0;
@@ -143,7 +248,7 @@ form #error{
     height: 480px;
 }
 
-#facesCanvas {
+.capture-face #facesCanvas {
     position: absolute;
     top: 0;
     left: 0;
@@ -158,4 +263,17 @@ form #error{
     margin-top: 20px;
     font-family: 'Segoe UI Light', Tahoma, sans-serif;
     font-size: 24px;
+}
+
+#watchList {
+  position: absolute;
+  top: 300px;
+  left: 20px;
+  font-size: 36px;
+}
+
+#newsFeed {
+  position: absolute;
+  top: 300px;
+  right: 20px;
 }

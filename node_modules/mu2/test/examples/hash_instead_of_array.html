@@ -1,3 +1,0 @@
-{{#person}}
-  Name: {{name}}
-{{/person}}

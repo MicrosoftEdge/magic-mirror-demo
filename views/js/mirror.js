@@ -1,49 +1,42 @@
-(function () {
-    "use strict";
+(function() {
+    'use strict';
 
-    var time, oTime, monthNames, date, dayNames, day;
-
-    function displayTime() {
-        date = document.getElementById("date");
-        day = document.getElementById("day");
-        time = document.getElementById("time");
-        dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        updateTime();
-        oTime = setTimeout(updateTime, 1000);
-    }
+    var time, date, day, fcast, temp, weatherDesc, loc;
 
     function updateTime() {
-        var currentTime = new Date();
-        var currHours = currentTime.getHours();
-        var currMinutes = currentTime.getMinutes();
-        var currMonth = currentTime.getMonth();
-        var currDay = currentTime.getDate();
-        var currDayOfWeek = currentTime.getDay();
-
-        if (currMinutes < 10) {
-            currMinutes = "0" + currMinutes;
-        }
-
-        if (currHours >= 12) {
-            currHours -= 12;
-        }
-        
-        if (currHours == 0) {
-            currHours = 12;
-        }
-
-        var newTime = `${currHours}:${currMinutes}`;
-        time.innerText = newTime;
-        var newDate = `${monthNames[currMonth - 1]} ${currDay}`;
-        date.innerText = newDate;
-        day.innerText = dayNames[currDayOfWeek];
-        oTime = setTimeout(updateTime, 1000);
+        var now = moment();
+        time.html(now.format('h:mm'))
+        date.html(now.format('MMMM D'))
+        day.html(now.format('dddd'))
+    }
+    function updateWeather() {
+        Weather.getCurrent('98052', function(current) {
+            var t = Weather.kelvinToFahrenheit(current.temperature()).toFixed(0) + '°'
+            var desc = current.conditions()  
+            var city = current.city()          
+            temp.html(t)
+            weatherDesc.html(desc)
+            loc.html(city)
+        })
+        Weather.getForecast('98052', function(forecast) {
+            var f = 'Forecast High in ' + Weather.kelvinToFahrenheit(forecast.high()).toFixed(0) + '°'
+            fcast.html(f)
+        });   
     }
 
     function init() {
-        displayTime();
+        date = $('#date')
+        day = $('#day')
+        time = $('#time')
+        fcast = $('.report')
+        temp = $('.temperature')  
+        weatherDesc = $('.description')
+        loc = $('.location') 
+        updateTime()
+        updateWeather()
+        Stock.init()
+        News.init()
+        Authenticate.init()
     }
-
-    document.addEventListener("DOMContentLoaded", init);
+    document.addEventListener('DOMContentLoaded', init);
 })();

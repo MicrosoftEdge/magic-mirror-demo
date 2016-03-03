@@ -1,14 +1,35 @@
 
-<div id="container">
+<div class="container mirror">
     <div id="timestamp">
         <div id="time"></div>
         <div id="day"></div>
         <div id="date"></div>
     </div>
     <div id="weather">
-        <div class="temperature">52°</div>
-        <div class="icon"></div>
-        <div class="report">Mostly cloudy tonight with a low of 36°.</div>
+        <div class="location"></div>
+        <div class="description"></div>
+        <div class="temp-wrapper">
+            <div class="temperature">55°</div>
+            <div class="icon"></div>
+        </div>
     </div>
+    <div id="newsFeed"></div>
+    <div id="watchList"></div>
+    <div class="controls">
+      <div id="message"></div>
+      <button id="buttonReset" class="dark-contrast-btn">Reset</button>
+    </div>
+    <div id="video">
+      <video id="cameraPreview" class="cameraPreview"></video>
+      <canvas id="facesCanvas"></canvas>
+    </div>
+    <a href="/create">Create Profile</a>
+    
 </div>
-<script src="/mirror/mirror.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-2.2.1.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/2.11.2/moment.min.js"></script>
+<script src="/mirror/weather.js"></script>
+<script src="/mirror/stock.js"></script>
+<script src="/mirror/news.js"></script>
+<script src="/mirror/mirror.js"></script>
+<script src="/mirror/authenticate.js"></script>

@@ -1,3 +1,0 @@
-{
-  foo: "Hello World"
-}

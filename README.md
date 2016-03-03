@@ -35,5 +35,18 @@ If you are not using Visual Studio, you can open the `package.appxmanifest` and 
 </Capabilities>
 ```
 
- 
+###Setting up Node IDE in Visual Studio 2015 for backend debugging
+
+There is a great VS plugin that can enable you to debug your node project.
+
+Here are the steps to set it up.
+
+1. If you don't have VS 2015 installed already. You can do so by getting it from [here](https://www.visualstudio.com/downloads/download-visual-studio-vs)
+2. Install VS plugin by gettting it from [here] (https://www.visualstudio.com/en-us/features/node-js-vs.aspx)
+3. Start Visual Studio and choose to 'Create New Project' 
+4. In the 'New Project' dialog window go to Templates -> JavaScript -> Node.js
+5. Choose 'From Existing Node.js' Code as project type
+6. Select location of your existing Node project
+7. Done
+
  

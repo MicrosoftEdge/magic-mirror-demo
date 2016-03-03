@@ -1,5 +1,0 @@
-{
-  person: {
-    name: "Chris"
-  }
-}

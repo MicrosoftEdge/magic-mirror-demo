@@ -12,9 +12,29 @@
         if(!$('[name=email]').val())
             errors.name = 'Please add your email.'
         if(!validateZipcode($('[name=zipcode]').val()))
-            errors.zipcode = 'Please fix your zipcode.'
+			errors.zipcode = 'Please fix your zipcode.'
+		if (!$('[name=stock]').val()) 
+			errors.stock = 'Please enter stock symbol.'
         return _.isEmpty(errors)       
-    }
+    }    
+    // query Yahoo Fiance for a list of stocks
+    $("#stock").autocomplete({
+      source: function (request, response) {  
+          var YAHOO = window.YAHOO = {util: {ScriptNodeDataSource: {}}};        
+          YAHOO.util.ScriptNodeDataSource.callbacks = function (data) {
+              var mapped = $.map(data.ResultSet.Result, function (e, i) {
+                  return {
+                      label: e.symbol + ' (' + e.name + ')',
+                      value: e.symbol
+                  };
+              });
+              response(mapped);
+          };
+          var url = ["https://s.yimg.com/aq/autoc?query=" + request.term + "&region=CA&lang=en-CA&callback=YAHOO.util.ScriptNodeDataSource.callbacks"];       
+          $.getScript(url +"");
+      },
+        minLength: 1
+    });
     function getErrors() {
         return _.values(errors)
     }
@@ -22,7 +42,17 @@
         if(!validateInputs()){   
             console.log(errors)
            $('#error').html(getErrors()[0]) 
-           return false
+       } else {
+         $.ajax({
+          url: '/create',
+          type: 'POST',
+          data : $('form').serialize(),
+          success: function(body){
+            console.log('/capture/' + JSON.parse(body))
+            window.location.href = '/capture/' + JSON.parse(body)
+          }
+        })
        }
+      return false;
     })
 })()
