@@ -102,10 +102,17 @@ button
 
 /* WEATHER */
 #weather {
+  position: relative;
   padding: 20px;
   background: #fff;
   color: #000;
   font-family: "HKGroteskBold", "Segoe UI Light", Tahoma, sans-serif;
+}
+
+.weather-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
 .temperature {
