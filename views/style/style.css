@@ -79,6 +79,22 @@ button
   line-height: 1.25;
 }
 
+/* MIRROR UI: EYE-LEVEL, LEFT SIDE
+ * (Alerts that warrant priority placement)
+ * @TODO: Style the stuff that goes in it
+--------------------------------------------- */
+
+.eyelevel-left,
+.eyelevel-right {
+  position: absolute;
+  top: 40px;
+  max-width: 400px;
+}
+
+.eyelevel-left {
+  left: 40px;
+}
+
 /* MIRROR UI: EYE-LEVEL, RIGHT SIDE
  * (Time and weather)
  * @TODO: Add weather icons
@@ -88,7 +104,6 @@ button
   position: absolute;
   top: 40px;
   right: 40px;
-  max-width: 400px;
 }
 
 /* TIMESTAMP */
