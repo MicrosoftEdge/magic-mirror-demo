@@ -1,4 +1,18 @@
-/*General*/
+/* GLOBAL (Setup and/or mirror UI)
+--------------------------------------------- */
+
+body {
+  overflow-y: auto;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background: #000;
+	color: #fff;
+	font-family: "HKGroteskRegular", "Segoe UI Light", Tahoma, sans-serif;
+}
+
 .center
 {
   position: absolute;
@@ -41,111 +55,98 @@ button
 {
   cursor:pointer;
 }
-.dark-contrast-btn
-{
-  cursor:pointer;
-  outline: 0;
-  padding: 8px 16px;
-  font-size:16px;
-  color: white;
-  border: none;
-  background-color: #2980b9; 
-  text-decoration:none;
-}
-.dark-contrast-btn:hover
-{
-  background-color:#1569aa; 
-}
-/*Magic mirror home UI*/
-body {
-  overflow-y: auto;
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	background: #000;
-	color: #fff;
-	font-family: Segoe UI Light, Tahoma, sans-serif;
+
+/* MIRROR UI GLOBALS
+--------------------------------------------- */
+
+.mirror {
+  font-size: 32px;
+  line-height: 1.25;
 }
 
-#container {
-	position: relative;
-	width: 100%;
-	height: 100%;
+/* MIRROR UI: EYE-LEVEL, LEFT SIDE
+ * (Alerts that warrant priority placement)
+ * @TODO: Style the stuff that goes in it
+--------------------------------------------- */
+
+.eyelevel-left,
+.eyelevel-right {
+  position: absolute;
+  top: 40px;
+  max-width: 400px;
 }
 
+.eyelevel-left {
+  left: 40px;
+}
+
+/* MIRROR UI: EYE-LEVEL, RIGHT SIDE
+ * (Time and weather)
+ * @TODO: Add weather icons
+--------------------------------------------- */
+
+.eyelevel-right {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+}
+
+/* TIMESTAMP */
 #timestamp {
-	position: absolute;
-	top: 0;
-	right: 20px;
-	text-align: right;
+  margin-bottom: 32px;
 }
 
 #time {
-	font-size: 140px;
-	line-height: 140px;
+  font: 160px/1 "HKGroteskLight", "Segoe UI Light", Tahoma, sans-serif;
 }
 
-#date, #day {
-	font-size: 40px;
-	line-height: 40px;
-}
-
+/* WEATHER */
 #weather {
-	position: absolute;
-	top: 0;
-	left: 20px;
+  position: relative;
+  padding: 20px;
+  background: #fff;
+  color: #000;
+  font-family: "HKGroteskBold", "Segoe UI Light", Tahoma, sans-serif;
 }
 
-#weather .icon,
-#weather .temperature {
-	display: inline-block;
-	line-height: 140px;
-}
-
-#weather .icon {
-	font-size: 140px;
-}
-
-#weather .icon:before {
-	font-family: "Segoe MDL2 Assets";
-	content: "\E753";
-}
-
-#weather .temperature {
-	font-size: 120px;
-	vertical-align: top;
-}
-#weather .temp-wrapper {
-    text-align: center;
-}
-#weather .location {
-	font-size: 44px;
-	width: 375px;
-    weight: 600;
-    text-transform: capitalize;
-    text-align:center;
-}
-#weather .report,.description {
-	font-size: 32px;
-	width: 375px;
-    text-transform: capitalize;
-    text-align:center;
-}
-.mirror .controls
-{
+.weather-icon {
   position: absolute;
-  bottom:0px;
+  top: 20px;
+  right: 20px;
 }
-.mirror a 
-{
-  bottom:0px;
-  position: absolute;
-  right:10px;
-  color:white;
+
+.temperature {
+  font-size: 80px;
+}
+
+.conditions {
+  font-size: 40px;
+}
+
+.weather-location {
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* TEMPORARY CONTROLS
+ * @TODO: Remove these */
+.controls {
+  font-size: 16px;
+}
+
+.controls button,
+.controls a {
+  display: inline-block;
+  vertical-align: middle;
+  border: 0;
+  outline: none;
   text-decoration: none;
+  padding: 10px;
+  background: #fff;
+  color: #000;
 }
+
 .mirror #video {
     width: 96px;
     height: 72px;
@@ -193,7 +194,7 @@ form .field-symbol label
     padding-right:20px;
     font-size: 18px;
 }
-form .field-symbol input 
+form .field-symbol input
 {
     float:right;
     padding: 5px;
