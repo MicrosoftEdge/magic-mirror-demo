@@ -172,8 +172,13 @@ Weather.Current.prototype.city = function () {
   return this.data.name;
 };
 
+sentenceCase = function (s) {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
 Weather.Current.prototype.conditions = function () {
-  return this.data.weather[0].description;
+  var weatherConditions = this.data.weather[0].description;
+  return sentenceCase(weatherConditions);
 };
 
 if (isModule) { module.exports = Weather; }
