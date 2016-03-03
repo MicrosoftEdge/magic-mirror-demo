@@ -12,8 +12,8 @@
     function updateWeather() {
         Weather.getCurrent('98052', function(current) {
             var t = Weather.kelvinToFahrenheit(current.temperature()).toFixed(0) + '°'
-            var desc = current.conditions()  
-            var city = current.city()          
+            var desc = current.conditions()
+            var city = current.city()
             temp.html(t)
             weatherDesc.html(desc)
             loc.html(city)
@@ -21,7 +21,7 @@
         Weather.getForecast('98052', function(forecast) {
             var f = 'Forecast High in ' + Weather.kelvinToFahrenheit(forecast.high()).toFixed(0) + '°'
             fcast.html(f)
-        });   
+        });
     }
 
     function init() {
@@ -29,9 +29,9 @@
         day = $('#day')
         time = $('#time')
         fcast = $('.report')
-        temp = $('.temperature')  
-        weatherDesc = $('.description')
-        loc = $('.location') 
+        temp = $('.temperature')
+        weatherDesc = $('.conditions')
+        loc = $('.weather-location')
         updateTime()
         updateWeather()
         Stock.init()

@@ -1,6 +1,18 @@
 /* GLOBAL (Setup and/or mirror UI)
 --------------------------------------------- */
 
+body {
+  overflow-y: auto;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background: #000;
+	color: #fff;
+	font-family: "HKGroteskRegular", "Segoe UI Light", Tahoma, sans-serif;
+}
+
 .center
 {
   position: absolute;
@@ -59,83 +71,57 @@ button
   background-color:#1569aa;
 }
 
-/* MAGIC MIRROR UI
+/* MIRROR UI GLOBALS
 --------------------------------------------- */
 
-body {
-  overflow-y: auto;
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	background: #000;
-	color: #fff;
-	font-family: Segoe UI Light, Tahoma, sans-serif;
+.mirror {
+  font-size: 32px;
+  line-height: 1.25;
 }
 
-/* TIME */
+/* MIRROR UI: EYE-LEVEL, RIGHT SIDE
+ * (Time and weather)
+ * @TODO: Add weather icons
+--------------------------------------------- */
 
+.eyelevel-right {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  max-width: 400px;
+}
+
+/* TIMESTAMP */
 #timestamp {
-	position: absolute;
-	top: 0;
-	right: 20px;
-	text-align: right;
+  margin-bottom: 32px;
 }
 
 #time {
-	font-size: 140px;
-	line-height: 140px;
-}
-
-#date, #day {
-	font-size: 40px;
-	line-height: 40px;
+  font: 160px/1 "HKGroteskLight", "Segoe UI Light", Tahoma, sans-serif;
 }
 
 /* WEATHER */
-
 #weather {
-	position: absolute;
-	top: 0;
-	left: 20px;
+  padding: 20px;
+  background: #fff;
+  color: #000;
+  font-family: "HKGroteskBold", "Segoe UI Light", Tahoma, sans-serif;
 }
 
-#weather .icon,
-#weather .temperature {
-	display: inline-block;
-	line-height: 140px;
+.temperature {
+  font-size: 80px;
 }
 
-#weather .icon {
-	font-size: 140px;
+.conditions {
+  font-size: 40px;
 }
 
-#weather .icon:before {
-	font-family: "Segoe MDL2 Assets";
-	content: "\E753";
+.weather-location {
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-#weather .temperature {
-	font-size: 120px;
-	vertical-align: top;
-}
-#weather .temp-wrapper {
-    text-align: center;
-}
-#weather .location {
-	font-size: 44px;
-	width: 375px;
-    weight: 600;
-    text-transform: capitalize;
-    text-align:center;
-}
-#weather .report,.description {
-	font-size: 32px;
-	width: 375px;
-    text-transform: capitalize;
-    text-align:center;
-}
 .mirror .controls
 {
   position: absolute;
