@@ -37,6 +37,10 @@
     margin:10px 20px 10px 10px;
     font-size: 20px;
 }
+button
+{
+  cursor:pointer;
+}
 .dark-contrast-btn
 {
   cursor:pointer;
@@ -129,6 +133,45 @@ body {
     text-transform: capitalize;
     text-align:center;
 }
+.mirror .controls
+{
+  position: absolute;
+  bottom:0px;
+}
+.mirror a 
+{
+  bottom:0px;
+  position: absolute;
+  right:10px;
+  color:white;
+  text-decoration: none;
+}
+.mirror #video {
+    width: 96px;
+    height: 72px;
+    position: absolute;
+    bottom:20px;
+    right:10px;
+}
+
+.mirror #cameraPreview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 96px;
+    height: 72px;
+}
+
+.mirror #facesCanvas {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    width: 96px;
+    height: 72px;
+}
+
 /*Create user form*/
 form
 {
@@ -190,13 +233,13 @@ form #error{
 {
     margin: 10px;
 }
-#video {
+.capture-face #video {
     width: 640px;
     height: 480px;
     position: relative;
 }
 
-#cameraPreview {
+.capture-face #cameraPreview {
     position: absolute;
     top: 0;
     left: 0;
@@ -205,7 +248,7 @@ form #error{
     height: 480px;
 }
 
-#facesCanvas {
+.capture-face #facesCanvas {
     position: absolute;
     top: 0;
     left: 0;

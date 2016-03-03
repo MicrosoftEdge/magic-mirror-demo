@@ -1,5 +1,5 @@
 
-<div id="container">
+<div class="container mirror">
     <div id="timestamp">
         <div id="time"></div>
         <div id="day"></div>
@@ -15,6 +15,16 @@
     </div>
     <div id="newsFeed"></div>
     <div id="watchList"></div>
+    <div class="controls">
+      <div id="message"></div>
+      <button id="buttonReset" class="dark-contrast-btn">Reset</button>
+    </div>
+    <div id="video">
+      <video id="cameraPreview" class="cameraPreview"></video>
+      <canvas id="facesCanvas"></canvas>
+    </div>
+    <a href="/create">Create Profile</a>
+    
 </div>
 <script src="https://code.jquery.com/jquery-2.2.1.js"></script>
 <script src="https://cdn.jsdelivr.net/momentjs/2.11.2/moment.min.js"></script>
@@ -22,3 +32,4 @@
 <script src="/mirror/stock.js"></script>
 <script src="/mirror/news.js"></script>
 <script src="/mirror/mirror.js"></script>
+<script src="/mirror/authenticate.js"></script>

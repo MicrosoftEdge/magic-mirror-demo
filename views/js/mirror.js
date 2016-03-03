@@ -36,6 +36,7 @@
         updateWeather()
         Stock.init()
         News.init()
+        Authenticate.init()
     }
     document.addEventListener('DOMContentLoaded', init);
 })();

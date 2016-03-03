@@ -33,7 +33,6 @@
         context.strokeStyle = faceboxColors[i % faceboxColors.length];
         context.stroke();
         context.closePath();
-
         if (mirroring) {
           facesCanvas.style.transform = 'scale(-1, 1)';
         }
@@ -61,53 +60,21 @@
         dataReader.readBytes(byteArray);
 
         var base64 = Uint8ToBase64(byteArray);
-        /*
-        var img = document.createElement('img');
-        img.src = 'data: image/jpeg;base64,' + base64;
-
-        if (mirroring) {
-          img.style.transform = 'scale(-1, 1)';
-        }
-        snapshot.appendChild(img);
-        */
-        if (addFace) {
-          console.log('/capture/addface')
-          // Add a face to a face list
-          $.ajax({
-            url: '/capture/addFace',
-            beforeSend: function(xhrObj) {
-              xhrObj.setRequestHeader('Content-Type', 'application/octet-stream')
-            },
-            type: 'POST',
-            data: byteArray,
-            processData: false
-          })
-          .done(function(result) {
-            message.innerText = result;
-          })
-          .fail(function(e) {
-            console.error(e);
-          });
-        }
-        else {
-          // Detect the face to get a face ID
-          console.log('/capture/authenticate')
-          $.ajax({
-            url: '/capture/authenticate',
-            beforeSend: function(xhrObj) {
-              xhrObj.setRequestHeader('Content-Type', 'application/octet-stream');
-            },
-            type: 'POST',
-            data: byteArray,
-            processData: false
-          })
-          .done(function(result) {
-            message.innerText = result;
-          })
-          .fail(function(e) {
-            console.error(e);
-          });
-        }
+        $.ajax({
+          url: '/capture/addFace',
+          beforeSend: function(xhrObj) {
+            xhrObj.setRequestHeader('Content-Type', 'application/octet-stream')
+          },
+          type: 'POST',
+          data: byteArray,
+          processData: false
+        })
+        .done(function(result) {
+          message.innerText = result;
+        })
+        .fail(function(e) {
+          console.error(e);
+        });
       });
     });
   }
@@ -131,7 +98,6 @@
     buttonAuthenticate = document.getElementById('buttonAuthenticate');
     facesCanvas = document.getElementById('facesCanvas');
     message = document.getElementById('message');
-    snapshot = document.getElementById('snapshot');
     video = document.getElementById('video');
     facesCanvas.width = video.offsetWidth;
     facesCanvas.height = video.offsetHeight;
@@ -152,10 +118,8 @@
                 result.desiredDetectionInterval = detectionInterval;
                 buttonAddFace.addEventListener('click', function() {
                   takePhoto(true);
-                });
-                buttonAuthenticate.addEventListener('click', function() {
-                  takePhoto();
-                });
+                })
+               
               },
               function error(e) {
                 console.error(e);

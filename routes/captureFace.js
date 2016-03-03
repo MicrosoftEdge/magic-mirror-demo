@@ -102,6 +102,9 @@ module.exports = function(app) {
             }
           }
         })
+      } else {
+        res.write(false)
+        res.end()
       }
     })
   });
