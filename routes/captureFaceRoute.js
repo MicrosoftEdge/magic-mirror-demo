@@ -116,7 +116,7 @@ module.exports = function(app) {
                     res.end()
                   }
                 } else {
-                  message = `Unable a database obj that matches the face`
+                  message = `Unable to find a database obj that matches the face id`
                     res.write(JSON.stringify({
                       message: message
                       , authenticated: false
