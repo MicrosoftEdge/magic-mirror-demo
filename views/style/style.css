@@ -55,21 +55,6 @@ button
 {
   cursor:pointer;
 }
-.dark-contrast-btn
-{
-  cursor:pointer;
-  outline: 0;
-  padding: 8px 16px;
-  font-size:16px;
-  color: white;
-  border: none;
-  background-color: #2980b9;
-  text-decoration:none;
-}
-.dark-contrast-btn:hover
-{
-  background-color:#1569aa;
-}
 
 /* MIRROR UI GLOBALS
 --------------------------------------------- */
@@ -137,19 +122,24 @@ button
   letter-spacing: 1px;
 }
 
-.mirror .controls
-{
-  position: absolute;
-  bottom:0px;
+/* TEMPORARY CONTROLS
+ * @TODO: Remove these */
+.controls {
+  font-size: 16px;
 }
-.mirror a
-{
-  bottom:0px;
-  position: absolute;
-  right:10px;
-  color:white;
+
+.controls button,
+.controls a {
+  display: inline-block;
+  vertical-align: middle;
+  border: 0;
+  outline: none;
   text-decoration: none;
+  padding: 10px;
+  background: #fff;
+  color: #000;
 }
+
 .mirror #video {
     width: 96px;
     height: 72px;
