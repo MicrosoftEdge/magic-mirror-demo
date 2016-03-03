@@ -56,7 +56,6 @@ Authenticate.takePhoto = function(addFace) {
 
       var base64 = Authenticate.Uint8ToBase64(byteArray);
       // Detect the face to get a face ID
-      console.log('/capture/authenticate')
       $.ajax({
         url: '/capture/authenticate',
         beforeSend: function(xhrObj) {
@@ -67,14 +66,17 @@ Authenticate.takePhoto = function(addFace) {
         processData: false
       })
       .done(function(result) {
-        if(result){
+        var resultObj = JSON.parse(result)
+        console.log(resultObj.message)
+        if(resultObj.authenticated){
           authenticated = true
           authenticating = false
-          message.innerText = result; 
+          message.innerText = resultObj.message; 
         } else {
-          //If return is false, then there was no match so start fresh
+          //If authenticated is false, then there was no match so start fresh
           authenticated = false
           authenticating = false
+          message.innerText = ''
         }
       })
       .fail(function(e) {

@@ -89,23 +89,56 @@ module.exports = function(app) {
                 , confidence = body[0].confidence
               var model = mongoose.model('Person')
               model.findOne({ 'face_id': face_id }, function (err, user){
-                if(err)
-                  res.write('There was an error with authentication.')
-                if(user){
-                  var percConf = confidence.toFixed(4) * 100 
-                  if (confidence >= minConfidence) {
-                    res.write(`Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`)
-                  } else {
-                    res.write(`Unable to find a strong enough match. Confidence level was ${percConf}%.`)
-                  }
+                if(err){
+                  res.write(JSON.stringify({
+                    message: 'There was an error with authentication.'
+                    , authenticated: false
+                  }))
                   res.end()
                 }
+                if(user){
+                  var message, percConf = confidence.toFixed(4) * 100 
+                  if (confidence >= minConfidence) {
+                    message = `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`
+                    res.write(JSON.stringify({
+                      message: message
+                      , authenticated: true
+                      , name: user.name
+                      , confidence: confidence
+                    }))
+                    res.end()
+                  } else {
+                    message = `Unable to find a strong enough match. Confidence level was ${percConf}%.`
+                    res.write(JSON.stringify({
+                      message: message
+                      , authenticated: false
+                    }))
+                    res.end()
+                  }
+                } else {
+                  message = `Unable a database obj that matches the face`
+                    res.write(JSON.stringify({
+                      message: message
+                      , authenticated: false
+                    }))
+                    res.end()
+                }
               }) 
+            } else {
+              message = `Unable to find a face in the provided picture`
+                res.write(JSON.stringify({
+                  message: message
+                  , authenticated: false
+                }))
+                res.end()
             }
           }
         })
       } else {
-        res.write(false)
+        res.write(JSON.stringify({
+          message: `Unable to find a face in the picture.`
+          , authenticated: false
+        })) 
         res.end()
       }
     })
