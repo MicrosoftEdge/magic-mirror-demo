@@ -5,10 +5,12 @@ module.exports = function(app) {
     , path = require('path')
     , fs = require('fs')
     , request = require('request')
-    , oxfordKey = process.env.OXFORD_SECRET_KEY // Subscription key for Project Oxford
+    , nconf = require('nconf').file({file: 'environment.json'}).env()
+    , oxfordKey = nconf.get("OXFORD_SECRET_KEY") // Subscription key for Project Oxford
     , oxfordList = "magic-mirror-hwa-test"
     , minConfidence = 0.5
     , mongoose = require('mongoose')
+    , bandname = require('bandname')
     , user_id;
 
   captureFaceRouter.use(function(req, res, next) {

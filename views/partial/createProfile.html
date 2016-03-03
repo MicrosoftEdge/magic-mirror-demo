@@ -11,19 +11,19 @@
     <fieldset>
       <div class="field-symbol">
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" placeholder="Enter your full name" value="John Smith"/>
+        <input type="text" id="name" name="name" placeholder="Enter your full name" value="{{getBandName}}" />
       </div>
       <div class="field-symbol">
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email address" value="john.smith@gmail.com"/>
+        <input type="email" id="email" name="email" placeholder="Enter your email address" value="{{getEmail}}" />
       </div>
       <div class="field-symbol">
         <label for="zipcode">Zipcode:</label>
-        <input type="text" id="zipcode" name="zipcode" placeholder="Enter your zipcode" value="98104"/>
+        <input type="text" id="zipcode" name="zipcode" placeholder="Enter your zipcode" value="{{getZipcode}}" />
       </div>
       <div class="field-symbol ui-widget">
         <label for="stock">Stock Symbol: </label>
-        <input id="stock" class="ui-autocomplete-input" autocomplete="off" value="MSTF">
+        <input id="stock" name="stock" class="ui-autocomplete-input" autocomplete="off">
       </div>
       <div class="submit-wrapper">
         <input type="submit" value="Create Profile" class="dark-contrast-btn"/>
