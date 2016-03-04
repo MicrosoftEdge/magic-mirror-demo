@@ -3,6 +3,10 @@
 
   <!-- ALERTS -->
   <div class="eyelevel-left">
+    <div id="video">
+      <video id="cameraPreview" class="cameraPreview"></video>
+      <canvas id="facesCanvas"></canvas>
+    </div>
   </div>
 
   <!-- TIME AND WEATHER-->
@@ -26,12 +30,13 @@
 
   </div>
 
-    <div id="newsFeed"></div>
-    <div id="watchList"></div>
-    <div id="video">
-      <video id="cameraPreview" class="cameraPreview"></video>
-      <canvas id="facesCanvas"></canvas>
+  <!-- USER CONTENT -->
+  <div class="user-content">
+    <div class="content-pane" id="stocks">
+      <ul class="ticker-list" id="watchList"></ul>
     </div>
+    <div class="content-pane" id="newsFeed"></div>
+  </div>
 
 </div>
 <script src="https://code.jquery.com/jquery-2.2.1.js"></script>

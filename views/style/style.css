@@ -147,30 +147,51 @@ button
   color: #000;
 }
 
-.mirror #video {
-    width: 96px;
-    height: 72px;
-    position: absolute;
-    bottom:20px;
-    right:10px;
+/* MIRROR UI: USER CONTENT
+   (Stocks, etc.)
+--------------------------------------------- */
+
+.user-content {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 
-.mirror #cameraPreview {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    width: 96px;
-    height: 72px;
+.content-pane {
+  display: none;
+  position: absolute;
+  left: 40px;
+  bottom: 40px;
+  width: 100%;
 }
 
-.mirror #facesCanvas {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 2;
-    width: 96px;
-    height: 72px;
+.content-pane:first-child {
+  display: block;
+}
+
+/* STOCKS */
+.ticker-list {
+  display: flex;
+  flex-flow: row;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.ticker {
+  flex-grow: 1;
+  padding: 0 40px;
+}
+
+.symbol {
+  margin-bottom: 20px;
+}
+
+.price-change {
+  font-size: 48px;
+  font-family: "HKGroteskBold", "Segoe UI Bold", Tahoma, sans-serif;
 }
 
 /*Create user form*/
@@ -264,17 +285,4 @@ form #error{
     margin-top: 20px;
     font-family: 'Segoe UI Light', Tahoma, sans-serif;
     font-size: 24px;
-}
-
-#watchList {
-  position: absolute;
-  top: 300px;
-  left: 20px;
-  font-size: 36px;
-}
-
-#newsFeed {
-  position: absolute;
-  top: 300px;
-  right: 20px;
 }
