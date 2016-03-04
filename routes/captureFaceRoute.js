@@ -18,10 +18,12 @@ module.exports = function(app) {
   });
 
   captureFaceRouter.get('/:user_id', function(req, res, next) {
-    res.render('./../views/partial/captureFace', {});
+    res.render('./../views/partial/captureFace', {
+      bodyClass: 'setup face-setup'
+    });
     user_id = req.params.user_id
   });
-  
+
   captureFaceRouter.post('/addFace', function(req, res, next) {
     console.log('addface server route post')
     request.post({
@@ -50,7 +52,7 @@ module.exports = function(app) {
       }
     })
   });
-  
+
   captureFaceRouter.post('/authenticate', function(req, res, next) {
     console.log('authenticate server route post')
     request.post({
@@ -97,7 +99,7 @@ module.exports = function(app) {
                   res.end()
                 }
                 if(user){
-                  var message, percConf = confidence.toFixed(4) * 100 
+                  var message, percConf = confidence.toFixed(4) * 100
                   if (confidence >= minConfidence) {
                     message = `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`
                     res.write(JSON.stringify({
@@ -123,7 +125,7 @@ module.exports = function(app) {
                     }))
                     res.end()
                 }
-              }) 
+              })
             } else {
               message = `Unable to find a face in the provided picture`
                 res.write(JSON.stringify({
@@ -138,7 +140,7 @@ module.exports = function(app) {
         res.write(JSON.stringify({
           message: `Unable to find a face in the picture.`
           , authenticated: false
-        })) 
+        }))
         res.end()
       }
     })
