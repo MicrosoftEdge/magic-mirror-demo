@@ -1,3 +1,4 @@
+{{> setup-header}}
 <div class="header">
   <div class="title">
     Step 1/2
@@ -9,19 +10,19 @@
 <form class="horizontal-center" action="" method="post" enctype="multipart/form-data">
   <fieldset>
     <div class="field-symbol">
-      <label for="name">Name:</label>
+      <label for="name">Name</label>
       <input type="text" id="name" name="name" placeholder="Enter your full name" value="{{getBandName}}" />
     </div>
     <div class="field-symbol">
-      <label for="email">Email:</label>
+      <label for="email">Email</label>
       <input type="email" id="email" name="email" placeholder="Enter your email address" value="{{getEmail}}" />
     </div>
     <div class="field-symbol">
-      <label for="zipcode">Zipcode:</label>
+      <label for="zipcode">Zipcode</label>
       <input type="text" id="zipcode" name="zipcode" placeholder="Enter your zipcode" value="{{getZipcode}}" />
     </div>
     <div class="field-symbol ui-widget">
-      <label for="stock">Stock Symbol: </label>
+      <label for="stock">Stock Symbol</label>
       <input id="stock" name="stock" class="ui-autocomplete-input" autocomplete="off">
     </div>
     <div class="submit-wrapper">
@@ -32,6 +33,7 @@
     </div>
   </fieldset>
 </form>
+
 <a id="back" href="/mirror">Mirror</a>
 <script src="https://cdn.jsdelivr.net/lodash/4.5.1/lodash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>

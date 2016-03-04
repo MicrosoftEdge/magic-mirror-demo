@@ -4,7 +4,15 @@
 body {
 	margin: 0;
 	padding: 0;
-	font-family: "HKGroteskRegular", "Segoe UI Light", Tahoma, sans-serif;
+	font-size: 125%;
+	line-height: 1.5;
+	font-family: "HKGroteskRegular", "Segoe UI", Tahoma, sans-serif;
+}
+
+/* TEXT STYLES */
+
+h1 {
+	font: 400 normal 3em/1 "HKGroteskBold", "Segoe UI Bold", Tahoma, sans-serif;
 }
 
 .horizontal-center {
@@ -39,6 +47,32 @@ button {
 
 /* ACCOUNT SETUP
 --------------------------------------------- */
+
+.setup {
+	background: #efefef;
+}
+
+/* FORMS */
+fieldset {
+	margin: 0;
+	border: none;
+}
+
+input, button {
+	font-family: "HKGroteskRegular", "Segoe UI Light", Tahoma, sans-serif;
+}
+
+form #error {
+  color: red;
+}
+
+@media (min-width: 30em) {
+
+
+
+}
+
+/* CREATE PROFILE */
 
 /* MIRROR UI GLOBALS
 --------------------------------------------- */
@@ -180,39 +214,6 @@ button {
   font-family: "HKGroteskBold", "Segoe UI Bold", Tahoma, sans-serif;
 }
 
-/*Create user form*/
-form
-{
-  border: 2px groove threedface;
-  width: 500px;
-}
-form fieldset
-{
-  width: 340px;
-  margin: 0 auto;
-  border:none;
-}
-form .field-symbol
-{
-    padding:20px;
-}
-form .field-symbol label
-{
-    padding-right:20px;
-    font-size: 18px;
-}
-form .field-symbol input
-{
-    float:right;
-    padding: 5px;
-}
-form .submit-wrapper{
-    text-align: center;
-    padding:30px;
-}
-form #error{
-    color:red;
-}
 /*Capture*/
 .capture-face
 {
