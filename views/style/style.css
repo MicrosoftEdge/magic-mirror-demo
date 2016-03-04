@@ -2,30 +2,12 @@
 --------------------------------------------- */
 
 body {
-  overflow-y: auto;
-	width: 100%;
-	height: 100%;
 	margin: 0;
 	padding: 0;
-	overflow: hidden;
-	background: #000;
-	color: #fff;
 	font-family: "HKGroteskRegular", "Segoe UI Light", Tahoma, sans-serif;
 }
 
-.center
-{
-  position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translateX(-50%) translateY(-50%);
-	-moz-transform: translateX(-50%) translateY(-50%);
-	-ms-transform: translateX(-50%) translateY(-50%);
-	-o-transform: translateX(-50%) translateY(-50%);
-	transform: translateX(-50%) translateY(-50%);
-}
-.horizontal-center
-{
+.horizontal-center {
   position: absolute;
 	left: 50%;
 	-webkit-transform: translateX(-50%);
@@ -34,32 +16,36 @@ body {
 	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
 }
-.header
-{
+
+.header {
     margin: 30px auto;
     padding-top:60px;
     width:500px;
     text-align: center;
 }
-.header .title
-{
+
+.header .title {
     font-size: 40px;
     font-weight: 600;
 }
-.header .sub-title
-{
+
+.header .sub-title {
     margin:10px 20px 10px 10px;
     font-size: 20px;
 }
-button
-{
+button {
   cursor:pointer;
 }
+
+/* ACCOUNT SETUP
+--------------------------------------------- */
 
 /* MIRROR UI GLOBALS
 --------------------------------------------- */
 
 .mirror {
+  background: #000;
+	color: #fff;
   font-size: 32px;
   line-height: 1.25;
 }
