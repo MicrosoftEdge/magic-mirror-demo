@@ -49,3 +49,8 @@ Here are the steps to set it up.
 6. Select location of your existing Node project
 7. Done
  
+###Tips for Newcomers Using Node.js###
+We are using the following technologies to build our view:
+
+* [Express](http://expressjs.com/)
+* [Handlebars.js](http://handlebarsjs.com/)
