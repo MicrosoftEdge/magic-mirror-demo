@@ -1,30 +1,38 @@
 
-<div class="container mirror">
+<div class="mirror">
+
+  <!-- ALERTS -->
+  <div class="eyelevel-left">
+  </div>
+
+  <!-- TIME AND WEATHER-->
+  <div class="eyelevel-right">
     <div id="timestamp">
-        <div id="time"></div>
-        <div id="day"></div>
-        <div id="date"></div>
+      <div id="time"></div>
+      <span id="day"></span>, <span id="date"></span>
     </div>
     <div id="weather">
-        <div class="location"></div>
-        <div class="description"></div>
-        <div class="temp-wrapper">
-            <div class="temperature">55°</div>
-            <div class="icon"></div>
-        </div>
+      <div class="temperature">55°</div>
+      <div class="conditions"></div>
+      <div class="weather-location"></div>
     </div>
-    <div id="newsFeed"></div>
-    <div id="watchList"></div>
+
+    <!-- TEMPORARY CONTENT @TODO: remove these -->
     <div class="controls">
       <div id="message"></div>
       <button id="buttonReset" class="dark-contrast-btn">Reset</button>
+      <a href="/create">Create Profile</a>
     </div>
+
+  </div>
+
+    <div id="newsFeed"></div>
+    <div id="watchList"></div>
     <div id="video">
       <video id="cameraPreview" class="cameraPreview"></video>
       <canvas id="facesCanvas"></canvas>
     </div>
-    <a href="/create">Create Profile</a>
-    
+
 </div>
 <script src="https://code.jquery.com/jquery-2.2.1.js"></script>
 <script src="https://cdn.jsdelivr.net/momentjs/2.11.2/moment.min.js"></script>
