@@ -60,6 +60,7 @@
         dataReader.readBytes(byteArray);
 
         var base64 = Uint8ToBase64(byteArray);
+        
         $.ajax({
           url: '/capture/addFace',
           beforeSend: function(xhrObj) {

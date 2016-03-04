@@ -6,6 +6,12 @@ var faceThresholds = {
   , height: 100
 }
 var mirroring = true
+var stabilizationTime = 1000; // in milliseconds
+var maxDistance = 40;
+var maxChange = 5;
+var cycles = Math.floor(stabilizationTime / detectionInterval);
+var stabilizationCounter = 0;
+var prevX, prevY, prevWidth, prevHeight;
 
 // State variables
 var authenticating = false
@@ -22,6 +28,36 @@ var displayRequest = new Windows.System.Display.DisplayRequest();
 var effectDefinition = new Windows.Media.Core.FaceDetectionEffectDefinition();
 var isAuthenticated = false;
 var mediaStreamType = Capture.MediaStreamType.videoRecord;
+
+function isStable(face) {
+  if (stabilizationCounter == cycles) {
+    prevX = prevY = prevWidth = prevHeight = null;
+    stabilizationCounter = 0;
+    return true;
+  }
+  
+  var curX = face.x;
+  var curY = face.y;
+  var curWidth = face.width;
+  var curHeight = face.height;
+  
+  stabilizationCounter++;
+  
+  if (prevX) {
+    var distance = Math.sqrt(Math.pow(curX - prevX, 2) + Math.pow(curY - prevY, 2));
+    if (distance > maxDistance || Math.abs(curWidth - prevWidth) > maxChange || Math.abs(curHeight - prevHeight) > maxChange) {
+      console.log(`Reset! distance=${distance}, curWidth=${curWidth}, curHeight=${curHeight}, curX=${curX}, curY=${curY}`);
+      stabilizationCounter = 0;
+    }
+  }
+  
+  prevX = curX;
+  prevY = curY;
+  prevWidth = curWidth;
+  prevHeight = curHeight;
+  
+  return false;
+}
 
 var Authenticate = {}
 
@@ -53,8 +89,7 @@ Authenticate.takePhoto = function(addFace) {
       var dataReader = Storage.Streams.DataReader.fromBuffer(buffer);
       var byteArray = new Uint8Array(buffer.length);
       dataReader.readBytes(byteArray);
-
-      var base64 = Authenticate.Uint8ToBase64(byteArray);
+  
       // Detect the face to get a face ID
       $.ajax({
         url: '/capture/authenticate',
@@ -67,7 +102,6 @@ Authenticate.takePhoto = function(addFace) {
       })
       .done(function(result) {
         var resultObj = JSON.parse(result)
-        console.log(resultObj.message)
         if(resultObj.authenticated){
           authenticated = true
           authenticating = false
@@ -108,25 +142,13 @@ Authenticate.handleFaces = function(args) {
         facesCanvas.style.transform = 'scale(-1, 1)';
       }
       if(authenticated == false && authenticating == false && face.width > faceThresholds.width && face.height > faceThresholds.height){
-        authenticating = true
-        Authenticate.takePhoto()
+        if (isStable(face)) {
+          authenticating = true
+          Authenticate.takePhoto() 
+        }
       }
     }
   }
-}
-
-Authenticate.Uint8ToBase64 = function(u8Arr) {
-  var CHUNK_SIZE = 0x8000;
-  var index = 0;
-  var length = u8Arr.length;
-  var result = '';
-  var slice;
-  while (index < length) {
-    slice = u8Arr.subarray(index, Math.min(index + CHUNK_SIZE, length));
-    result += String.fromCharCode.apply(null, slice);
-    index += CHUNK_SIZE;
-  }
-  return btoa(result);
 }
 
 Authenticate.mirrorPreview= function () {
