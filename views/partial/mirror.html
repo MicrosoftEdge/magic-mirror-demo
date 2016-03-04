@@ -1,44 +1,40 @@
+<!-- ALERTS -->
+<div class="eyelevel-left">
+  <div id="video">
+    <video id="cameraPreview" class="cameraPreview"></video>
+    <canvas id="facesCanvas"></canvas>
+  </div>
+</div>
 
-<div class="mirror">
-
-  <!-- ALERTS -->
-  <div class="eyelevel-left">
-    <div id="video">
-      <video id="cameraPreview" class="cameraPreview"></video>
-      <canvas id="facesCanvas"></canvas>
-    </div>
+<!-- TIME AND WEATHER-->
+<div class="eyelevel-right">
+  <div id="timestamp">
+    <div id="time"></div>
+    <span id="day"></span>, <span id="date"></span>
+  </div>
+  <div id="weather">
+    <div class="temperature">55°</div>
+    <div class="conditions"></div>
+    <div class="weather-location"></div>
   </div>
 
-  <!-- TIME AND WEATHER-->
-  <div class="eyelevel-right">
-    <div id="timestamp">
-      <div id="time"></div>
-      <span id="day"></span>, <span id="date"></span>
-    </div>
-    <div id="weather">
-      <div class="temperature">55°</div>
-      <div class="conditions"></div>
-      <div class="weather-location"></div>
-    </div>
-
-    <!-- TEMPORARY CONTENT @TODO: remove these -->
-    <div class="controls">
-      <div id="message"></div>
-      <button id="buttonReset" class="dark-contrast-btn">Reset</button>
-      <a href="/create">Create Profile</a>
-    </div>
-
-  </div>
-
-  <!-- USER CONTENT -->
-  <div class="user-content">
-    <div class="content-pane" id="stocks">
-      <ul class="ticker-list" id="watchList"></ul>
-    </div>
-    <div class="content-pane" id="newsFeed"></div>
+  <!-- TEMPORARY CONTENT @TODO: remove these -->
+  <div class="controls">
+    <div id="message"></div>
+    <button id="buttonReset" class="dark-contrast-btn">Reset</button>
+    <a href="/create">Create Profile</a>
   </div>
 
 </div>
+
+<!-- USER CONTENT -->
+<div class="user-content">
+  <div class="content-pane" id="stocks">
+    <ul class="ticker-list" id="watchList"></ul>
+  </div>
+  <div class="content-pane" id="newsFeed"></div>
+</div>
+
 <script src="https://code.jquery.com/jquery-2.2.1.js"></script>
 <script src="https://cdn.jsdelivr.net/momentjs/2.11.2/moment.min.js"></script>
 <script src="/mirror/weather.js"></script>
