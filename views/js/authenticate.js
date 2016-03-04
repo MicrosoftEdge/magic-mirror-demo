@@ -45,8 +45,7 @@ function isStable(face) {
   
   if (prevX) {
     var distance = Math.sqrt(Math.pow(curX - prevX, 2) + Math.pow(curY - prevY, 2));
-    if (distance > maxDistance || Math.abs(curWidth - prevWidth) > maxChange || Math.abs(curHeight - prevHeight) > maxChange) {
-      console.log(`Reset! distance=${distance}, curWidth=${curWidth}, curHeight=${curHeight}, curX=${curX}, curY=${curY}`);
+    if (distance > maxDistance || Math.abs(curWidth - prevWidth) > maxChange || Math.abs(curHeight - prevHeight) > maxChange) { 
       stabilizationCounter = 0;
     }
   }
