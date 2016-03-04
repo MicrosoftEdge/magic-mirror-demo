@@ -10,7 +10,9 @@ module.exports = function(app) {
   });
 
   mirrorRouter.get('/', function(req, res, next) {
-    res.render('./../views/partial/mirror', {});
+    res.render('./../views/partial/mirror', {
+      bodyClass: 'mirror'
+    });
   });
 
   mirrorRouter.get('/weather.js', function(req, res, next) {
@@ -36,7 +38,7 @@ module.exports = function(app) {
     res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/mirror.js'), 'utf8'));
     res.end();
   });
-  
+
   mirrorRouter.get('/authenticate.js', function(req, res, next) {
     res.writeHead(200, {'Content-Type': 'text/js'});
     res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/authenticate.js'), 'utf8'));
