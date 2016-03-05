@@ -1,22 +1,23 @@
-<a id="back" href="/create">Back</a>
-<div class="header">
-  <div class="title">
-    Step 2/2
+{{> setup-header}}
+<main class="setup-content">
+  <div class="setup-pagination">
+    <h2 class="pagination-title">Step 2/2</h2>
+    <p>Take a selfie so the mirror can recognize you.</p>
+    </div>
   </div>
-  <div class="sub-title">
-    Take a selfie so the mirror can recognize you.
+  <div class="capture-face">
+    <div id="video">
+      <video id="cameraPreview" class="cameraPreview"></video>
+      <canvas id="facesCanvas"></canvas>
+    </div>
+    <div class="controls clear submit-wrapper">
+      <a id="back" href="/create" class="back-btn">Back</a>
+      <button id="buttonAddFace" class="forward-btn">Add face</button>
+    </div>
+    <div id="message"></div>
+    <div id="snapshot"></div>
   </div>
 </div>
-<div class="horizontal-center capture-face">
-  <div id="video">
-    <video id="cameraPreview" class="cameraPreview"></video>
-    <canvas id="facesCanvas"></canvas>
-  </div>
-  <div class="controls">
-    <button id="buttonAddFace" class="dark-contrast-btn">Add face</button>
-  </div>
-  <div id="message"></div>
-  <div id="snapshot"></div>
-</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
 <script src="/capture/file/captureFace.js"></script>

@@ -1,40 +1,37 @@
 {{> setup-header}}
-<div class="header">
-  <div class="title">
-    Step 1/2
+<main class="setup-content">
+  <div class="setup-pagination">
+    <h2 class="pagination-title">Step 1/2</h2>
+    <p>Let's start by getting to know you a bit.</p>
+    </div>
   </div>
-  <div class="sub-title">
-    Let's start by getting to know you a bit.
-  </div>
-</div>
-<form class="horizontal-center" action="" method="post" enctype="multipart/form-data">
-  <fieldset>
-    <div class="field-symbol">
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" placeholder="Enter your full name" value="{{getBandName}}" />
-    </div>
-    <div class="field-symbol">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" placeholder="Enter your email address" value="{{getEmail}}" />
-    </div>
-    <div class="field-symbol">
-      <label for="zipcode">Zipcode</label>
-      <input type="text" id="zipcode" name="zipcode" placeholder="Enter your zipcode" value="{{getZipcode}}" />
-    </div>
-    <div class="field-symbol ui-widget">
-      <label for="stock">Stock Symbol</label>
-      <input id="stock" name="stock" class="ui-autocomplete-input" autocomplete="off">
-    </div>
-    <div class="submit-wrapper">
-      <input type="submit" value="Create Profile" class="dark-contrast-btn"/>
-      <div>
-        <span id="error"></span>
+  <form action="" method="post" enctype="multipart/form-data">
+    <fieldset>
+      <div class="field-item">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your full name" value="{{getBandName}}" />
       </div>
-    </div>
-  </fieldset>
-</form>
+      <div class="field-item">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email address" value="{{getEmail}}" />
+      </div>
+      <div class="field-item">
+        <label for="zipcode">Zipcode</label>
+        <input type="text" id="zipcode" name="zipcode" placeholder="Enter your zipcode" value="{{getZipcode}}" />
+      </div>
+      <div class="field-item ui-widget">
+        <label for="stock">Stock Symbol</label>
+        <input type="text" id="stock" name="stock" class="ui-autocomplete-input" autocomplete="off">
+      </div>
+      <div class="clear submit-wrapper">
+        <p id="error"></p>
+        <a class="back-btn" href="/mirror">Mirror</a>
+        <input type="submit" value="Create Profile" class="forward-btn" />
+      </div>
+    </fieldset>
+  </form>
+</main>
 
-<a id="back" href="/mirror">Mirror</a>
 <script src="https://cdn.jsdelivr.net/lodash/4.5.1/lodash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
