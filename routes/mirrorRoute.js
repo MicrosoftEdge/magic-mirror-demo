@@ -33,7 +33,11 @@ module.exports = function(app) {
     res.end();
   });
 
+<<<<<<< HEAD
   mirrorRouter.get('/traffic.js', function(req, res, next) {
+=======
+ mirrorRouter.get('/traffic.js', function(req, res, next) {
+>>>>>>> 46a0ffeaa1022dfe30d80d1e0ca21bc1b0b72e90
     res.writeHead(200, {'Content-Type': 'text/js'});
     res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/traffic.js'), 'utf8'));
     res.end();
