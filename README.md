@@ -1,10 +1,13 @@
 #Magic Mirror
 
+##Overview
+The magic mirror project is a great IoT & maker project to get started in making a Windows 10 UWP web application. This web application will be powered by an Azure website that talks directly to different Windows 10 clients. Since a mirror device doesn't generally recieve input from a keyboard and mouse, our website will provide a screen that will run great on a laptop or phone device to setup a users profile. The login experience will be driven by the [Project Oxford APIs](https://www.projectoxford.ai/). We will be using a client side Windows API ([mediaCapture](https://msdn.microsoft.com/en-us/library/windows/apps/windows.media.capture.aspx)) to detect faces from the devices camera, and the [Oxford Face API](https://www.projectoxford.ai/face) service to do the actually match Faces to profiles.
+
 ##Run Locally
 
 ###Prerequisites
 
-- [Node](https://nodejs.org/en/)
+Begin with installing [Node](https://nodejs.org/en/).
 
 ###Setting up a local server
 
@@ -32,5 +35,18 @@ If you are not using Visual Studio, you can open the `package.appxmanifest` and 
 </Capabilities>
 ```
 
- 
+###Setting up Node IDE in Visual Studio 2015 for backend debugging
+
+There is a great VS plugin that can enable you to debug your node project.
+
+Here are the steps to set it up.
+
+1. If you don't have VS 2015 installed already. You can do so by getting it from [here](https://www.visualstudio.com/downloads/download-visual-studio-vs)
+2. Install VS plugin by gettting it from [here] (https://www.visualstudio.com/en-us/features/node-js-vs.aspx)
+3. Start Visual Studio and choose to 'Create New Project' 
+4. In the 'New Project' dialog window go to Templates -> JavaScript -> Node.js
+5. Choose 'From Existing Node.js' Code as project type
+6. Select location of your existing Node project
+7. Done
+
  

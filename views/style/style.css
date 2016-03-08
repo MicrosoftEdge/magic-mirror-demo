@@ -1,236 +1,372 @@
-/*General*/
-.center
-{
-  position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translateX(-50%) translateY(-50%);
-	-moz-transform: translateX(-50%) translateY(-50%);
-	-ms-transform: translateX(-50%) translateY(-50%);
-	-o-transform: translateX(-50%) translateY(-50%);
-	transform: translateX(-50%) translateY(-50%);
+/* GLOBAL (Setup and/or mirror UI)
+--------------------------------------------- */
+
+* {
+  box-sizing: border-box;
 }
-.horizontal-center
-{
-  position: absolute;
-	left: 50%;
-	-webkit-transform: translateX(-50%);
-	-moz-transform: translateX(-50%);
-	-ms-transform: translateX(-50%);
-	-o-transform: translateX(-50%);
-	transform: translateX(-50%);
-}
-.header
-{
-    margin: 30px auto;
-    padding-top:60px;
-    width:500px;
-    text-align: center;
-}
-.header .title
-{
-    font-size: 40px;
-    font-weight: 600;
-}
-.header .sub-title
-{
-    margin:10px 20px 10px 10px;
-    font-size: 20px;
-}
-.dark-contrast-btn
-{
-  cursor:pointer;
-  outline: 0;
-  padding: 8px 16px;
-  font-size:16px;
-  color: white;
-  border: none;
-  background-color: #2980b9; 
-  text-decoration:none;
-}
-.dark-contrast-btn:hover
-{
-  background-color:#1569aa; 
-}
-/*Magic mirror home UI*/
+
 body {
-  overflow-y: auto;
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	background: #000;
-	color: #fff;
-	font-family: Segoe UI Light, Tahoma, sans-serif;
+  margin: 0;
+  padding: 0;
+  font-size: 150%;
+  line-height: 1.333;
+  font-family: "HKGroteskRegular", "Segoe UI", Tahoma, sans-serif;
 }
 
-#container {
-	position: relative;
-	width: 100%;
-	height: 100%;
+.clear:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
-#timestamp {
-	position: absolute;
-	top: 0;
-	right: 20px;
-	text-align: right;
+/* TEXT STYLES */
+
+h1 {
+  margin: 0 auto .75em;
+  font: 400 normal 2em "HKGroteskBold", "Segoe UI Bold", Tahoma, sans-serif;
 }
 
-#time {
-	font-size: 140px;
-	line-height: 140px;
+@media (min-width: 40em) {
+
+  h1 {
+    font-size: 3.5em;
+  }
+
 }
 
-#date, #day {
-	font-size: 40px;
-	line-height: 40px;
+/* ACCOUNT SETUP
+--------------------------------------------- */
+
+.setup {
+  padding: 1em;
+  background: #efefef;
 }
 
-#weather {
-	position: absolute;
-	top: 0;
-	left: 20px;
+.setup-header {
+  text-align: center;
 }
 
-#weather .icon,
-#weather .temperature {
-	display: inline-block;
-	line-height: 140px;
-}
-
-#weather .icon {
-	font-size: 140px;
-}
-
-#weather .icon:before {
-	font-family: "Segoe MDL2 Assets";
-	content: "\E753";
-}
-
-#weather .temperature {
-	font-size: 120px;
-	vertical-align: top;
-}
-#weather .temp-wrapper {
-    text-align: center;
-}
-#weather .location {
-	font-size: 44px;
-	width: 375px;
-    weight: 600;
-    text-transform: capitalize;
-    text-align:center;
-}
-#weather .report,.description {
-	font-size: 32px;
-	width: 375px;
-    text-transform: capitalize;
-    text-align:center;
-}
-/*Create user form*/
-form
-{
-  border: 2px groove threedface;
-  width: 500px;
-}
-form fieldset
-{
-  width: 340px;
+.setup-content {
+  position: relative;
   margin: 0 auto;
-  border:none;
+  padding: 1em;
+  background: #fff;
+  width: 100%;
+  max-width: 40em;
+  border-top: 8px solid #ccc;
 }
-form .field-symbol
-{
-    padding:20px;
+
+.setup-content::before {
+  display: block;
+  position: absolute;
+  top: -8px;
+  left: 0;
+  width: 0;
+  height: 8px;
+  content: '';
+  background: #000;
 }
-form .field-symbol label
-{
-    padding-right:20px;
-    font-size: 18px;
+
+.setup-pagination {
+  margin: 0 auto 1em;
+  text-align: center;
+  color: #5b5b5b;
 }
-form .field-symbol input 
-{
-    float:right;
-    padding: 5px;
+
+.pagination-title {
+  margin: 0 0 .5em;
+  font: 400 normal 1em/1 "HKGroteskBold", "Segoe UI Bold", Tahoma, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .05em;
 }
-form .submit-wrapper{
-    text-align: center;
-    padding:30px;
+
+.pagination-title + p {
+  margin: 0;
 }
-form #error{
-    color:red;
+
+/* FORMS */
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
 }
-/*Capture*/
-.capture-face
-{
-    overflow-y:visible;
+
+input, button {
+  padding: .5em;
+  border: 0;
+  outline: 0;
+  font-size: 1em;
+  font-family: "HKGroteskRegular", "Segoe UI Light", Tahoma, sans-serif;
 }
-#back
-{
-  top:0px;
-  left:0px;
-  position: fixed;
-  padding:20px;
+
+label {
+  display: block;
+}
+
+input[type="text"],
+input[type="email"] {
+  display: block;
+  border: 2px solid #000;
+  width: 100%;
+}
+
+input[type="submit"], button {
+  cursor: pointer;
+}
+
+form #error {
+  margin: 2em 0 0;
+  color: red;
+}
+
+.field-item {
+  margin-bottom: 1em;
+}
+
+.submit-wrapper {
+  margin-top: 2em;
+}
+
+.back-btn,
+.forward-btn {
+  float: left;
+  background: transparent;
+  padding: .5em 0;
   text-decoration: none;
-  color:white;
 }
-.capture-face .controls
-{
+
+.forward-btn {
+  float: right;
+}
+
+@media (min-width: 40em) {
+
+  .setup {
+    padding: 3em;
+  }
+
+  .setup-content {
+    padding: 2em;
     text-align: center;
-}
-.capture-face .controls.bottom
-{
-    position: relative;
-    margin: 10px;
-    bottom:0px;
-}
-.capture-face button
-{
-    margin: 10px;
-}
-#video {
-    width: 640px;
-    height: 480px;
-    position: relative;
+  }
+
+  .setup-pagination {
+    margin-bottom: 2em;
+  }
+
+  .field-item label,
+  .field-item input {
+    display: inline-block;
+  }
+
+  .field-item label {
+    padding-right: 1em;
+    width: 30%;
+    text-align: left;
+  }
+
+  .field-item input[type="text"],
+  .field-item input[type="email"] {
+    padding: .5em 0;
+    width: 60%;
+    border-width: 0;
+    border-bottom-width: 2px;
+  }
+
+  .submit-wrapper {
+    margin: 0 auto;
+    width: 90%;
+  }
+
 }
 
-#cameraPreview {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    width: 640px;
-    height: 480px;
+/* CREATE PROFILE */
+.profile-setup .setup-content::before {
+  width: 50%;
 }
 
-#facesCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    width: 640px;
-    height: 480px;
+/* CAPTURE FACE */
+.face-setup .setup-content::before {
+  width: 100%;
+}
+
+.capture-face {
+  overflow-y: visible;
+}
+
+.capture-face #video {
+  position: relative;
+  margin: 0 auto 1em;
+  width: 320px;
+  height: 240px;
+  background: #000;
+}
+
+.capture-face #cameraPreview,
+.capture-face #facesCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 320px;
+  height: 240px;
+}
+
+.capture-face #facesCanvas {
+  z-index: 2;
 }
 
 #message, #snapshot {
+  text-align: center;
+}
+
+@media (min-width: 40em) {
+
+  .capture-face #video,
+  .capture-face #cameraPreview,
+  .capture-face #facesCanvas {
     width: 640px;
-    text-align: center;
-    margin-top: 20px;
-    font-family: 'Segoe UI Light', Tahoma, sans-serif;
-    font-size: 24px;
+    height: 480px;
+  }
+
 }
 
-#watchList {
-  position: absolute;
-  top: 300px;
-  left: 20px;
-  font-size: 36px;
+/* MIRROR UI GLOBALS
+--------------------------------------------- */
+
+.mirror {
+  background: #000;
+  color: #fff;
+  font-size: 32px;
+  line-height: 1.25;
 }
 
-#newsFeed {
+/* MIRROR UI: EYE-LEVEL, LEFT SIDE
+ * (Alerts that warrant priority placement)
+ * @TODO: Style the stuff that goes in it
+--------------------------------------------- */
+
+.eyelevel-left,
+.eyelevel-right {
   position: absolute;
-  top: 300px;
+  top: 40px;
+  max-width: 400px;
+}
+
+.eyelevel-left {
+  left: 40px;
+}
+
+/* MIRROR UI: EYE-LEVEL, RIGHT SIDE
+ * (Time and weather)
+ * @TODO: Add weather icons
+--------------------------------------------- */
+
+.eyelevel-right {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+}
+
+/* TIMESTAMP */
+#timestamp {
+  margin-bottom: 32px;
+}
+
+#time {
+  font: 160px/1 "HKGroteskLight", "Segoe UI Light", Tahoma, sans-serif;
+}
+
+/* WEATHER */
+#weather {
+  position: relative;
+  padding: 20px;
+  background: #fff;
+  color: #000;
+  font-family: "HKGroteskBold", "Segoe UI Light", Tahoma, sans-serif;
+}
+
+.weather-icon {
+  position: absolute;
+  top: 20px;
   right: 20px;
+}
+
+.temperature {
+  font-size: 80px;
+}
+
+.conditions {
+  font-size: 40px;
+}
+
+.weather-location {
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* TEMPORARY CONTROLS
+ * @TODO: Remove these */
+.mirror .controls {
+  font-size: 16px;
+}
+
+.mirror .controls button,
+.mirror .controls a {
+  display: inline-block;
+  vertical-align: middle;
+  border: 0;
+  outline: none;
+  text-decoration: none;
+  padding: 10px;
+  background: #fff;
+  color: #000;
+}
+
+/* MIRROR UI: USER CONTENT
+   (Stocks, etc.)
+--------------------------------------------- */
+
+.user-content {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.content-pane {
+  display: none;
+  position: absolute;
+  left: 40px;
+  bottom: 40px;
+  width: 100%;
+}
+
+.content-pane:first-child {
+  display: block;
+}
+
+/* STOCKS */
+.ticker-list {
+  display: flex;
+  flex-flow: row;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.ticker {
+  flex-grow: 1;
+  padding: 0 40px;
+}
+
+.symbol {
+  margin-bottom: 20px;
+}
+
+.price-change {
+  font-size: 48px;
+  font-family: "HKGroteskBold", "Segoe UI Bold", Tahoma, sans-serif;
 }

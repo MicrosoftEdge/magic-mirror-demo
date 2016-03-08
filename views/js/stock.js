@@ -19,18 +19,48 @@
                     var changePercentage = stock.cp;
                     var changeSinceClose = stock.c;
                     var ticker;
+                    var symbolLabel;
+                    var tickerPrice;
+                    var tickerChange;
 
+                    // Set up initial ticker item
                     if (!initialized) {
-                        ticker = document.createElement("div");
+                        ticker = document.createElement("li");
                         ticker.classList.add("ticker");
                         ticker.id = symbol;
+
+                        symbolLabel = document.createElement("div");
+                        symbolLabel.classList.add("symbol");
+                        ticker.appendChild(symbolLabel);
+                        symbolLabel.innerText = `${symbol}`;
+
+                        tickerPrice = document.createElement("div");
+                        tickerPrice.classList.add("price");
+                        ticker.appendChild(tickerPrice);
+
+                        tickerChange = document.createElement("div");
+                        tickerChange.classList.add("price-change");
+                        ticker.appendChild(tickerChange);
+
                     }
                     else {
                         ticker = document.getElementById(symbol);
                     }
-	                
-                    ticker.innerText = `${symbol}: ${lastPrice} (${changePercentage}%)`;
-	                
+
+                    // Update price and change values
+                    tickerPrice.innerText = `${lastPrice}`;
+                    tickerChange.innerText = `${changePercentage}%`;
+
+                    // Show positive or negative change icon
+                    if (`${changePercentage}` > 0 && !tickerChange.classList.contains("pos-change")) {
+                      tickerChange.classList.add("pos-change");
+                      tickerChange.classList.remove("neg-change");
+                    } else if (`${changePercentage}` < 0 && !tickerChange.classList.contains("neg-change")) {
+                      tickerChange.classList.add("neg-change");
+                      tickerChange.classList.remove("pos-change");
+                    }
+
+                    // Add initial ticker item
                     if (!initialized) {
                         watchList.appendChild(ticker);
                     }

@@ -7,9 +7,10 @@ module.exports = function(app) {
     , request = require('request')
     , nconf = require('nconf').file({file: 'environment.json'}).env()
     , oxfordKey = nconf.get("OXFORD_SECRET_KEY") // Subscription key for Project Oxford
-    , oxfordList = "magic-mirror-hwa-test"
+    , oxfordList = "magic-mirror-test"
     , minConfidence = 0.5
     , mongoose = require('mongoose')
+    , bandname = require('bandname')
     , user_id;
 
   captureFaceRouter.use(function(req, res, next) {
@@ -17,10 +18,12 @@ module.exports = function(app) {
   });
 
   captureFaceRouter.get('/:user_id', function(req, res, next) {
-    res.render('./../views/partial/captureFace', {});
+    res.render('./../views/partial/captureFace', {
+      bodyClass: 'setup face-setup'
+    });
     user_id = req.params.user_id
   });
-  
+
   captureFaceRouter.post('/addFace', function(req, res, next) {
     console.log('addface server route post')
     request.post({
@@ -49,7 +52,7 @@ module.exports = function(app) {
       }
     })
   });
-  
+
   captureFaceRouter.post('/authenticate', function(req, res, next) {
     console.log('authenticate server route post')
     request.post({
@@ -88,21 +91,57 @@ module.exports = function(app) {
                 , confidence = body[0].confidence
               var model = mongoose.model('Person')
               model.findOne({ 'face_id': face_id }, function (err, user){
-                if(err)
-                  res.write('There was an error with authentication.')
-                if(user){
-                  var percConf = confidence.toFixed(4) * 100 
-                  if (confidence >= minConfidence) {
-                    res.write(`Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`)
-                  } else {
-                    res.write(`Unable to find a strong enough match. Confidence level was ${percConf}%.`)
-                  }
+                if(err){
+                  res.write(JSON.stringify({
+                    message: 'There was an error with authentication.'
+                    , authenticated: false
+                  }))
                   res.end()
                 }
-              }) 
+                if(user){
+                  var message, percConf = confidence.toFixed(4) * 100
+                  if (confidence >= minConfidence) {
+                    message = `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`
+                    res.write(JSON.stringify({
+                      message: message
+                      , authenticated: true
+                      , name: user.name
+                      , confidence: confidence
+                    }))
+                    res.end()
+                  } else {
+                    message = `Unable to find a strong enough match. Confidence level was ${percConf}%.`
+                    res.write(JSON.stringify({
+                      message: message
+                      , authenticated: false
+                    }))
+                    res.end()
+                  }
+                } else {
+                  message = `Unable to find a database obj that matches the face id`
+                    res.write(JSON.stringify({
+                      message: message
+                      , authenticated: false
+                    }))
+                    res.end()
+                }
+              })
+            } else {
+              message = `Unable to find a face in the provided picture`
+                res.write(JSON.stringify({
+                  message: message
+                  , authenticated: false
+                }))
+                res.end()
             }
           }
         })
+      } else {
+        res.write(JSON.stringify({
+          message: `Unable to find a face in the picture.`
+          , authenticated: false
+        }))
+        res.end()
       }
     })
   });
