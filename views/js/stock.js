@@ -4,12 +4,13 @@
     var Stock = (function () {
         var stocks = [".DJI", ".INX", ".IXIC", "MSFT"]; // Array of user stocks
         var refreshRate = 5000; // Refresh rate (in ms)
-
+        
         var encodeStocks = stocks.join();
         var url = "http://finance.google.com/finance/info?client=ig&q=";
         var initialized = false;
         var watchList, refresh;       
-
+        
+        console.log("stock route");
         function getQuotes() {
             $.get(url + encodeStocks, function (data) {
                 var stockData = JSON.parse(data.substr(3));
