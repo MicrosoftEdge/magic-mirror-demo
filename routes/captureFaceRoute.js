@@ -7,6 +7,7 @@ module.exports = function(app) {
     , request = require('request')
     , nconf = require('nconf').file({file: 'environment.json'}).env()
     , oxfordKey = nconf.get("OXFORD_SECRET_KEY") // Subscription key for Project Oxford
+    , oxfordEmotionKey = nconf.get("OXFORD_EMOTION_SECRET_KEY")
     , oxfordList = "magic-mirror-test"
     , minConfidence = 0.5
     , mongoose = require('mongoose')
@@ -49,6 +50,40 @@ module.exports = function(app) {
           }
           res.end()
         })
+      }
+    })
+  });
+
+  captureFaceRouter.post('/determineEmotion', function(req, res, next) {
+    console.log('determineEmotion server route post')
+    request.post({
+      url: 'https://api.projectoxford.ai/emotion/v1.0/recognize',
+      headers: {
+        'Content-Type': 'application/octet-stream',
+        'Ocp-Apim-Subscription-Key': oxfordEmotionKey
+      },
+      body: req.body
+    },
+    function (error, response, body) {
+      if(error)
+        console.log(error)
+      else {
+                var emotions = JSON.parse(body);
+                if (emotions.length > 0) {
+                    // Just take first face
+                    var scores = emotions[0].scores;
+                    var includeNeutral = true;
+                    var threshold = 0.5;
+                    // Sum all the probabilities of non-positive emotions to decide if we should act
+                    var nonPositive = scores.anger + scores.contempt + scores.disgust + scores.fear + scores.sadness;
+                    if (includeNeutral) {
+                        nonPositive += scores.neutral;
+                    }
+                    if (nonPositive >= threshold) {
+                        res.write("Cheer up!");
+                    }
+                }
+                res.end();
       }
     })
   });

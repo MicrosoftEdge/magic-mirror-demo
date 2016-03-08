@@ -16,6 +16,7 @@ var prevX, prevY, prevWidth, prevHeight;
 // State variables
 var authenticating = false
 var authenticated = false
+var checkEmotion = true
 
 
 // Initializations
@@ -120,6 +121,44 @@ Authenticate.takePhoto = function(addFace) {
   });
 }
 
+Authenticate.determineEmotion = function(addFace) {
+	checkEmotion = false;
+	var Storage = Windows.Storage;
+	var stream = new Storage.Streams.InMemoryRandomAccessStream();
+	mediaCapture.capturePhotoToStreamAsync(Windows.Media.MediaProperties.ImageEncodingProperties.createJpeg(), stream)
+    .then(function () {
+		var buffer = new Storage.Streams.Buffer(stream.size);
+		stream.seek(0);
+		stream.readAsync(buffer, stream.size, 0).done(function () {
+			var dataReader = Storage.Streams.DataReader.fromBuffer(buffer);
+			var byteArray = new Uint8Array(buffer.length);
+			dataReader.readBytes(byteArray);
+
+      console.log("Determining emotion");
+			$.ajax({
+				url: '/capture/determineEmotion',
+				beforeSend: function (xhrObj) {
+					xhrObj.setRequestHeader('Content-Type', 'application/octet-stream')
+				},
+				type: 'POST',
+				data: byteArray,
+				processData: false
+			})
+        .done(function (result) {
+          console.log("successfully determined emotion");
+				  message.innerText = result;
+				  setTimeout(function () {
+					  checkEmotion = true;
+				  }, 20000);
+			})
+        .fail(function (e) {
+				  console.error(e);
+				  checkEmotion = true;
+			});
+		});
+	});
+}
+
 Authenticate.handleFaces = function(args) {
   var context = facesCanvas.getContext('2d');
   context.clearRect(0, 0, facesCanvas.width, facesCanvas.height);
@@ -145,7 +184,12 @@ Authenticate.handleFaces = function(args) {
           authenticating = true
           Authenticate.takePhoto() 
         }
-      }
+	  }
+      if (checkEmotion) {
+		    if (isStable(face)) {
+		      Authenticate.determineEmotion()
+		    }
+	    }
     }
   }
 }
