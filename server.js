@@ -36,7 +36,9 @@ var Person = mongoose.model('Person', mongoose.Schema({
   email: String,
   zipcode: String,
   face_id: String,
-  stock: String
+  stock: String,
+  homeAddress: String,
+  workAddress: String
 }));
 
 handlebars = exphbr.create({

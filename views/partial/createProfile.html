@@ -1,43 +1,51 @@
 <div class="create-profile">
-  <div class="header">
-    <div class="title">
-      Step 1/2
-    </div>
-    <div class="sub-title">
-      Let's start by getting to know you a bit.
-    </div>
-  </div>
-  <form class="horizontal-center" action="" method="post" enctype="multipart/form-data">
-    <fieldset>
-      <div class="field-symbol">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" placeholder="Enter your full name" value="{{getBandName}}" />
-      </div>
-      <div class="field-symbol">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email address" value="{{getEmail}}" />
-      </div>
-      <div class="field-symbol">
-        <label for="zipcode">Zipcode:</label>
-        <input type="text" id="zipcode" name="zipcode" placeholder="Enter your zipcode" value="{{getZipcode}}" />
-      </div>
-      <div class="field-symbol ui-widget">
-        <label for="stock">Stock Symbol: </label>
-        <input id="stock" name="stock" class="ui-autocomplete-input" autocomplete="off">
-      </div>
-      <div class="submit-wrapper">
-        <input type="submit" value="Create Profile" class="dark-contrast-btn"/>
-        <div>
-          <span id="error"></span>
+    <div class="header">
+        <div class="title">
+            Step 1/2
         </div>
-      </div>
-    </fieldset>
-  </form>
+        <div class="sub-title">
+            Let's start by getting to know you a bit.
+        </div>
+    </div>
+    <form class="horizontal-center" action="" method="post" enctype="multipart/form-data">
+        <fieldset>
+            <div class="field-symbol">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" value="{{getBandName}}" />
+            </div>
+            <div class="field-symbol">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" value="{{getEmail}}" />
+            </div>
+            <div class="field-symbol">
+                <label for="zipcode">Zipcode:</label>
+                <input type="text" id="zipcode" name="zipcode" placeholder="Enter your zipcode" value="{{getZipcode}}" />
+            </div>
+            <div class="field-symbol">
+                <label for="homeAddress">Home Address: </label>
+                <input type="text" id="homeAddress" name="homeAddress" placeholder="Enter your home address" value="{{getHomeAddress}}">
+            </div>
+            <div class="field-symbol">
+                <label for="workAddress">Work Address: </label>
+                <input type="text" id="workAddress" name="workAddress" placeholder="Enter your work address" value="{{getWorkAddress}}">
+            </div>
+            <div class="field-symbol ui-widget">
+                <label for="stock">Stock Symbol: </label>
+                <input id="stock" name="stock" class="ui-autocomplete-input" autocomplete="off">
+            </div>
+            <div class="submit-wrapper">
+                <input type="submit" value="Create Profile" class="dark-contrast-btn" />
+                <div>
+                    <span id="error"></span>
+                </div>
+            </div>
+        </fieldset>
+    </form>
 </div>
 <a id="back" href="/mirror">Mirror</a>
 <script src="https://cdn.jsdelivr.net/lodash/4.5.1/lodash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>  
-<script src="/create/createProfile.js" type="text/javascript"></script> 
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="/create/createProfile.js" type="text/javascript"></script>
