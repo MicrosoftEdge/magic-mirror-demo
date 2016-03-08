@@ -124,6 +124,12 @@ res.end()
     
    
 
+  mirrorRouter.get('/traffic.js', function(req, res, next) {
+    res.writeHead(200, {'Content-Type': 'text/js'});
+    res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/traffic.js'), 'utf8'));
+    res.end();
+  });
+
   mirrorRouter.get('/mirror.js', function(req, res, next) {
     res.writeHead(200, {'Content-Type': 'text/js'});
     res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/mirror.js'), 'utf8'));
