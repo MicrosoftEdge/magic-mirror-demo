@@ -9,6 +9,10 @@
         var url = "http://finance.google.com/finance/info?client=ig&q=";
         var initialized = false;
         var watchList, refresh;
+        
+        function getStockFromDB() {
+
+        }
 
         function getQuotes() {
             $.get(url + encodeStocks, function (data) {
