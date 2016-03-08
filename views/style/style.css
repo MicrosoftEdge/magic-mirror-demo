@@ -106,8 +106,17 @@ label {
 input[type="text"],
 input[type="email"] {
   display: block;
-  border: 2px solid #000;
+  border: 2px solid #777;
   width: 100%;
+  color: #5b5b5b;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+  position: relative;
+  border-color: #000;
+  background: #eff3f3;
+  color: #000;
 }
 
 input[type="submit"], button {
@@ -167,7 +176,7 @@ form #error {
 
   .field-item input[type="text"],
   .field-item input[type="email"] {
-    padding: .5em 0;
+    padding: .5em .25em;
     width: 60%;
     border-width: 0;
     border-bottom-width: 2px;
