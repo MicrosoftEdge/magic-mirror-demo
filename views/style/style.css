@@ -39,7 +39,30 @@ h1 {
 
 .setup {
   padding: 1em;
-  background: #efefef;
+  background: #dedede;
+  background: linear-gradient(227deg, #dce9e8, #dedede, #bdd0d5, #dedede);
+  background-size: 800% 800%;
+  -webkit-animation: AnimationName 20s ease infinite;
+  -moz-animation: AnimationName 20s ease infinite;
+  animation: AnimationName 20s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+  0%{background-position:93% 0%}
+  50%{background-position:0% 100%}
+  100%{background-position:93% 0%}
+}
+
+@-moz-keyframes AnimationName {
+  0%{background-position:93% 0%}
+  50%{background-position:0% 100%}
+  100%{background-position:93% 0%}
+}
+
+@keyframes AnimationName {
+  0%{background-position:93% 0%}
+  50%{background-position:0% 100%}
+  100%{background-position:93% 0%}
 }
 
 .setup-header {
@@ -53,7 +76,7 @@ h1 {
   background: #fff;
   width: 100%;
   max-width: 40em;
-  border-top: 8px solid #ccc;
+  border-top: 8px solid #efefef;
 }
 
 .setup-content::before {
