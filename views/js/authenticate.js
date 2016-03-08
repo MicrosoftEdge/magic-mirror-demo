@@ -1,6 +1,10 @@
 var detectionInterval = 33; // 33ms is fastest, 200ms is default
 var faceboxColors = ['#e74c3c', '#2ecc71']; // Hex colors for facebox
 var minConfidence = 0.5; // Minimum confidence level for successful face authentication, range from 0 to 1
+var minFaceThresholds = {
+  width: 20,
+  height: 50
+};
 var faceThresholds = {
   width: 40
   , height: 100
@@ -14,6 +18,7 @@ var logoutTime = 5000; // in milliseconds
 // State variables
 var authenticating = false
 var authenticated = false
+var faceDetected = false
 
 // Initializations
 var buttonAddFace, buttonReset, mediaCapture, video, message, prevMessage, snapshot, facesCanvas, logoutTimeout;
@@ -105,9 +110,15 @@ Authenticate.takePhoto = function(addFace) {
           authenticated = true
           authenticating = false
           message.innerText = resultObj.message;
+          document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+            detail: MIRROR_STATES.LOGGED_IN
+          }));
         } else {
           //If authenticated is false, then there was no match so start fresh
           Authenticate.logout();
+          document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+            detail: MIRROR_STATES.NOT_DETECTED
+          }));
         }
       })
       .fail(function(e) {
@@ -127,6 +138,9 @@ Authenticate.handleFaces = function(args) {
     if (authenticated && timeoutSet) {
       timeoutSet = false;
       clearTimeout(logoutTimeout);
+      document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+        detail: MIRROR_STATES.LOGGED_IN
+      }));
     }
 
     var face;
@@ -136,13 +150,33 @@ Authenticate.handleFaces = function(args) {
 
       var sufficientDimensions = false;
 
-      if(i == 0 && face.width > faceThresholds.width && face.height > faceThresholds.height) {
-        sufficientDimensions = true;
-        if (authenticated == false && authenticating == false && isStable(face)) {
-          authenticating = true
-          Authenticate.takePhoto() 
+      if (!authenticated) {
+        if (face.width > minFaceThresholds.width && face.height > minFaceThresholds.height) {
+          if (!faceDetected) {
+            faceDetected = true;
+            document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+              detail: MIRROR_STATES.FACE_CLOSE
+            }));
+          }
+        }
+        else {
+          if (faceDetected) {
+            faceDetected = false;
+            document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+              detail: MIRROR_STATES.BLANK
+            }));
+          }
+        }
+
+        if(i == 0 && face.width > faceThresholds.width && face.height > faceThresholds.height) {
+          sufficientDimensions = true;
+          if (!authenticating && isStable(face)) {
+            authenticating = true
+            Authenticate.takePhoto() 
+          }
         }
       }
+      
 
       context.beginPath();
       context.rect(face.x, face.y, face.width, face.height);
@@ -160,6 +194,17 @@ Authenticate.handleFaces = function(args) {
     if (authenticated && !timeoutSet) {
       timeoutSet = true;
       logoutTimeout = setTimeout(Authenticate.logout, logoutTime);
+      document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+        detail: MIRROR_STATES.LOGGING_OUT
+      }));
+    }
+    else if (!authenticated) {
+      if (faceDetected) {
+        faceDetected = false;
+        document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+          detail: MIRROR_STATES.BLANK
+        }));
+      }
     }
   }
 }
@@ -183,6 +228,7 @@ Authenticate.init = function() {
     console.log('Windows is not available');
     return;
   }
+
   buttonReset = document.getElementById('buttonReset')
   buttonReset.addEventListener('click', Authenticate.logout)
   message = document.getElementById('message');
