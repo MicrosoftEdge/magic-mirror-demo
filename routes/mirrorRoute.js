@@ -33,16 +33,12 @@ module.exports = function(app) {
     res.end();
   });
 
-<<<<<<< HEAD
-  
-=======
   mirrorRouter.get('/traffic.js', function(req, res, next) {
     res.writeHead(200, {'Content-Type': 'text/js'});
     res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/traffic.js'), 'utf8'));
     res.end();
   });
 
->>>>>>> bdfebf9df747073effd255f4e46d07fdc3b4a4b7
   mirrorRouter.get('/mirror.js', function(req, res, next) {
     res.writeHead(200, {'Content-Type': 'text/js'});
     res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/mirror.js'), 'utf8'));
