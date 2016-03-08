@@ -19,5 +19,11 @@ module.exports = function(app, settings) {
     res.end();
   });
 
+  rootRouter.get('/jquery-ui-reduced.css', function(req, res, next) {
+    res.writeHead(200, {'Content-Type': 'text/css'});
+    res.write(fs.readFileSync(path.resolve(__dirname + '/../views/style/jquery-ui-reduced.css'), 'utf8'));
+    res.end();
+  });
+
   app.use('/', rootRouter);
 };

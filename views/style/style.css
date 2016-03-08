@@ -116,7 +116,7 @@ input[type="submit"], button {
 
 form #error {
   margin: 2em 0 0;
-  color: red;
+  color: #cd0a0a;
 }
 
 .field-item {
@@ -181,6 +181,12 @@ form #error {
 }
 
 /* CREATE PROFILE */
+
+/* Prevent scrollbar page jump when autocomplete triggered */
+.profile-setup {
+  overflow-y: scroll;
+}
+
 .profile-setup .setup-content::before {
   width: 50%;
 }
