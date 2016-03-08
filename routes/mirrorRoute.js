@@ -31,41 +31,42 @@ module.exports = function(app) {
     res.writeHead(200, {'Content-Type': 'text/js'});
     res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/stock.js'), 'utf8'));
     res.end();
-    });
+  });
 
-    mirrorRouter.post('/stock', function (req, res, next) {
-        console.log('authenticate server route post')
-        request.post({
-            url: 'https://api.projectoxford.ai/face/v1.0/detect',
+    
+  mirrorRouter.post('/stock.js', function (req, res, next) {
+    console.log('stock route in effect')
+    request.post({
+        url: 'https://api.projectoxford.ai/face/v1.0/detect',
+        headers: {
+            'Content-Type': 'application/octet-stream',
+            'Ocp-Apim-Subscription-Key': oxfordKey
+        },
+        body: req.body
+    },
+    function (error, response, body) {
+        body = JSON.parse(body)
+        if (body.length > 0) {
+            var faceId = body[0].faceId;
+            console.log('faceid', faceId)
+            var req = {
+                faceId: faceId,
+                faceListId: oxfordList,
+                maxNumOfCandidatesReturned: 1
+            }
+            request.post({
+            url: "https://api.projectoxford.ai/face/v1.0/findsimilars",
             headers: {
-                'Content-Type': 'application/octet-stream',
+                'Content-Type': 'application/json',
                 'Ocp-Apim-Subscription-Key': oxfordKey
             },
-            body: req.body
-        },
-    function (error, response, body) {
-            body = JSON.parse(body)
-            if (body.length > 0) {
-                var faceId = body[0].faceId;
-                console.log('faceid', faceId)
-                var req = {
-                    faceId: faceId,
-                    faceListId: oxfordList,
-                    maxNumOfCandidatesReturned: 1
-                }
-                request.post({
-                    url: "https://api.projectoxford.ai/face/v1.0/findsimilars",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Ocp-Apim-Subscription-Key': oxfordKey
-                    },
-                    body: JSON.stringify(req)
-                },
-                function (error, response, body) {
-                    body = JSON.parse(body)
-                    if (error)
-                        console.log(error)
-                    else {
+            body: JSON.stringify(req)
+            },
+            function (error, response, body) {
+                body = JSON.parse(body)
+                if (error)
+                    console.log(error)
+                else {
                         if (body.length > 0) {
                             var face_id = body[0].persistedFaceId,
                                 confidence = body[0].confidence
@@ -85,43 +86,41 @@ module.exports = function(app) {
                                         res.write(JSON.stringify({ message: message, authenticated: true, name: user.name, confidence: confidence }))
                                         res.end()
                                     } else {
-                                    message = ` Unable to find a strong enough match.Confidence level was $ { percConf }%.`
-                    res.write(JSON.stringify({
-                    message: message
-                    , authenticated: false
+                                        message = ` Unable to find a strong enough match.Confidence level was $ { percConf }%.`
+                                        res.write(JSON.stringify({
+                                            message: message,
+                                            authenticated: false
+                                        }))
+                                        res.end()
+                                    }
+                                } else {
+                                    message = ` Unable to find a database obj that matches the face id`
+                                    res.write(JSON.stringify({
+                                        message: message, 
+                                        authenticated: false
+                                    }))
+                                    res.end()
+                                }
+                            })
+                        } else {
+                            message = ` Unable to find a face in the provided picture`
+                            res.write(JSON.stringify({
+                                message: message,
+                                authenticated: false
+                            }))
+                            res.end()
+                        }
+                    }
+                })
+            } else {
+                res.write(JSON.stringify( {
+                    message: ` Unable to find a face in the picture.`,
+                    authenticated: false
                 }))
                 res.end()
             }
-                } else {
-            message = ` Unable to find a database obj that matches the face id`
-            res.write(JSON.stringify({
-                message: message
-                , authenticated: false
-            }))
-            res.end()
-        }
-    })
-} else {
-message = ` Unable to find a face in the provided picture`
-res.write(JSON.stringify({
-    message: message
-    , authenticated: false
-}))
-res.end()
-}
-}
-})
-} else {
-res.write(JSON.stringify( {
-    message: ` Unable to find a face in the picture.`
-          , authenticated: false
-}))
-res.end()
-}
-})
-  });  
-      
-    
+        })
+  });    
    
 
   mirrorRouter.get('/mirror.js', function(req, res, next) {
