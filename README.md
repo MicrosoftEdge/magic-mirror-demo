@@ -48,6 +48,7 @@ Here are the steps to set it up.
 5. Choose 'From Existing Node.js' Code as project type
 6. Select location of your existing Node project
 7. Done
+
  
 ###Tips for Newcomers Using Node.js###
 We are using the following technologies to build our view:
