@@ -75,28 +75,29 @@ h1 {
 
 /* Allow user to toggle animations */
 .setup.anim-active {
-  -webkit-animation: AnimationName 20s ease infinite;
-  -moz-animation: AnimationName 20s ease infinite;
-  animation: AnimationName 20s ease infinite;
+  -webkit-animation: gradientAnim 20s ease infinite;
+  -moz-animation: gradientAnim 20s ease infinite;
+  animation: gradientAnim 20s ease infinite;
 }
 
-@-webkit-keyframes AnimationName {
+@-webkit-keyframes gradientAnim {
   0%{background-position:93% 0%}
   50%{background-position:0% 100%}
   100%{background-position:93% 0%}
 }
 
-@-moz-keyframes AnimationName {
+@-moz-keyframes gradientAnim {
   0%{background-position:93% 0%}
   50%{background-position:0% 100%}
   100%{background-position:93% 0%}
 }
 
-@keyframes AnimationName {
+@keyframes gradientAnim {
   0%{background-position:93% 0%}
   50%{background-position:0% 100%}
   100%{background-position:93% 0%}
 }
+
 .setup-content {
   position: relative;
   margin: 0 auto;
@@ -314,6 +315,55 @@ form #error {
   line-height: 1.25;
 }
 
+/* MIRROR UI STATE: FACE IN RANGE
+--------------------------------------------- */
+
+#face-in-range {
+  display: block;
+  position: absolute;
+  top: 50%;
+  margin-top: -400px;
+  left: 50%;
+  margin-left: -290px;
+}
+
+.face-detect-ring {
+  width: 580px;
+  height: 800px;
+  border-radius: 50%;
+  -webkit-animation: ringPulseAnim 2s ease infinite;
+  -moz-animation: ringPulseAnim 2s ease infinite;
+  animation: ringPulseAnim 2s ease infinite;
+}
+
+@-webkit-keyframes ringPulseAnim {
+  0% {box-shadow: inset 0 0 2px 0 #fff, 0 0 2px 0 #fff;}
+  25% {box-shadow: inset 0 0 10px 0 #fff, 0 0 10px 0 #fff;}
+  50% {box-shadow: inset 0 0 20px 0 #fff, 0 0 20px 0 #fff;}
+  75% {box-shadow: inset 0 0 10px 0 #fff, 0 0 10px 0 #fff;}
+  100% {box-shadow: inset 0 0 2px 0 #fff, 0 0 2px 0 #fff;}
+}
+
+/*
+@-moz-keyframes ringPulseAnim {
+  0%{background-position:93% 0%}
+  50%{background-position:0% 100%}
+  100%{background-position:93% 0%}
+}
+
+@keyframes ringPulseAnim {
+  0%{background-position:93% 0%}
+  50%{background-position:0% 100%}
+  100%{background-position:93% 0%}
+}
+*/
+
+.face-range-heading {
+  max-width: 520px;
+  font-family: "HKGroteskLight", "Segoe UI Light", Tahoma, sans-serif;
+  text-align: center;
+}
+
 /* MIRROR UI: WEATHER
 --------------------------------------------- */
 
@@ -329,7 +379,7 @@ form #error {
   padding: 20px;
   background: #fff;
   color: #000;
-  font-family: "HKGroteskBold", "Segoe UI Light", Tahoma, sans-serif;
+  font-family: "HKGroteskBold", "Segoe UI Bold", Tahoma, sans-serif;
 }
 
 .weather-icon {
