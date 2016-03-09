@@ -1,21 +1,14 @@
 <!-- WEATHER-->
-<div id="weather">
-  <div class="temperature">55°</div>
-  <div class="conditions"></div>
-  <div class="weather-location"></div>
-</div>
+{{> weather}}
 
   <!-- TIMELY CONTENT: TIMESTAMP AND ALERTS -->
   <div class="timely-content">
 
     <!-- TIMESTAMP -->
-    <div id="timestamp">
-      <div id="time"></div>
-      <span id="day"></span>, <span id="date"></span>
-    </div>
+    {{> timestamp}}
 
     <!-- TRAFFIC -->
-    <div id="traffic"></div>
+    {{> traffic}}
 
     <!-- TEMPORARY CONTENT @TODO: remove these -->
     <div class="controls">
@@ -33,10 +26,8 @@
 
 <!-- LOW PRIORITY CONTENT -->
 <div class="low-pri-content">
-  <div class="content-pane" id="stocks">
-    <ul class="ticker-list" id="watchList"></ul>
-  </div>
-  <div class="content-pane" id="newsFeed"></div>
+  {{> stocks}}
+  {{> newsFeed}}
 </div>
 
 
