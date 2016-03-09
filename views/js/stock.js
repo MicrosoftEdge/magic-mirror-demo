@@ -10,8 +10,36 @@
         var initialized = false;
         var watchList, refresh;       
         
-        console.log("stock route");
+        
+        function stockSmbFromDb() {            
+            getQuotes();
+            //$.ajax({
+            //    url: '/mirror/personInfo',
+            //    beforeSend: function (xhrObj) {
+            //        xhrObj.setRequestHeader('Content-Type', 'application/octet-stream');
+            //    },
+            //    type: 'POST',
+            //    data: byteArray,
+            //    processData: false
+            //})
+            //.done(function (result) {
+            //    var resultObj = JSON.parse(result)
+            //    if (resultObj.authenticated) {
+            //        authenticated = true
+            //        authenticating = false
+            //        message.innerText = resultObj.message;
+            //    } else {
+            //        //If authenticated is false, then there was no match so start fresh
+            //        Authenticate.logout();
+            //    }
+            //})
+            //.fail(function (e) {
+            //    console.error(e);
+            //});            
+        }        
+        
         function getQuotes() {
+            console.log('getQuotes is being called');
             $.get(url + encodeStocks, function (data) {
                 var stockData = JSON.parse(data.substr(3));
                 stockData.forEach(function (stock) {
@@ -78,7 +106,8 @@
         return {
             init: function () {
                 watchList = document.getElementById("watchList");
-                getQuotes();
+                stockSmbFromDb();
+                //getQuotes();
             }
         }
     })();
