@@ -6,6 +6,7 @@ module.exports = function(app) {
     , fs = require('fs')
     , request = require('request')
     , nconf = require('nconf').file({file: 'environment.json'}).env()
+    , quotes = JSON.parse(fs.readFileSync('quotes.json', 'utf8'))
     , oxfordKey = nconf.get("OXFORD_SECRET_KEY") // Subscription key for Project Oxford
     , oxfordEmotionKey = nconf.get("OXFORD_EMOTION_SECRET_KEY")
     , oxfordList = "magic-mirror-test"
@@ -80,7 +81,8 @@ module.exports = function(app) {
                         nonPositive += scores.neutral;
                     }
                     if (nonPositive >= threshold) {
-                        res.write("Cheer up!");
+                        var quote = quotes[Math.floor(Math.random()*quotes.length)];
+                        res.write(quote.quote + " - " + quote.author);
                     }
                 }
                 res.end();

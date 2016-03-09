@@ -20,7 +20,7 @@ var checkEmotion = true
 
 
 // Initializations
-var buttonAddFace, buttonReset, mediaCapture, video, message, prevMessage, snapshot, facesCanvas;
+var buttonAddFace, buttonReset, mediaCapture, video, message, prevMessage, snapshot, facesCanvas, quotePane, quoteText, quoteAuthor;
 
 var Capture = Windows.Media.Capture;
 var captureSettings = new Capture.MediaCaptureInitializationSettings;
@@ -146,7 +146,12 @@ Authenticate.determineEmotion = function(addFace) {
 			})
         .done(function (result) {
           console.log("successfully determined emotion");
-				  message.innerText = result;
+                //message.innerText = result;
+                if (result) {
+                    quoteText.innerText = result;
+                    //quoteAuthor.innerText = result.author;
+                }
+                console.log("setting timeout");
 				  setTimeout(function () {
 					  checkEmotion = true;
 				  }, 20000);
@@ -214,6 +219,9 @@ Authenticate.init = function() {
   message = document.getElementById('message');
   facesCanvas = document.getElementById('facesCanvas');
   video = document.getElementById('video');
+  quotePane = document.getElementById('quotePane');
+  quoteText = document.getElementById('quoteText');
+  quoteAuthor = document.getElementById('quoteAuthor');
   facesCanvas.width = video.offsetWidth;
   facesCanvas.height = video.offsetHeight;
   Authenticate.findCameraDeviceByPanelAsync(DeviceEnumeration.Panel.back).then(
