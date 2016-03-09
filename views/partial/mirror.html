@@ -1,22 +1,21 @@
-  <!-- ALERTS -->
-  <div class="eyelevel-left">
-  <div id="video" style="position: relative">
-    <video id="cameraPreview" class="cameraPreview" style="position: absolute"></video>
-    <canvas id="facesCanvas" width="640" height="480" style="position: absolute"></canvas>
-  </div>
+<!-- WEATHER-->
+<div id="weather">
+  <div class="temperature">55°</div>
+  <div class="conditions"></div>
+  <div class="weather-location"></div>
 </div>
 
-  <!-- TIME AND WEATHER-->
-  <div class="eyelevel-right">
+  <!-- TIMELY CONTENT: TIMESTAMP AND ALERTS -->
+  <div class="timely-content">
+
+    <!-- TIMESTAMP -->
     <div id="timestamp">
       <div id="time"></div>
       <span id="day"></span>, <span id="date"></span>
     </div>
-    <div id="weather">
-      <div class="temperature">55°</div>
-      <div class="conditions"></div>
-      <div class="weather-location"></div>
-    </div>
+
+    <!-- TRAFFIC -->
+    <div id="traffic"></div>
 
     <!-- TEMPORARY CONTENT @TODO: remove these -->
     <div class="controls">
@@ -25,17 +24,20 @@
       <a href="/create">Create Profile</a>
     </div>
 
+    <div id="video" style="position: relative">
+      <video id="cameraPreview" class="cameraPreview" style="position: absolute"></video>
+      <canvas id="facesCanvas" width="640" height="480" style="position: absolute"></canvas>
+    </div>
+
   </div>
 
-<div id="traffic"></div>
-
-<!-- USER CONTENT -->
-<div class="user-content">
+<!-- LOW PRIORITY CONTENT -->
+<div class="low-pri-content">
   <div class="content-pane" id="stocks">
     <ul class="ticker-list" id="watchList"></ul>
   </div>
   <div class="content-pane" id="newsFeed"></div>
-    </div>
+</div>
 
 
 <script src="https://code.jquery.com/jquery-2.2.1.js"></script>

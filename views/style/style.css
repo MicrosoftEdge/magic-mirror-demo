@@ -314,45 +314,18 @@ form #error {
   line-height: 1.25;
 }
 
-/* MIRROR UI: EYE-LEVEL, LEFT SIDE
- * (Alerts that warrant priority placement)
- * @TODO: Style the stuff that goes in it
+/* MIRROR UI: WEATHER
 --------------------------------------------- */
 
-.eyelevel-left,
-.eyelevel-right {
+#weather,
+.timely {
   position: absolute;
   top: 40px;
   max-width: 400px;
 }
 
-.eyelevel-left {
-  left: 40px;
-}
-
-/* MIRROR UI: EYE-LEVEL, RIGHT SIDE
- * (Time and weather)
- * @TODO: Add weather icons
---------------------------------------------- */
-
-.eyelevel-right {
-  position: absolute;
-  top: 40px;
-  right: 40px;
-}
-
-/* TIMESTAMP */
-#timestamp {
-  margin-bottom: 32px;
-}
-
-#time {
-  font: 160px/1 "HKGroteskLight", "Segoe UI Light", Tahoma, sans-serif;
-}
-
-/* WEATHER */
 #weather {
-  position: relative;
+  left: 40px;
   padding: 20px;
   background: #fff;
   color: #000;
@@ -379,9 +352,29 @@ form #error {
   letter-spacing: 1px;
 }
 
+/* MIRROR UI: TIMELY CONTENT
+ * (Timestamp and high-priority alerts)
+ * @TODO: Add weather icons
+--------------------------------------------- */
+
+.timely-content {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+}
+
+#timestamp {
+  text-align: center;
+}
+
+#time {
+  font: 160px/1 "HKGroteskLight", "Segoe UI Light", Tahoma, sans-serif;
+}
+
 /* TEMPORARY CONTROLS
  * @TODO: Remove these */
 .mirror .controls {
+  margin-top: 2em;
   font-size: 16px;
 }
 
@@ -401,7 +394,7 @@ form #error {
    (Stocks, etc.)
 --------------------------------------------- */
 
-.user-content {
+.low-pri-content {
   position: absolute;
   left: 0;
   bottom: 0;
