@@ -8,7 +8,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-size: 150%;
+  font-size: 125%;
   line-height: 1.333;
   font-family: "HKGroteskRegular", "Segoe UI", Tahoma, sans-serif;
 }
@@ -28,6 +28,10 @@ h1 {
 
 @media (min-width: 40em) {
 
+  body {
+    font-size: 150%;
+  }
+
   h1 {
     font-size: 3.5em;
   }
@@ -39,9 +43,38 @@ h1 {
 
 .setup {
   padding: 1em;
-  background: #dedede;
+  background: #dce9e8;
   background: linear-gradient(227deg, #dce9e8, #dedede, #bdd0d5, #dedede);
   background-size: 800% 800%;
+  text-align: center;
+}
+
+.anim-button {
+  display: none;
+  margin-bottom: 2em;
+  border: 2px solid #000;
+  padding: .25em;
+  background: transparent;
+  font: 400 normal .625em "HKGroteskBold", "Segoe UI Bold", Tahoma, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  opacity: .6;
+}
+
+.anim-button:hover {
+  background: #000;
+  color: #fff;
+  opacity: 1;
+}
+
+
+.anim-button:active {
+  background: #fff;
+  color: #000;
+}
+
+/* Allow user to toggle animations */
+.setup.anim-active {
   -webkit-animation: AnimationName 20s ease infinite;
   -moz-animation: AnimationName 20s ease infinite;
   animation: AnimationName 20s ease infinite;
@@ -64,11 +97,6 @@ h1 {
   50%{background-position:0% 100%}
   100%{background-position:93% 0%}
 }
-
-.setup-header {
-  text-align: center;
-}
-
 .setup-content {
   position: relative;
   margin: 0 auto;
@@ -77,6 +105,7 @@ h1 {
   width: 100%;
   max-width: 40em;
   border-top: 8px solid #efefef;
+  text-align: left;
 }
 
 .setup-content::before {
@@ -175,6 +204,12 @@ form #error {
 
   .setup {
     padding: 3em;
+  }
+
+  .anim-button {
+    position: fixed;
+    top: 2em;
+    right: 2em;
   }
 
   .setup-content {

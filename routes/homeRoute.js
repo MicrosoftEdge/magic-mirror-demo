@@ -25,5 +25,11 @@ module.exports = function(app, settings) {
     res.end();
   });
 
+  rootRouter.get('/setupUtilities.js', function(req, res, next) {
+    res.writeHead(200, { 'Content-Type': 'text/js' });
+    res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/setupUtilities.js'), 'utf8'));
+    res.end();
+  });
+
   app.use('/', rootRouter);
 };
