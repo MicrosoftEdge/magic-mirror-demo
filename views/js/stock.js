@@ -79,7 +79,7 @@
                 watchList = document.getElementById("watchList");
                 getQuotes();
             }
-        }
+        };
     })();
 
     window.Stock = Stock;

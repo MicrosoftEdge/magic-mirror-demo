@@ -174,8 +174,7 @@ Weather.Current.prototype.city = function () {
 
 sentenceCase = function (s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
-}
-
+};
 Weather.Current.prototype.conditions = function () {
   var weatherConditions = this.data.weather[0].description;
   return sentenceCase(weatherConditions);

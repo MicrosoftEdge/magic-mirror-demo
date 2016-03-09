@@ -6,7 +6,7 @@
 
         var waypoint0 = "Seattle, WA";
         var waypoint1 = "Redmond, WA";
-        var bingApiKey = ""
+        var bingApiKey = "";
         var url = `http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=${waypoint0}&wp.1=${waypoint1}&optmz=timeWithTraffic&key=${bingApiKey}`;
         var initialized = false;
         var refresh, traffic, trafficElement;
@@ -31,7 +31,7 @@
                     trafficElement.innerText = `Travel Time from ${waypoint0} to ${waypoint1} ${trafficCongestion == "None" ? "" : "(including traffic)"}: ${(travelDuration / 60).toFixed(0) } minutes`;
 
                     if (!initialized) {
-                        traffic.appendChild(trafficElement)
+                        traffic.appendChild(trafficElement);
                     }
 
                     if (!initialized) {
@@ -49,7 +49,7 @@
                 traffic = document.getElementById("traffic");
                 getTravelDuration();
             }
-        }
+        };
     })();
 
     window.Traffic = Traffic;
