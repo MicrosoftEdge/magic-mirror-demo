@@ -12,7 +12,6 @@ var express = require('express')
   , nconf = require('nconf').file({file: 'environment.json'}).env()
   , connectionString = nconf.get('CUSTOMCONNSTR_MONGOLAB_URI');
   
-  //process.env.CUSTOMCONNSTR_MONGOLAB_URI;
 //Database
 mongoose.connect(connectionString);
 
@@ -36,7 +35,9 @@ var Person = mongoose.model('Person', mongoose.Schema({
   email: String,
   zipcode: String,
   face_id: String,
-  stock: String
+  stock: String,
+  homeAddress: String,
+  workAddress: String
 }));
 
 handlebars = exphbr.create({
