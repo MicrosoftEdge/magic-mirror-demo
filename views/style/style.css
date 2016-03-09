@@ -309,24 +309,139 @@ form #error {
 --------------------------------------------- */
 
 .mirror {
+  padding: 1.5em;
   background: #000;
   color: #fff;
   font-size: 32px;
   line-height: 1.25;
 }
 
-/* MIRROR UI STATE: FACE IN RANGE
---------------------------------------------- */
-
-#face-in-range {
-  display: block;
-  position: absolute;
-  top: 50%;
-  margin-top: -400px;
-  left: 50%;
-  margin-left: -290px;
+/* MIRROR UI LAYOUT
+ * Notes: the flexbox layout work in this section
+ * anchors eye-level stuff to the top, centers
+ * the face detection/greetings in the middle,
+ * and pushes low-priority content to the bottom. */
+.auth-states {
+  margin: 1.5em auto;
 }
 
+@media (min-width: 50em) {
+
+  .mirror, .auth-state {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+  }
+
+  .mirror {
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  .eyelevel {
+    align-self: flex-start;
+    width: 100%;
+  }
+
+  .auth-states {
+    display: block;
+    margin: 3em auto;
+  }
+
+  .auth-state-content {
+    flex: 1;
+  }
+
+  .low-pri-content {
+    align-self: flex-end;
+    width: 100%;
+  }
+
+  #weather {
+    float: left;
+  }
+
+  .timely-content {
+    float: right;
+  }
+
+}
+
+/* MIRROR UI: WEATHER
+--------------------------------------------- */
+
+#weather {
+  padding: 1em;
+  background: #fff;
+  color: #000;
+  font-family: "HKGroteskBold", "Segoe UI Bold", Tahoma, sans-serif;
+}
+
+.weather-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.temperature {
+  font-size: 80px;
+}
+
+.conditions {
+  font-size: 40px;
+}
+
+.weather-location {
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* MIRROR UI: TIMELY CONTENT
+ * (Timestamp and high-priority alerts)
+ * @TODO: Add weather icons
+--------------------------------------------- */
+
+#timestamp {
+  text-align: center;
+}
+
+#time {
+  font: 160px/1 "HKGroteskLight", "Segoe UI Light", Tahoma, sans-serif;
+}
+
+/* TEMPORARY CONTROLS
+ * @TODO: Remove these */
+.mirror .controls {
+  margin-top: 2em;
+  font-size: 16px;
+}
+
+.mirror .controls button,
+.mirror .controls a {
+  display: inline-block;
+  vertical-align: middle;
+  border: 0;
+  outline: none;
+  text-decoration: none;
+  padding: 10px;
+  background: #fff;
+  color: #000;
+}
+
+/* AUTH STATES
+--------------------------------------------- */
+
+.auth-state {
+  font-family: "HKGroteskLight", "Segoe UI Light", Tahoma, sans-serif;
+  text-align: center;
+}
+
+.auth-state-content {
+  flex: 1;
+}
+
+/* STATE: FACE NEARBY, TRYING TO DETECT */
 .face-detect-ring {
   position: relative;
   width: 580px;
@@ -366,110 +481,9 @@ form #error {
   100% {opacity: 1;}
 }
 
-.face-range-heading {
-  max-width: 520px;
-  font-family: "HKGroteskLight", "Segoe UI Light", Tahoma, sans-serif;
-  text-align: center;
-}
-
-/* MIRROR UI: WEATHER
---------------------------------------------- */
-
-#weather,
-.timely {
-  position: absolute;
-  top: 40px;
-  max-width: 400px;
-}
-
-#weather {
-  left: 40px;
-  padding: 20px;
-  background: #fff;
-  color: #000;
-  font-family: "HKGroteskBold", "Segoe UI Bold", Tahoma, sans-serif;
-}
-
-.weather-icon {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-}
-
-.temperature {
-  font-size: 80px;
-}
-
-.conditions {
-  font-size: 40px;
-}
-
-.weather-location {
-  font-size: 16px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* MIRROR UI: TIMELY CONTENT
- * (Timestamp and high-priority alerts)
- * @TODO: Add weather icons
---------------------------------------------- */
-
-.timely-content {
-  position: absolute;
-  top: 40px;
-  right: 40px;
-}
-
-#timestamp {
-  text-align: center;
-}
-
-#time {
-  font: 160px/1 "HKGroteskLight", "Segoe UI Light", Tahoma, sans-serif;
-}
-
-/* TEMPORARY CONTROLS
- * @TODO: Remove these */
-.mirror .controls {
-  margin-top: 2em;
-  font-size: 16px;
-}
-
-.mirror .controls button,
-.mirror .controls a {
-  display: inline-block;
-  vertical-align: middle;
-  border: 0;
-  outline: none;
-  text-decoration: none;
-  padding: 10px;
-  background: #fff;
-  color: #000;
-}
-
 /* MIRROR UI: USER CONTENT
    (Stocks, etc.)
 --------------------------------------------- */
-
-.low-pri-content {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-}
-
-.content-pane {
-  display: none;
-  position: absolute;
-  left: 40px;
-  bottom: 40px;
-  width: 100%;
-}
-
-.content-pane:first-child {
-  display: block;
-}
 
 /* STOCKS */
 .ticker-list {
