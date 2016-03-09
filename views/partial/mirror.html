@@ -1,5 +1,7 @@
-<!-- WEATHER-->
-{{> weather}}
+<div class="clear eyelevel">
+
+  <!-- WEATHER-->
+  {{> weather}}
 
   <!-- TIMELY CONTENT: TIMESTAMP AND ALERTS -->
   <div class="timely-content">
@@ -24,11 +26,21 @@
 
   </div>
 
+</div>
+
+<!-- AUTH STATES -->
+<section class="auth-states">
+
+  <!-- FACE DETECTED W/IN RANGE -->
+  {{> faceInRange }}
+
+</section>
+
 <!-- LOW PRIORITY CONTENT -->
-<div class="low-pri-content">
+<section class="low-pri-content">
   {{> stocks}}
   {{> newsFeed}}
-</div>
+</section>
 
 
 <script src="https://code.jquery.com/jquery-2.2.1.js"></script>

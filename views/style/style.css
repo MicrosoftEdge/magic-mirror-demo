@@ -75,28 +75,29 @@ h1 {
 
 /* Allow user to toggle animations */
 .setup.anim-active {
-  -webkit-animation: AnimationName 20s ease infinite;
-  -moz-animation: AnimationName 20s ease infinite;
-  animation: AnimationName 20s ease infinite;
+  -webkit-animation: gradientAnim 20s ease infinite;
+  -moz-animation: gradientAnim 20s ease infinite;
+  animation: gradientAnim 20s ease infinite;
 }
 
-@-webkit-keyframes AnimationName {
+@-webkit-keyframes gradientAnim {
   0%{background-position:93% 0%}
   50%{background-position:0% 100%}
   100%{background-position:93% 0%}
 }
 
-@-moz-keyframes AnimationName {
+@-moz-keyframes gradientAnim {
   0%{background-position:93% 0%}
   50%{background-position:0% 100%}
   100%{background-position:93% 0%}
 }
 
-@keyframes AnimationName {
+@keyframes gradientAnim {
   0%{background-position:93% 0%}
   50%{background-position:0% 100%}
   100%{background-position:93% 0%}
 }
+
 .setup-content {
   position: relative;
   margin: 0 auto;
@@ -308,28 +309,72 @@ form #error {
 --------------------------------------------- */
 
 .mirror {
+  padding: 1.5em;
   background: #000;
   color: #fff;
   font-size: 32px;
   line-height: 1.25;
 }
 
+/* MIRROR UI LAYOUT
+ * Notes: the flexbox layout work in this section
+ * anchors eye-level stuff to the top, centers
+ * the face detection/greetings in the middle,
+ * and pushes low-priority content to the bottom. */
+.auth-states {
+  margin: 1.5em auto;
+}
+
+@media (min-width: 50em) {
+
+  .mirror, .auth-state {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+  }
+
+  .mirror {
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  .eyelevel {
+    align-self: flex-start;
+    width: 100%;
+  }
+
+  .auth-states {
+    display: block;
+    margin: 3em auto;
+  }
+
+  .auth-state-content {
+    flex: 1;
+  }
+
+  .low-pri-content {
+    align-self: flex-end;
+    width: 100%;
+  }
+
+  #weather {
+    float: left;
+  }
+
+  .timely-content {
+    float: right;
+  }
+
+}
+
 /* MIRROR UI: WEATHER
 --------------------------------------------- */
 
-#weather,
-.timely {
-  position: absolute;
-  top: 40px;
-  max-width: 400px;
-}
-
 #weather {
-  left: 40px;
-  padding: 20px;
+  padding: 1em;
   background: #fff;
   color: #000;
-  font-family: "HKGroteskBold", "Segoe UI Light", Tahoma, sans-serif;
+  font-family: "HKGroteskBold", "Segoe UI Bold", Tahoma, sans-serif;
 }
 
 .weather-icon {
@@ -356,12 +401,6 @@ form #error {
  * (Timestamp and high-priority alerts)
  * @TODO: Add weather icons
 --------------------------------------------- */
-
-.timely-content {
-  position: absolute;
-  top: 40px;
-  right: 40px;
-}
 
 #timestamp {
   text-align: center;
@@ -390,28 +429,61 @@ form #error {
   color: #000;
 }
 
+/* AUTH STATES
+--------------------------------------------- */
+
+.auth-state {
+  font-family: "HKGroteskLight", "Segoe UI Light", Tahoma, sans-serif;
+  text-align: center;
+}
+
+.auth-state-content {
+  flex: 1;
+}
+
+/* STATE: FACE NEARBY, TRYING TO DETECT */
+.face-detect-ring {
+  position: relative;
+  width: 580px;
+  height: 800px;
+}
+
+.face-detect-ring::before {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: inset 0 0 15px 0 #fff, 0 0 30px 0 #fff;
+  -webkit-animation: 2s ringPulseAnim infinite alternate ease-in-out;
+  -moz-animation: 2s ringPulseAnim infinite alternate ease-in-out;
+  animation: 2s ringPulseAnim infinite alternate ease-in-out;
+  content: '';
+}
+
+@-webkit-keyframes ringPulseAnim {
+  0% {opacity: 0;}
+  95% {opacity: 1;}
+  100% {opacity: 1;}
+}
+
+@-moz-keyframes ringPulseAnim {
+  0% {opacity: 0;}
+  95% {opacity: 1;}
+  100% {opacity: 1;}
+}
+
+@keyframes ringPulseAnim {
+  0% {opacity: 0;}
+  95% {opacity: 1;}
+  100% {opacity: 1;}
+}
+
 /* MIRROR UI: USER CONTENT
    (Stocks, etc.)
 --------------------------------------------- */
-
-.low-pri-content {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-}
-
-.content-pane {
-  display: none;
-  position: absolute;
-  left: 40px;
-  bottom: 40px;
-  width: 100%;
-}
-
-.content-pane:first-child {
-  display: block;
-}
 
 /* STOCKS */
 .ticker-list {
