@@ -8,19 +8,17 @@ var minFaceThresholds = {
 var faceThresholds = {
   width: 40
   , height: 100
-}
-var mirroring = true
+};
+var mirroring = true;
 var stabilizationTime = 1000; // in milliseconds
 var maxDistance = 40;
 var maxChange = 5;
 var logoutTime = 5000; // in milliseconds
 
 // State variables
-var authenticating = false
-var authenticated = false
-var faceDetected = false
-
-// Initializations
+var authenticating = false;
+var authenticated = false;
+var faceDetected = false; // Initializations
 var buttonAddFace, buttonReset, mediaCapture, video, message, prevMessage, snapshot, facesCanvas, logoutTimeout;
 var Capture = Windows.Media.Capture;
 var captureSettings = new Capture.MediaCaptureInitializationSettings;
@@ -63,8 +61,7 @@ function isStable(face) {
   return false;
 }
 
-var Authenticate = {}
-
+var Authenticate = {};
 Authenticate.findCameraDeviceByPanelAsync = function (panel) {
   var deviceInfo;
   return DeviceEnumeration.DeviceInformation.findAllAsync(DeviceEnumeration.DeviceClass.videoCapture).then(
@@ -79,8 +76,7 @@ Authenticate.findCameraDeviceByPanelAsync = function (panel) {
       return !deviceInfo && devices.length > 0 ? devices.getAt(0) : deviceInfo;
     }
   );
-}
-
+};
 Authenticate.takePhoto = function(addFace) {
   isAuthenticated = true;
   var Storage = Windows.Storage;
@@ -105,11 +101,11 @@ Authenticate.takePhoto = function(addFace) {
         processData: false
       })
       .done(function(result) {
-        var resultObj = JSON.parse(result)
-        if(resultObj.authenticated){
-          authenticated = true
-          authenticating = false
-          message.innerText = resultObj.message;
+        var resultObj = JSON.parse(result);
+              if(resultObj.authenticated){
+          authenticated = true;
+                  authenticating = false;
+                  message.innerText = resultObj.message;
           document.dispatchEvent(new CustomEvent("mirrorstatechange", {
             detail: MIRROR_STATES.LOGGED_IN
           }));
@@ -127,8 +123,7 @@ Authenticate.takePhoto = function(addFace) {
 
     });
   });
-}
-
+};
 Authenticate.handleFaces = function(args) {
   var context = facesCanvas.getContext('2d');
   context.clearRect(0, 0, facesCanvas.width, facesCanvas.height);
@@ -171,8 +166,8 @@ Authenticate.handleFaces = function(args) {
         if(i == 0 && face.width > faceThresholds.width && face.height > faceThresholds.height) {
           sufficientDimensions = true;
           if (!authenticating && isStable(face)) {
-            authenticating = true
-            Authenticate.takePhoto() 
+            authenticating = true;
+              Authenticate.takePhoto();
           }
         }
       }
@@ -207,31 +202,28 @@ Authenticate.handleFaces = function(args) {
       }
     }
   }
-}
-
+};
 Authenticate.logout = function () {
   message.innerText = ''; 
   authenticating = false;
   authenticated = false;
   timeoutSet = false;
   logoutTimeout = null;
-}
-
+};
 Authenticate.mirrorPreview= function () {
   var props = mediaCapture.videoDeviceController.getMediaStreamProperties(Capture.MediaStreamType.videoPreview);
   props.properties.insert('C380465D-2271-428C-9B83-ECEA3B4A85C1', 0);
   return mediaCapture.setEncodingPropertiesAsync(Capture.MediaStreamType.videoPreview, props, null);
-}
-
+};
 Authenticate.init = function() {
   if (typeof Windows == 'undefined') {
     console.log('Windows is not available');
     return;
   }
 
-  buttonReset = document.getElementById('buttonReset')
-  buttonReset.addEventListener('click', Authenticate.logout)
-  message = document.getElementById('message');
+  buttonReset = document.getElementById('buttonReset');
+    buttonReset.addEventListener('click', Authenticate.logout);
+    message = document.getElementById('message');
   facesCanvas = document.getElementById('facesCanvas');
   video = document.getElementById('video');
   Authenticate.findCameraDeviceByPanelAsync(DeviceEnumeration.Panel.back).then(
@@ -271,6 +263,5 @@ Authenticate.init = function() {
       );
     }
   );
-}
-
-window.Authenticate = Authenticate
+};
+window.Authenticate = Authenticate;

@@ -105,7 +105,7 @@
                 headlines = [];
                 getList();
             }
-        }
+        };
     })();
 
     window.News = News;
