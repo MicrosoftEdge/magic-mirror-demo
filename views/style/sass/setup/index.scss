@@ -1,0 +1,213 @@
+/* ACCOUNT SETUP
+--------------------------------------------- */
+
+.setup {
+  padding: 1em;
+  background: $color-setup-bg;
+  background: linear-gradient(227deg, $color-setup-bg, $color-setup-bg2, $color-setup-bg3, $color-setup-bg2);
+  background-size: 800% 800%;
+  text-align: center;
+}
+
+.anim-button {
+  display: none;
+  margin-bottom: 2em;
+  border: 2px solid #000;
+  padding: .25em;
+  background: transparent;
+  font: 400 normal .625em $font-bold;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  opacity: .6;
+}
+
+.anim-button:hover {
+  background: #000;
+  color: #fff;
+  opacity: 1;
+}
+
+
+.anim-button:active {
+  background: #fff;
+  color: #000;
+}
+
+/* Allow user to toggle animations */
+.setup.anim-active {
+  -webkit-animation: gradientAnim 20s ease infinite;
+  -moz-animation: gradientAnim 20s ease infinite;
+  animation: gradientAnim 20s ease infinite;
+}
+
+@-webkit-keyframes gradientAnim {
+  0%{background-position:93% 0%}
+  50%{background-position:0% 100%}
+  100%{background-position:93% 0%}
+}
+
+@-moz-keyframes gradientAnim {
+  0%{background-position:93% 0%}
+  50%{background-position:0% 100%}
+  100%{background-position:93% 0%}
+}
+
+@keyframes gradientAnim {
+  0%{background-position:93% 0%}
+  50%{background-position:0% 100%}
+  100%{background-position:93% 0%}
+}
+
+.setup-content {
+  position: relative;
+  margin: 0 auto;
+  padding: 1em;
+  background: #fff;
+  width: 100%;
+  max-width: 40em;
+  border-top: 8px solid #efefef;
+  text-align: left;
+}
+
+.setup-content::before {
+  display: block;
+  position: absolute;
+  top: -8px;
+  left: 0;
+  width: 0;
+  height: 8px;
+  content: '';
+  background: #000;
+}
+
+.setup-pagination {
+  margin: 0 auto 1em;
+  text-align: center;
+  color: #5b5b5b;
+}
+
+.pagination-title {
+  margin: 0 0 .5em;
+  font: 400 normal 1em/1 $font-bold;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.pagination-title + p {
+  margin: 0;
+}
+
+/* FORMS */
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+input, button {
+  padding: .5em;
+  border: 0;
+  outline: 0;
+  font-size: 1em;
+  font-family: $font-regular;
+}
+
+label {
+  display: block;
+}
+
+input[type="text"],
+input[type="email"] {
+  display: block;
+  border: 2px solid #777;
+  width: 100%;
+  color: #5b5b5b;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+  position: relative;
+  border-color: #000;
+  background: #eff3f3;
+  color: #000;
+}
+
+input[type="submit"], button {
+  cursor: pointer;
+}
+
+form #error {
+  margin: 2em 0 0;
+  color: #cd0a0a;
+}
+
+.field-item {
+  margin-bottom: 1em;
+}
+
+.submit-wrapper {
+  margin-top: 2em;
+}
+
+.back-btn,
+.forward-btn {
+  float: left;
+  background: transparent;
+  padding: .5em 0;
+  text-decoration: none;
+}
+
+.forward-btn {
+  float: right;
+}
+
+@media (min-width: 40em) {
+
+  .setup {
+    padding: 3em;
+  }
+
+  .anim-button {
+    position: fixed;
+    top: 2em;
+    right: 2em;
+  }
+
+  .setup-content {
+    padding: 2em;
+    text-align: center;
+  }
+
+  .setup-pagination {
+    margin-bottom: 2em;
+  }
+
+  .field-item label,
+  .field-item input {
+    display: inline-block;
+  }
+
+  .field-item label {
+    padding-right: 1em;
+    width: 30%;
+    text-align: left;
+  }
+
+  .field-item input[type="text"],
+  .field-item input[type="email"] {
+    padding: .5em .25em;
+    width: 60%;
+    border-width: 0;
+    border-bottom-width: 2px;
+  }
+
+  .submit-wrapper {
+    margin: 0 auto;
+    width: 90%;
+  }
+
+}
+
+/* SUBSECTIONS OF ACCOUNT SETUP */
+@import 'setup/create-profile';
+@import 'setup/capture-face';
