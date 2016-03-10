@@ -173,12 +173,12 @@ Authenticate.handleFaces = function(args) {
       }
       
 
-      context.beginPath();
-      context.rect(face.x, face.y, face.width, face.height);
-      context.lineWidth = 3;
-      context.strokeStyle = faceboxColors[sufficientDimensions && i == 0 ? 1 : 0];
-      context.stroke();
-      context.closePath();
+      // context.beginPath();
+      // context.rect(face.x, face.y, face.width, face.height);
+      // context.lineWidth = 3;
+      // context.strokeStyle = faceboxColors[sufficientDimensions && i == 0 ? 1 : 0];
+      // context.stroke();
+      // context.closePath();
 
       if (mirroring) {
         facesCanvas.style.transform = 'scale(-1, 1)';
