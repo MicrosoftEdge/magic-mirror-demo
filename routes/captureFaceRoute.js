@@ -55,7 +55,8 @@ module.exports = function(app) {
     })
   });
 
-  captureFaceRouter.post('/authenticate', function(req, res, next) {
+    captureFaceRouter.post('/authenticate', function (req, res, next) {
+    var authenFuncGlobalReq = req;
     console.log('authenticate server route post')
     request.post({
       url: 'https://api.projectoxford.ai/face/v1.0/detect',
@@ -100,9 +101,8 @@ module.exports = function(app) {
                   }))
                   res.end()
                 }
-                if(user){                    
-                    session = user; // assign user info to a global session variable
-                    console.log('capture route phase', session);
+                if (user) {                                                                         
+                 authenFuncGlobalReq.session.data = user; // assign user info to a global session variable                                    
                   var message, percConf = confidence.toFixed(4) * 100
                   if (confidence >= minConfidence) {
                     message = `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`

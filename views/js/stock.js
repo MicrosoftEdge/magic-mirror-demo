@@ -7,19 +7,14 @@
        
         var url = "http://finance.google.com/finance/info?client=ig&q=";
         var initialized = false;
-        var watchList, refresh;               
-        
+        var watchList, refresh;
+                
         function stockSmbFromDb() {            
             $.ajax({
                 type: 'GET',
-                url: '/mirror/stock',
-                //beforeSend: function (xhrObj) {
-                //    xhrObj.setRequestHeader('Content-Type', 'application/octet-stream');
-                //},
-                success: function (result) {
-                    console.log('the delivered value is ', result);
+                url: '/mirror/stock',    
+                success: function (result) {                    
                     result = JSON.parse(result);
-                    console.log('converted json value is ', result);
                     getQuotes(result);
                 }
             });            
@@ -30,7 +25,6 @@
             for (var iter in result.stock) {
                 stocks.push(result.stock[iter]);
             }
-
             var encodeStocks = stocks.join();
             console.log('getQuotes is being called with the following encodeStocs value ', encodeStocks);
             $.get(url + encodeStocks, function (data) {
@@ -63,7 +57,6 @@
                         tickerChange = document.createElement("div");
                         tickerChange.classList.add("price-change");
                         ticker.appendChild(tickerChange);
-
                     }
                     else {
                         ticker = document.getElementById(symbol);

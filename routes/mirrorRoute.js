@@ -38,9 +38,8 @@ module.exports = function(app) {
   });
     
   mirrorRouter.get('/stock/', function (req, res, next) {
-    var newSession = { "stock": ['F'] };
-    console.log('stock AJAX call');
-    console.log('global object', session);
+    var newSession = { "stock": ['F'] };    
+    console.log('Mirror Stock Route Object', req.session.data);
     res.end(JSON.stringify(newSession));
   });
     

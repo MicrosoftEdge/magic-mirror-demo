@@ -8,6 +8,7 @@
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.13.0",
     "formidable": "^1.0.17",
     "mongoose": "^4.4.5",
     "nconf": "^0.8.4",
