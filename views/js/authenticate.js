@@ -1,6 +1,10 @@
 var detectionInterval = 33; // 33ms is fastest, 200ms is default
-var faceboxColors = ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f', '#9b59b6', '#e67e22']; // Hex color values for each facebox; will cycle if there are more faceboxes than colors
+var faceboxColors = ['#e74c3c', '#2ecc71']; // Hex colors for facebox
 var minConfidence = 0.5; // Minimum confidence level for successful face authentication, range from 0 to 1
+var minFaceThresholds = {
+  width: 20,
+  height: 50
+};
 var faceThresholds = {
   width: 40
   , height: 100
@@ -9,18 +13,16 @@ var mirroring = true
 var stabilizationTime = 1000; // in milliseconds
 var maxDistance = 40;
 var maxChange = 5;
-var cycles = Math.floor(stabilizationTime / detectionInterval);
-var stabilizationCounter = 0;
-var prevX, prevY, prevWidth, prevHeight;
+var logoutTime = 5000; // in milliseconds
 
 // State variables
 var authenticating = false
 var authenticated = false
+var faceDetected = false
 var checkEmotion = true
 
-
 // Initializations
-var buttonAddFace, buttonReset, mediaCapture, video, message, prevMessage, snapshot, facesCanvas, quotePane, quoteText, quoteAuthor;
+var buttonAddFace, buttonReset, mediaCapture, video, message, prevMessage, snapshot, facesCanvas, logoutTimeout, quotePane, quoteText, quoteAuthor;
 
 var Capture = Windows.Media.Capture;
 var captureSettings = new Capture.MediaCaptureInitializationSettings;
@@ -28,7 +30,11 @@ var DeviceEnumeration = Windows.Devices.Enumeration;
 var displayRequest = new Windows.System.Display.DisplayRequest();
 var effectDefinition = new Windows.Media.Core.FaceDetectionEffectDefinition();
 var isAuthenticated = false;
+var cycles = Math.floor(stabilizationTime / detectionInterval);
+var stabilizationCounter = 0;
+var prevX, prevY, prevWidth, prevHeight;
 var mediaStreamType = Capture.MediaStreamType.videoRecord;
+var timeoutSet = false;
 
 function isStable(face) {
   if (stabilizationCounter == cycles) {
@@ -106,11 +112,15 @@ Authenticate.takePhoto = function(addFace) {
           authenticated = true
           authenticating = false
           message.innerText = resultObj.message; 
+          document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+            detail: MIRROR_STATES.LOGGED_IN
+          }));
         } else {
           //If authenticated is false, then there was no match so start fresh
-          authenticated = false
-          authenticating = false
-          message.innerText = ''
+          Authenticate.logout();
+          document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+            detail: MIRROR_STATES.NOT_DETECTED
+          }));
         }
       })
       .fail(function(e) {
@@ -174,33 +184,92 @@ Authenticate.handleFaces = function(args) {
   var detectedFaces = args.resultFrame.detectedFaces;
   var numFaces = detectedFaces.length;
   if (numFaces > 0) {
+    if (authenticated && timeoutSet) {
+      timeoutSet = false;
+      clearTimeout(logoutTimeout);
+      document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+        detail: MIRROR_STATES.LOGGED_IN
+      }));
+    }
+
     var face;
 
     for (var i = 0; i < numFaces; i++) {
       face = detectedFaces.getAt(i).faceBox;
+
+      var sufficientDimensions = false;
+
+      if (!authenticated) {
+        if (face.width > minFaceThresholds.width && face.height > minFaceThresholds.height) {
+          if (!faceDetected) {
+            faceDetected = true;
+            document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+              detail: MIRROR_STATES.FACE_CLOSE
+            }));
+          }
+        }
+        else {
+          if (faceDetected) {
+            faceDetected = false;
+            document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+              detail: MIRROR_STATES.BLANK
+            }));
+          }
+        }
+
+        if(i == 0 && face.width > faceThresholds.width && face.height > faceThresholds.height) {
+          sufficientDimensions = true;
+          if (!authenticating && isStable(face)) {
+            authenticating = true
+            Authenticate.takePhoto() 
+          }
+        }
+      }
+      
+
       context.beginPath();
       context.rect(face.x, face.y, face.width, face.height);
       context.lineWidth = 3;
-      context.strokeStyle = faceboxColors[i % faceboxColors.length];
+      context.strokeStyle = faceboxColors[sufficientDimensions && i == 0 ? 1 : 0];
       context.stroke();
       context.closePath();
 
       if (mirroring) {
         facesCanvas.style.transform = 'scale(-1, 1)';
       }
-      if(authenticated == false && authenticating == false && face.width > faceThresholds.width && face.height > faceThresholds.height){
+    }
+    if (checkEmotion) {
         if (isStable(face)) {
-          authenticating = true
-          Authenticate.takePhoto() 
+            Authenticate.determineEmotion()
         }
-	  }
-      if (checkEmotion) {
-		    if (isStable(face)) {
-		      Authenticate.determineEmotion()
-		    }
-	    }
     }
   }
+  else {
+    if (authenticated && !timeoutSet) {
+      timeoutSet = true;
+      logoutTimeout = setTimeout(Authenticate.logout, logoutTime);
+      document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+        detail: MIRROR_STATES.LOGGING_OUT
+      }));
+    }
+    else if (!authenticated) {
+      if (faceDetected) {
+        faceDetected = false;
+        document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+          detail: MIRROR_STATES.BLANK
+        }));
+        }
+      }
+      
+    }
+  }
+
+Authenticate.logout = function () {
+  message.innerText = ''; 
+  authenticating = false;
+  authenticated = false;
+  timeoutSet = false;
+  logoutTimeout = null;
 }
 
 Authenticate.mirrorPreview= function () {
@@ -214,20 +283,15 @@ Authenticate.init = function() {
     console.log('Windows is not available');
     return;
   }
+
   buttonReset = document.getElementById('buttonReset')
-  buttonReset.addEventListener('click', function() {
-    message.innerText = ''; 
-    authenticating = false
-    authenticated = false
-  })
+  buttonReset.addEventListener('click', Authenticate.logout)
   message = document.getElementById('message');
   facesCanvas = document.getElementById('facesCanvas');
   video = document.getElementById('video');
   quotePane = document.getElementById('quotePane');
   quoteText = document.getElementById('quoteText');
   quoteAuthor = document.getElementById('quoteAuthor');
-  facesCanvas.width = video.offsetWidth;
-  facesCanvas.height = video.offsetHeight;
   Authenticate.findCameraDeviceByPanelAsync(DeviceEnumeration.Panel.back).then(
     function(camera) {
       if (!camera) {

@@ -3,6 +3,15 @@
 
     var time, date, day, fcast, temp, weatherDesc, loc;
 
+    var MIRROR_STATES = {
+        BLANK: 0,
+        FACE_CLOSE: 1,
+        LOGGED_IN: 2,
+        NOT_DETECTED: 3,
+        LOGGING_OUT: 4
+    };
+    window.MIRROR_STATES = MIRROR_STATES;
+
     function updateTime() {
         var now = moment();
         time.html(now.format('h:mm'))
@@ -25,6 +34,12 @@
     }
 
     function init() {
+        document.addEventListener("mirrorstatechange", function (e) {
+            console.log("STATE CHANGE: " + e.detail);
+        });
+        document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+            detail: MIRROR_STATES.BLANK
+        }));
         date = $('#date')
         day = $('#day')
         time = $('#time')
@@ -36,7 +51,8 @@
         updateWeather()
         Stock.init()
         News.init()
-        Authenticate.init()
+        Traffic.init()
+		Authenticate.init()
     }
     document.addEventListener('DOMContentLoaded', init);
 })();

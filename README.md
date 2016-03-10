@@ -18,7 +18,11 @@ node server.js
 ```
 This will install/update all the node packages and create a local node server. Take note of the port that the server is using. Go to your browser and type: `http://localhost:your-port-number/` to verify it is working.
 
-On the prompt, you will see that the there is a warning regarding connecting to the database. To solve this, you need to add local environment variables to your project. For MSFT folks, you can do this by saving the following file to the root folder: \\\\iefs\Users\apavia\WebApps\magicMirror\environment.json
+On the prompt, you will see that the there is a warning regarding connecting to the database. To solve this, you need to add local environment variables to your project. 
+
+For MSFT folks, you can do this by saving the following file to the root folder: `\\\\iefs\Users\apavia\WebApps\magicMirror\environment.json`
+
+Otherwise, you will have to make your own environment.json file. Instructions for doing this will be provided soon
 
 ###Making a UWP hosted web app
 
@@ -50,3 +54,8 @@ Here are the steps to set it up.
 7. Done
 
  
+###Tips for Newcomers Using Node.js###
+We are using the following technologies to build our view:
+
+* [Express](http://expressjs.com/)
+* [Handlebars.js](http://handlebarsjs.com/)

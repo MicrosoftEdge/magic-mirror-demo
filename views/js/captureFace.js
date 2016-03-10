@@ -30,9 +30,10 @@
         context.beginPath();
         context.rect(face.x, face.y, face.width, face.height);
         context.lineWidth = 3;
-        context.strokeStyle = faceboxColors[i % faceboxColors.length];
+        context.strokeStyle = faceboxColors[i == 0 && face.width > faceThresholds.width && face.height > faceThresholds.height && i == 0 ? 1 : 0];
         context.stroke();
         context.closePath();
+
         if (mirroring) {
           facesCanvas.style.transform = 'scale(-1, 1)';
         }
@@ -151,9 +152,13 @@
   }
   // Configurations
   var detectionInterval = 33; // 33ms is fastest, 200ms is default
-  var faceboxColors = ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f', '#9b59b6', '#e67e22']; // Hex color values for each facebox; will cycle if there are more faceboxes than colors
+  var faceboxColors = ['#e74c3c', '#2ecc71']; // Hex colors for facebox
   var minConfidence = 0.5; // Minimum confidence level for successful face authentication, range from 0 to 1
   var mirroring = true; // If true, video preview will show you as you see yourself in the mirror
+  var faceThresholds = {
+    width: 40,
+    height: 100
+  };
 
   // Initializations
   var buttonAddFace, buttonAuthenticate, mediaCapture, facesCanvas, video, message, prevMessage, snapshot;
