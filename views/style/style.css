@@ -370,3 +370,13 @@ form #error {
   font-size: 48px;
   font-family: "HKGroteskBold", "Segoe UI Bold", Tahoma, sans-serif;
 }
+
+/* MIRROR UI: Quote CONTENT
+--------------------------------------------- */
+
+.quote-content{
+    position:absolute;
+    bottom:30%;
+    left:10%;
+    right:10%;
+}
