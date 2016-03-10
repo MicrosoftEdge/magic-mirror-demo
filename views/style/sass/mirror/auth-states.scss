@@ -2,12 +2,21 @@
 --------------------------------------------- */
 
 .auth-state {
+  opacity: 1;
+  transition: opacity 400ms ease-in-out;
   font-family: $font-light;
   text-align: center;
+
+  &[aria-hidden="true"] {
+    display: none;
+    opacity: 0;
+  }
+
 }
 
-.auth-state-content {
-  flex: 1;
+.greeting-salutation,
+.greeting-name {
+  display: block;
 }
 
 /* STATE: FACE NEARBY, TRYING TO DETECT */
@@ -48,4 +57,15 @@
   0% {opacity: 0;}
   95% {opacity: 1;}
   100% {opacity: 1;}
+}
+
+/* AUTH STATE: LOGGING OUT */
+.countdown-value {
+  display: block;
+  font-size: 6em;
+  line-height: 1;
+}
+
+.logout-tip {
+  max-width: 14em; /* Not specific measure, just where it looks good */
 }

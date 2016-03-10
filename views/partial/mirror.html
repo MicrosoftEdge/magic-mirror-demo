@@ -32,7 +32,16 @@
 <section class="auth-states">
 
   <!-- FACE DETECTED W/IN RANGE -->
-  {{> faceInRange }}
+  {{> faceClose }}
+
+  <!-- USER DETECTED -->
+  {{> userDetected }}
+
+  <!-- NON USER DETECTED -->
+  {{> nonUserDetected }}
+
+  <!-- TIME OUT LOGS USER OUT -->
+  {{> loggingOut }}
 
 </section>
 
