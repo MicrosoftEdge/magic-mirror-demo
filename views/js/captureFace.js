@@ -129,7 +129,6 @@
             );
             displayRequest.requestActive();
             var preview = document.getElementById('cameraPreview');
-
             if (mirroring) {
               preview.style.transform = 'scale(-1, 1)';
               preview.addEventListener('playing', mirrorPreview);

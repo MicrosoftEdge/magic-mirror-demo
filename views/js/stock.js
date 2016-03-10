@@ -2,44 +2,37 @@
     "use strict";
 
     var Stock = (function () {
-        var stocks = [".DJI", ".INX", ".IXIC", "MSFT"]; // Array of user stocks
+        var stocks = []; // Array of user stocks
         var refreshRate = 5000; // Refresh rate (in ms)
-        
-        var encodeStocks = stocks.join();
+       
         var url = "http://finance.google.com/finance/info?client=ig&q=";
         var initialized = false;
-        var watchList, refresh;       
-        
+        var watchList, refresh;               
         
         function stockSmbFromDb() {            
-            getQuotes();
-            //$.ajax({
-            //    url: '/mirror/personInfo',
-            //    beforeSend: function (xhrObj) {
-            //        xhrObj.setRequestHeader('Content-Type', 'application/octet-stream');
-            //    },
-            //    type: 'POST',
-            //    data: byteArray,
-            //    processData: false
-            //})
-            //.done(function (result) {
-            //    var resultObj = JSON.parse(result)
-            //    if (resultObj.authenticated) {
-            //        authenticated = true
-            //        authenticating = false
-            //        message.innerText = resultObj.message;
-            //    } else {
-            //        //If authenticated is false, then there was no match so start fresh
-            //        Authenticate.logout();
-            //    }
-            //})
-            //.fail(function (e) {
-            //    console.error(e);
-            //});            
+            $.ajax({
+                type: 'GET',
+                url: '/mirror/stock',
+                //beforeSend: function (xhrObj) {
+                //    xhrObj.setRequestHeader('Content-Type', 'application/octet-stream');
+                //},
+                success: function (result) {
+                    console.log('the delivered value is ', result);
+                    result = JSON.parse(result);
+                    console.log('converted json value is ', result);
+                    getQuotes(result);
+                }
+            });            
         }        
         
-        function getQuotes() {
-            console.log('getQuotes is being called');
+        function getQuotes(result) {
+            //convert stock object literal to array of values
+            for (var iter in result.stock) {
+                stocks.push(result.stock[iter]);
+            }
+
+            var encodeStocks = stocks.join();
+            console.log('getQuotes is being called with the following encodeStocs value ', encodeStocks);
             $.get(url + encodeStocks, function (data) {
                 var stockData = JSON.parse(data.substr(3));
                 stockData.forEach(function (stock) {

@@ -4,7 +4,9 @@ module.exports = function(app) {
       , mirrorRouter = express.Router()
       , path = require('path')
       , fs = require('fs');
-
+    
+  var session = require('../common/session.js');
+  
   mirrorRouter.use(function(req, res, next) {
     next();
   });
@@ -28,11 +30,20 @@ module.exports = function(app) {
   });
 
   mirrorRouter.get('/stock.js', function(req, res, next) {
+    console.log('regular stock call');
+    console.log(session);
     res.writeHead(200, {'Content-Type': 'text/js'});
-    res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/stock.js'), 'utf8'));
+    res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/stock.js'), 'utf8'));        
     res.end();
   });
-
+    
+  mirrorRouter.get('/stock/', function (req, res, next) {
+    var newSession = { "stock": ['F'] };
+    console.log('stock AJAX call');
+    console.log('global object', session);
+    res.end(JSON.stringify(newSession));
+  });
+    
  mirrorRouter.get('/traffic.js', function(req, res, next) {
     res.writeHead(200, {'Content-Type': 'text/js'});
     res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/traffic.js'), 'utf8'));

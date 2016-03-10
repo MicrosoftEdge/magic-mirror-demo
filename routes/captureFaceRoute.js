@@ -12,7 +12,9 @@ module.exports = function(app) {
     , mongoose = require('mongoose')
     , bandname = require('bandname')
     , user_id;
-
+    
+  var session = require('../common/session.js');
+  
   captureFaceRouter.use(function(req, res, next) {
     next();
   });
@@ -98,7 +100,9 @@ module.exports = function(app) {
                   }))
                   res.end()
                 }
-                if(user){
+                if(user){                    
+                    session = user; // assign user info to a global session variable
+                    console.log('capture route phase', session);
                   var message, percConf = confidence.toFixed(4) * 100
                   if (confidence >= minConfidence) {
                     message = `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`
