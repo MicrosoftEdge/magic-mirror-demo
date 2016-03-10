@@ -82,7 +82,12 @@ module.exports = function(app) {
                     }
                     if (nonPositive >= threshold) {
                         var quote = quotes[Math.floor(Math.random()*quotes.length)];
-                        res.write(quote.quote + " - " + quote.author);
+                        res.write(JSON.stringify(quote));
+                    }
+                    else {
+                        res.write(JSON.stringify({
+                            emotionState: "positive"
+                        }));
                     }
                 }
                 res.end();

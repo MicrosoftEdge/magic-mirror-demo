@@ -375,8 +375,17 @@ form #error {
 --------------------------------------------- */
 
 .quote-content{
+    display:none;
     position:absolute;
     bottom:30%;
     left:10%;
     right:10%;
+}
+
+.quote-component{
+    padding: 10px;
+}
+
+#quoteAuthor{
+    text-align:right;
 }

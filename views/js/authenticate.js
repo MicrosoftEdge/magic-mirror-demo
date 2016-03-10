@@ -121,7 +121,7 @@ Authenticate.takePhoto = function(addFace) {
   });
 }
 
-Authenticate.determineEmotion = function(addFace) {
+Authenticate.determineEmotion = function() {
 	checkEmotion = false;
 	var Storage = Windows.Storage;
 	var stream = new Storage.Streams.InMemoryRandomAccessStream();
@@ -133,7 +133,6 @@ Authenticate.determineEmotion = function(addFace) {
 			var dataReader = Storage.Streams.DataReader.fromBuffer(buffer);
 			var byteArray = new Uint8Array(buffer.length);
 			dataReader.readBytes(byteArray);
-
       console.log("Determining emotion");
 			$.ajax({
 				url: '/capture/determineEmotion',
@@ -144,21 +143,26 @@ Authenticate.determineEmotion = function(addFace) {
 				data: byteArray,
 				processData: false
 			})
-        .done(function (result) {
-          console.log("successfully determined emotion");
-                //message.innerText = result;
-                if (result) {
-                    quoteText.innerText = result;
-                    //quoteAuthor.innerText = result.author;
-                }
-                console.log("setting timeout");
-				  setTimeout(function () {
-					  checkEmotion = true;
-				  }, 20000);
+      .done(function (result) {
+        console.log("successfully determined emotion");
+        var parsed = JSON.parse(result);
+        if (parsed && parsed.quote && parsed.author) {
+          quoteText.innerText = "\"" + parsed.quote + "\"";
+          quoteAuthor.innerText = "- " + parsed.author;
+          quotePane.style.display = "block";
+        } else {
+          quotePane.style.display = "none";
+        }
+        console.log("setting timeout");
+			  setTimeout(function () {
+          checkEmotion = true;
+          quotePane.style.display = "none";
+			  }, 20000);
 			})
-        .fail(function (e) {
-				  console.error(e);
-				  checkEmotion = true;
+      .fail(function (e) {
+			  console.error(e);
+        checkEmotion = true;
+        quotePane.style.display = "none";
 			});
 		});
 	});
