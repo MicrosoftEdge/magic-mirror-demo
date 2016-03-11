@@ -1,5 +1,4 @@
 var detectionInterval = 33; // 33ms is fastest, 200ms is default
-var faceboxColors = ['#e74c3c', '#2ecc71']; // Hex colors for facebox
 var minConfidence = 0.5; // Minimum confidence level for successful face authentication, range from 0 to 1
 var minFaceThresholds = {
   width: 20,
@@ -22,7 +21,7 @@ var faceDetected = false
 var checkEmotion = true
 
 // Initializations
-var buttonAddFace, buttonReset, mediaCapture, video, message, prevMessage, snapshot, facesCanvas, logoutTimeout, quotePane, quoteText, quoteAuthor;
+var buttonAddFace, buttonReset, mediaCapture, message, prevMessage, snapshot, logoutTimeout, quotePane, quoteText, quoteAuthor;
 
 var Capture = Windows.Media.Capture;
 var captureSettings = new Capture.MediaCaptureInitializationSettings;
@@ -177,8 +176,6 @@ Authenticate.determineEmotion = function() {
 }
 
 Authenticate.handleFaces = function(args) {
-  var context = facesCanvas.getContext('2d');
-  context.clearRect(0, 0, facesCanvas.width, facesCanvas.height);
   var detectedFaces = args.resultFrame.detectedFaces;
   var numFaces = detectedFaces.length;
   if (numFaces > 0) {
@@ -222,18 +219,6 @@ Authenticate.handleFaces = function(args) {
               Authenticate.takePhoto();
           }
         }
-      }
-      
-
-      context.beginPath();
-      context.rect(face.x, face.y, face.width, face.height);
-      context.lineWidth = 3;
-      context.strokeStyle = faceboxColors[sufficientDimensions && i == 0 ? 1 : 0];
-      context.stroke();
-      context.closePath();
-
-      if (mirroring) {
-        facesCanvas.style.transform = 'scale(-1, 1)';
       }
     }
     if (checkEmotion) {
@@ -282,8 +267,6 @@ Authenticate.init = function() {
   buttonReset = document.getElementById('buttonReset');
     buttonReset.addEventListener('click', Authenticate.logout);
   message = document.getElementById('message');
-  facesCanvas = document.getElementById('facesCanvas');
-  video = document.getElementById('video');
   quotePane = document.getElementById('quotePane');
   quoteText = document.getElementById('quoteText');
   quoteAuthor = document.getElementById('quoteAuthor');

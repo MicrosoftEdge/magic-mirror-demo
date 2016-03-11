@@ -11,6 +11,13 @@ body {
   font-size: 125%;
   line-height: 1.333;
   font-family: "HKGroteskRegular", "Segoe UI", Tahoma, sans-serif;
+  overflow: hidden;
+}
+
+#video {
+  position: absolute;
+  top: -1000px;
+  left: -1000px;
 }
 
 .clear:after {

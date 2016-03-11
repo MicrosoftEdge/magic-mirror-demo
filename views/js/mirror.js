@@ -12,6 +12,26 @@
     };
     window.MIRROR_STATES = MIRROR_STATES;
 
+    function rotatePage() {
+        // FOR TESTING PURPOSES ONLY
+        // REMEMBER TO DELETE
+        Windows.UI.ViewManagement.ApplicationView.getForCurrentView().tryEnterFullScreenMode();
+        setTimeout(function () {
+            var curWidth = $(window).width();
+            var curHeight = $(window).height();
+            var container = document.body;
+            document.documentElement.style.width = curWidth + "px";
+            document.documentElement.style.height = curHeight + "px";
+            container.style.transform = "rotate(0deg)";
+            container.style.width = curHeight + "px";
+            container.style.height = curWidth + "px";
+            container.style.transform = "rotate(-90deg)";
+            container.style.transformOrigin = "left top";
+            container.style.position = "relative";
+            container.style.top = curHeight + "px";
+        }, 1000);   
+    }
+
     function updateTime() {
         var now = moment();
         time.html(now.format('h:mm'));
@@ -34,6 +54,8 @@
     }
 
     function init() {
+        // Need to dynamically rotate the page via CSS due to graphics bug
+        rotatePage();
         document.addEventListener("mirrorstatechange", function (e) {
             console.log("STATE CHANGE: " + e.detail);
         });
