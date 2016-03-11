@@ -9,7 +9,10 @@ var faceThresholds = {
   , height: 100
 };
 var mirroring = true;
-var stabilizationTime = 1000; // in milliseconds
+// Reserved for high end devices:
+// var cycles = Math.floor(stabilizationTime / detectionInterval);
+// var stabilizationTime = 1000; // in milliseconds
+var cycles = 2;
 var maxDistance = 40;
 var maxChange = 5;
 var logoutTime = 5000; // in milliseconds
@@ -29,7 +32,6 @@ var DeviceEnumeration = Windows.Devices.Enumeration;
 var displayRequest = new Windows.System.Display.DisplayRequest();
 var effectDefinition = new Windows.Media.Core.FaceDetectionEffectDefinition();
 var isAuthenticated = false;
-var cycles = Math.floor(stabilizationTime / detectionInterval);
 var stabilizationCounter = 0;
 var prevX, prevY, prevWidth, prevHeight;
 var mediaStreamType = Capture.MediaStreamType.videoRecord;

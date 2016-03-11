@@ -16,8 +16,6 @@
         var curWidth = $(window).width();
         var curHeight = $(window).height();
         var container = document.body;
-        document.documentElement.style.width = curWidth + "px";
-        document.documentElement.style.height = curHeight + "px";
         container.style.transform = "rotate(0deg)";
         container.style.width = curHeight + "px";
         container.style.height = curWidth + "px";
