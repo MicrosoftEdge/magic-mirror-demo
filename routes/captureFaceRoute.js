@@ -102,9 +102,9 @@ module.exports = function(app) {
                   res.end()
                 }
                 if (user) {                                                                         
-                 authenFuncGlobalReq.session.data = user; // assign user info to a global session variable                                    
-                  var message, percConf = confidence.toFixed(4) * 100
-                  if (confidence >= minConfidence) {
+                    authenFuncGlobalReq.session.data = user; // assign user info to a global session variable                                    
+                    var message, percConf = confidence.toFixed(4) * 100
+                    if (confidence >= minConfidence) {
                     message = `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`
                     res.write(JSON.stringify({
                       message: message
