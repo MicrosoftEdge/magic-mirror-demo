@@ -12,7 +12,6 @@ var mirroring = true;
 // Reserved for high end devices:
 // var cycles = Math.floor(stabilizationTime / detectionInterval);
 // var stabilizationTime = 1000; // in milliseconds
-var cycles = 2;
 var maxDistance = 40;
 var maxChange = 5;
 var logoutTime = 5000; // in milliseconds
@@ -94,6 +93,11 @@ Authenticate.takePhoto = function(addFace) {
       var dataReader = Storage.Streams.DataReader.fromBuffer(buffer);
       var byteArray = new Uint8Array(buffer.length);
       dataReader.readBytes(byteArray);
+
+      var base64 = Uint8ToBase64(byteArray);
+                            var img = document.createElement("img");
+                            img.src = "data: image/jpeg;base64," + base64;
+                            document.getElementById("snapshot").appendChild(img);
   
       // Detect the face to get a face ID
       $.ajax({
