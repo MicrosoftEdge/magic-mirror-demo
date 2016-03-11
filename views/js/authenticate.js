@@ -1,5 +1,4 @@
 var detectionInterval = 33; // 33ms is fastest, 200ms is default
-var faceboxColors = ['#e74c3c', '#2ecc71']; // Hex colors for facebox
 var minConfidence = 0.5; // Minimum confidence level for successful face authentication, range from 0 to 1
 var minFaceThresholds = {
   width: 20,
@@ -16,10 +15,14 @@ var maxChange = 5;
 var logoutTime = 5000; // in milliseconds
 
 // State variables
-var authenticating = false;
-var authenticated = false;
-var faceDetected = false; // Initializations
-var buttonAddFace, buttonReset, mediaCapture, video, message, prevMessage, snapshot, facesCanvas, logoutTimeout;
+var authenticating = false
+var authenticated = false
+var faceDetected = false
+var checkEmotion = true
+
+// Initializations
+var buttonAddFace, buttonReset, mediaCapture, message, prevMessage, snapshot, logoutTimeout, quotePane, quoteText, quoteAuthor;
+
 var Capture = Windows.Media.Capture;
 var captureSettings = new Capture.MediaCaptureInitializationSettings;
 var DeviceEnumeration = Windows.Devices.Enumeration;
@@ -102,10 +105,10 @@ Authenticate.takePhoto = function(addFace) {
       })
       .done(function(result) {
         var resultObj = JSON.parse(result);
-              if(resultObj.authenticated){
+        if(resultObj.authenticated){
           authenticated = true;
                   authenticating = false;
-                  message.innerText = resultObj.message;
+          message.innerText = resultObj.message;
           document.dispatchEvent(new CustomEvent("mirrorstatechange", {
             detail: MIRROR_STATES.LOGGED_IN
           }));
@@ -123,10 +126,56 @@ Authenticate.takePhoto = function(addFace) {
 
     });
   });
-};
+}
+
+Authenticate.determineEmotion = function() {
+	checkEmotion = false;
+	var Storage = Windows.Storage;
+	var stream = new Storage.Streams.InMemoryRandomAccessStream();
+	mediaCapture.capturePhotoToStreamAsync(Windows.Media.MediaProperties.ImageEncodingProperties.createJpeg(), stream)
+    .then(function () {
+		var buffer = new Storage.Streams.Buffer(stream.size);
+		stream.seek(0);
+		stream.readAsync(buffer, stream.size, 0).done(function () {
+			var dataReader = Storage.Streams.DataReader.fromBuffer(buffer);
+			var byteArray = new Uint8Array(buffer.length);
+			dataReader.readBytes(byteArray);
+      console.log("Determining emotion");
+			$.ajax({
+				url: '/capture/determineEmotion',
+				beforeSend: function (xhrObj) {
+					xhrObj.setRequestHeader('Content-Type', 'application/octet-stream')
+				},
+				type: 'POST',
+				data: byteArray,
+				processData: false
+			})
+      .done(function (result) {
+        console.log("successfully determined emotion");
+        var parsed = JSON.parse(result);
+        if (parsed && parsed.quote && parsed.author) {
+          quoteText.innerText = "\"" + parsed.quote + "\"";
+          quoteAuthor.innerText = "- " + parsed.author;
+          quotePane.style.display = "block";
+        } else {
+          quotePane.style.display = "none";
+        }
+        console.log("setting timeout");
+			  setTimeout(function () {
+          checkEmotion = true;
+          quotePane.style.display = "none";
+			  }, 20000);
+			})
+      .fail(function (e) {
+			  console.error(e);
+        checkEmotion = true;
+        quotePane.style.display = "none";
+			});
+		});
+	});
+}
+
 Authenticate.handleFaces = function(args) {
-  var context = facesCanvas.getContext('2d');
-  context.clearRect(0, 0, facesCanvas.width, facesCanvas.height);
   var detectedFaces = args.resultFrame.detectedFaces;
   var numFaces = detectedFaces.length;
   if (numFaces > 0) {
@@ -171,18 +220,12 @@ Authenticate.handleFaces = function(args) {
           }
         }
       }
-      
 
-      // context.beginPath();
-      // context.rect(face.x, face.y, face.width, face.height);
-      // context.lineWidth = 3;
-      // context.strokeStyle = faceboxColors[sufficientDimensions && i == 0 ? 1 : 0];
-      // context.stroke();
-      // context.closePath();
-
-      if (mirroring) {
-        facesCanvas.style.transform = 'scale(-1, 1)';
-      }
+    }
+    if (checkEmotion) {
+        if (isStable(face)) {
+            Authenticate.determineEmotion()
+        }
     }
   }
   else {
@@ -201,6 +244,7 @@ Authenticate.handleFaces = function(args) {
         }));
       }
     }
+      
   }
 };
 Authenticate.logout = function () {
@@ -223,9 +267,10 @@ Authenticate.init = function() {
 
   buttonReset = document.getElementById('buttonReset');
     buttonReset.addEventListener('click', Authenticate.logout);
-    message = document.getElementById('message');
-  facesCanvas = document.getElementById('facesCanvas');
-  video = document.getElementById('video');
+  message = document.getElementById('message');
+  quotePane = document.getElementById('quotePane');
+  quoteText = document.getElementById('quoteText');
+  quoteAuthor = document.getElementById('quoteAuthor');
   Authenticate.findCameraDeviceByPanelAsync(DeviceEnumeration.Panel.back).then(
     function(camera) {
       if (!camera) {
