@@ -12,6 +12,7 @@ var mirroring = true;
 // Reserved for high end devices:
 // var cycles = Math.floor(stabilizationTime / detectionInterval);
 // var stabilizationTime = 1000; // in milliseconds
+var cycles = 2;
 var maxDistance = 40;
 var maxChange = 5;
 var logoutTime = 5000; // in milliseconds
