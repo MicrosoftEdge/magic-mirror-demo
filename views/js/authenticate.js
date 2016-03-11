@@ -87,7 +87,8 @@ Authenticate.takePhoto = function(addFace) {
   var Storage = Windows.Storage;
   var stream = new Storage.Streams.InMemoryRandomAccessStream();
   mediaCapture.capturePhotoToStreamAsync(Windows.Media.MediaProperties.ImageEncodingProperties.createJpeg(), stream)
-  .then(function() {
+  .then(
+    function fulfilled() {
     var buffer = new Storage.Streams.Buffer(stream.size);
     stream.seek(0);
     stream.readAsync(buffer, stream.size, 0).done(function() {
@@ -132,6 +133,9 @@ Authenticate.takePhoto = function(addFace) {
       });
 
     });
+  },
+  function error(e) {
+    console.error(e);
   });
 }
 
