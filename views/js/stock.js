@@ -34,17 +34,15 @@
 
                             symbolLabel = document.createElement("div");
                             symbolLabel.classList.add("symbol");
-                            ticker.appendChild(symbolLabel);
-                            symbolLabel.innerText = `${symbol}`;
+                            symbolLabel.innerText = symbol;
 
                             tickerPrice = document.createElement("div");
                             tickerPrice.classList.add("price");
-                            ticker.appendChild(tickerPrice);
-
+                            
                             tickerChange = document.createElement("div");
                             tickerChange.classList.add("price-change");
-                            ticker.appendChild(tickerChange);
-
+                            
+                            initialized = true;
                         }
                         else {
                             ticker = document.getElementById(symbol);
@@ -53,14 +51,14 @@
                         }
 
                         // Update price and change values
-                        tickerPrice.innerText = `${lastPrice}`;
-                        tickerChange.innerText = `${changePercentage}%`;
+                        tickerPrice.innerText = lastPrice;
+                        tickerChange.innerText = changePercentage + "%";
 
                         // Show positive or negative change icon
-                        if (`${changePercentage}` > 0 && !tickerChange.classList.contains("pos-change")) {
+                        if (changePercentage > 0 && !tickerChange.classList.contains("pos-change")) {
                           tickerChange.classList.add("pos-change");
                           tickerChange.classList.remove("neg-change");
-                        } else if (`${changePercentage}` < 0 && !tickerChange.classList.contains("neg-change")) {
+                        } else if (changePercentage < 0 && !tickerChange.classList.contains("neg-change")) {
                           tickerChange.classList.add("neg-change");
                           tickerChange.classList.remove("pos-change");
                         }
@@ -68,6 +66,9 @@
                         // Add initial ticker item
                         if (!initialized) {
                             watchList.appendChild(ticker);
+                            ticker.appendChild(symbolLabel);
+                            ticker.appendChild(tickerPrice);
+                            ticker.appendChild(tickerChange);
                         }
                     });
                 }
