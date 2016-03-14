@@ -37,20 +37,6 @@ var prevX, prevY, prevWidth, prevHeight;
 var mediaStreamType = Capture.MediaStreamType.videoRecord;
 var timeoutSet = false;
 
-function Uint8ToBase64(u8Arr) {
-            var CHUNK_SIZE = 0x8000;
-            var index = 0;
-            var length = u8Arr.length;
-            var result = "";
-            var slice;
-            while (index < length) {
-                slice = u8Arr.subarray(index, Math.min(index + CHUNK_SIZE, length));
-                result += String.fromCharCode.apply(null, slice);
-                index += CHUNK_SIZE;
-            }
-            return btoa(result);
-        }
-
 function isStable(face) {
   if (stabilizationCounter == cycles) {
     prevX = prevY = prevWidth = prevHeight = null;
@@ -109,11 +95,6 @@ Authenticate.takePhoto = function(addFace) {
       var dataReader = Storage.Streams.DataReader.fromBuffer(buffer);
       var byteArray = new Uint8Array(buffer.length);
       dataReader.readBytes(byteArray);
-
-      var base64 = Uint8ToBase64(byteArray);
-                            var img = document.createElement("img");
-                            img.src = "data: image/jpeg;base64," + base64;
-                            document.getElementById("snapshot").appendChild(img);
   
       // Detect the face to get a face ID
       $.ajax({
