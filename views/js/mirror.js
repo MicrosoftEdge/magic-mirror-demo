@@ -66,7 +66,7 @@
         updateTime();
         updateWeather();
         Stock.init();
-        News.init();
+        // News.init();
         Traffic.init();
         Authenticate.init();
     }
