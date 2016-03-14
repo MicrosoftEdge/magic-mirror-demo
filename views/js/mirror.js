@@ -30,6 +30,7 @@
         time.html(now.format('h:mm'));
         date.html(now.format('MMMM D'));
         day.html(now.format('dddd'));
+        setTimeout(updateTime, 1e3 * 60);
     }
     function updateWeather() {
         Weather.getCurrent('98052', function(current) {
