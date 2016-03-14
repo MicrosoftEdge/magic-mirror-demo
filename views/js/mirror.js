@@ -4,11 +4,11 @@
     var time, date, day, fcast, temp, weatherDesc, loc;
 
     var MIRROR_STATES = {
-        BLANK: 0, // Basic state. No face detected in screen. No one logged in.
-        FACE_CLOSE: 1, // Detected a face in screen. Not close enough to authenticate. No one logged in.
-        LOGGED_IN: 2, // Successfully authenticated. Face still in screen. User logged in.
-        NOT_DETECTED: 3, // Unable to authenticate. Face still in screen. User not logged in.
-        LOGGING_OUT: 4 // Face no longer in screen. User logged in, but timeout has begun. Will logout after timeout expires.
+        BLANK: "Blank", // Basic state. No face detected in screen. No one logged in.
+        FACE_CLOSE: "Face close", // Detected a face in screen. Not close enough to authenticate. No one logged in.
+        LOGGED_IN: "Logged in", // Successfully authenticated. Face still in screen. User logged in.
+        NOT_DETECTED: "Not detected", // Unable to authenticate. Face still in screen. User not logged in.
+        LOGGING_OUT: "Logging out" // Face no longer in screen. User logged in, but timeout has begun. Will logout after timeout expires.
     };
     window.MIRROR_STATES = MIRROR_STATES;
 
