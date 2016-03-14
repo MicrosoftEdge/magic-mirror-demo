@@ -44,8 +44,8 @@
                         }
                         else {
                             ticker = document.getElementById(symbol);
-                            tickerPrice = document.querySelector(`#${symbol} .price`);
-                            tickerChange = document.querySelector(`#${symbol} .price-change`);
+                            tickerPrice = ticker.childNodes[1];
+                            tickerChange = ticker.childNodes[2];
                         }
 
                         // Update price and change values
