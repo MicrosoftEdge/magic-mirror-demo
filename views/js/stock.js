@@ -48,6 +48,8 @@
                         }
                         else {
                             ticker = document.getElementById(symbol);
+                            tickerPrice = ticker.querySelector(".price");
+                            tickerChange = ticker.querySelector(".price-change");
                         }
 
                         // Update price and change values
