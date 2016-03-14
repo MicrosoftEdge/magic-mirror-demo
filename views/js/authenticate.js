@@ -1,12 +1,18 @@
 var detectionInterval = 33; // 33ms is fastest, 200ms is default
-var faceboxColors = ['#e74c3c', '#2ecc71']; // Hex colors for facebox
 var minConfidence = 0.5; // Minimum confidence level for successful face authentication, range from 0 to 1
+var minFaceThresholds = {
+  width: 20,
+  height: 50
+};
 var faceThresholds = {
   width: 40
   , height: 100
-}
-var mirroring = true
-var stabilizationTime = 1000; // in milliseconds
+};
+var mirroring = true;
+// Reserved for high end devices:
+// var cycles = Math.floor(stabilizationTime / detectionInterval);
+// var stabilizationTime = 1000; // in milliseconds
+var cycles = 2;
 var maxDistance = 40;
 var maxChange = 5;
 var logoutTime = 5000; // in milliseconds
@@ -14,20 +20,36 @@ var logoutTime = 5000; // in milliseconds
 // State variables
 var authenticating = false
 var authenticated = false
+var faceDetected = false
+var checkEmotion = true
 
 // Initializations
-var buttonAddFace, buttonReset, mediaCapture, video, message, prevMessage, snapshot, facesCanvas, logoutTimeout;
+var buttonAddFace, buttonReset, mediaCapture, message, prevMessage, snapshot, logoutTimeout, quotePane, quoteText, quoteAuthor;
+
 var Capture = Windows.Media.Capture;
 var captureSettings = new Capture.MediaCaptureInitializationSettings;
 var DeviceEnumeration = Windows.Devices.Enumeration;
 var displayRequest = new Windows.System.Display.DisplayRequest();
 var effectDefinition = new Windows.Media.Core.FaceDetectionEffectDefinition();
 var isAuthenticated = false;
-var cycles = Math.floor(stabilizationTime / detectionInterval);
 var stabilizationCounter = 0;
 var prevX, prevY, prevWidth, prevHeight;
 var mediaStreamType = Capture.MediaStreamType.videoRecord;
 var timeoutSet = false;
+
+function Uint8ToBase64(u8Arr) {
+            var CHUNK_SIZE = 0x8000;
+            var index = 0;
+            var length = u8Arr.length;
+            var result = "";
+            var slice;
+            while (index < length) {
+                slice = u8Arr.subarray(index, Math.min(index + CHUNK_SIZE, length));
+                result += String.fromCharCode.apply(null, slice);
+                index += CHUNK_SIZE;
+            }
+            return btoa(result);
+        }
 
 function isStable(face) {
   if (stabilizationCounter == cycles) {
@@ -58,8 +80,7 @@ function isStable(face) {
   return false;
 }
 
-var Authenticate = {}
-
+var Authenticate = {};
 Authenticate.findCameraDeviceByPanelAsync = function (panel) {
   var deviceInfo;
   return DeviceEnumeration.DeviceInformation.findAllAsync(DeviceEnumeration.DeviceClass.videoCapture).then(
@@ -74,20 +95,25 @@ Authenticate.findCameraDeviceByPanelAsync = function (panel) {
       return !deviceInfo && devices.length > 0 ? devices.getAt(0) : deviceInfo;
     }
   );
-}
-
+};
 Authenticate.takePhoto = function(addFace) {
   isAuthenticated = true;
   var Storage = Windows.Storage;
   var stream = new Storage.Streams.InMemoryRandomAccessStream();
   mediaCapture.capturePhotoToStreamAsync(Windows.Media.MediaProperties.ImageEncodingProperties.createJpeg(), stream)
-  .then(function() {
+  .then(
+    function fulfilled() {
     var buffer = new Storage.Streams.Buffer(stream.size);
     stream.seek(0);
     stream.readAsync(buffer, stream.size, 0).done(function() {
       var dataReader = Storage.Streams.DataReader.fromBuffer(buffer);
       var byteArray = new Uint8Array(buffer.length);
       dataReader.readBytes(byteArray);
+
+      var base64 = Uint8ToBase64(byteArray);
+                            var img = document.createElement("img");
+                            img.src = "data: image/jpeg;base64," + base64;
+                            document.getElementById("snapshot").appendChild(img);
   
       // Detect the face to get a face ID
       $.ajax({
@@ -100,14 +126,20 @@ Authenticate.takePhoto = function(addFace) {
         processData: false
       })
       .done(function(result) {
-        var resultObj = JSON.parse(result)
+        var resultObj = JSON.parse(result);
         if(resultObj.authenticated){
-          authenticated = true
-          authenticating = false
+          authenticated = true;
+                  authenticating = false;
           message.innerText = resultObj.message;
+          document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+            detail: MIRROR_STATES.LOGGED_IN
+          }));
         } else {
           //If authenticated is false, then there was no match so start fresh
           Authenticate.logout();
+          document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+            detail: MIRROR_STATES.NOT_DETECTED
+          }));
         }
       })
       .fail(function(e) {
@@ -115,18 +147,69 @@ Authenticate.takePhoto = function(addFace) {
       });
 
     });
+  },
+  function error(e) {
+    console.error(e);
   });
 }
 
+Authenticate.determineEmotion = function() {
+	checkEmotion = false;
+	var Storage = Windows.Storage;
+	var stream = new Storage.Streams.InMemoryRandomAccessStream();
+	mediaCapture.capturePhotoToStreamAsync(Windows.Media.MediaProperties.ImageEncodingProperties.createJpeg(), stream)
+    .then(function () {
+		var buffer = new Storage.Streams.Buffer(stream.size);
+		stream.seek(0);
+		stream.readAsync(buffer, stream.size, 0).done(function () {
+			var dataReader = Storage.Streams.DataReader.fromBuffer(buffer);
+			var byteArray = new Uint8Array(buffer.length);
+			dataReader.readBytes(byteArray);
+      console.log("Determining emotion");
+			$.ajax({
+				url: '/capture/determineEmotion',
+				beforeSend: function (xhrObj) {
+					xhrObj.setRequestHeader('Content-Type', 'application/octet-stream')
+				},
+				type: 'POST',
+				data: byteArray,
+				processData: false
+			})
+      .done(function (result) {
+        console.log("successfully determined emotion");
+        var parsed = JSON.parse(result);
+        if (parsed && parsed.quote && parsed.author) {
+          quoteText.innerText = "\"" + parsed.quote + "\"";
+          quoteAuthor.innerText = "- " + parsed.author;
+          quotePane.style.display = "block";
+        } else {
+          quotePane.style.display = "none";
+        }
+        console.log("setting timeout");
+			  setTimeout(function () {
+          checkEmotion = true;
+          quotePane.style.display = "none";
+			  }, 20000);
+			})
+      .fail(function (e) {
+			  console.error(e);
+        checkEmotion = true;
+        quotePane.style.display = "none";
+			});
+		});
+	});
+}
+
 Authenticate.handleFaces = function(args) {
-  var context = facesCanvas.getContext('2d');
-  context.clearRect(0, 0, facesCanvas.width, facesCanvas.height);
   var detectedFaces = args.resultFrame.detectedFaces;
   var numFaces = detectedFaces.length;
   if (numFaces > 0) {
     if (authenticated && timeoutSet) {
       timeoutSet = false;
       clearTimeout(logoutTimeout);
+      document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+        detail: MIRROR_STATES.LOGGED_IN
+      }));
     }
 
     var face;
@@ -136,58 +219,83 @@ Authenticate.handleFaces = function(args) {
 
       var sufficientDimensions = false;
 
-      if(i == 0 && face.width > faceThresholds.width && face.height > faceThresholds.height) {
-        sufficientDimensions = true;
-        if (authenticated == false && authenticating == false && isStable(face)) {
-          authenticating = true
-          Authenticate.takePhoto() 
+      if (!authenticated) {
+        if (face.width > minFaceThresholds.width && face.height > minFaceThresholds.height) {
+          if (!faceDetected) {
+            faceDetected = true;
+            document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+              detail: MIRROR_STATES.FACE_CLOSE
+            }));
+          }
+        }
+        else {
+          if (faceDetected) {
+            faceDetected = false;
+            document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+              detail: MIRROR_STATES.BLANK
+            }));
+          }
+        }
+
+        if(i == 0 && face.width > faceThresholds.width && face.height > faceThresholds.height) {
+          sufficientDimensions = true;
+          if (!authenticating && isStable(face)) {
+            authenticating = true;
+              Authenticate.takePhoto();
+          }
         }
       }
 
-      context.beginPath();
-      context.rect(face.x, face.y, face.width, face.height);
-      context.lineWidth = 3;
-      context.strokeStyle = faceboxColors[sufficientDimensions && i == 0 ? 1 : 0];
-      context.stroke();
-      context.closePath();
-
-      if (mirroring) {
-        facesCanvas.style.transform = 'scale(-1, 1)';
-      }
+    }
+    if (checkEmotion) {
+        if (isStable(face)) {
+            Authenticate.determineEmotion()
+        }
     }
   }
   else {
     if (authenticated && !timeoutSet) {
       timeoutSet = true;
       logoutTimeout = setTimeout(Authenticate.logout, logoutTime);
+      document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+        detail: MIRROR_STATES.LOGGING_OUT
+      }));
     }
+    else if (!authenticated) {
+      if (faceDetected) {
+        faceDetected = false;
+        document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+          detail: MIRROR_STATES.BLANK
+        }));
+      }
+    }
+      
   }
-}
-
+};
 Authenticate.logout = function () {
   message.innerText = ''; 
   authenticating = false;
   authenticated = false;
   timeoutSet = false;
   logoutTimeout = null;
-}
-
+};
 Authenticate.mirrorPreview= function () {
   var props = mediaCapture.videoDeviceController.getMediaStreamProperties(Capture.MediaStreamType.videoPreview);
   props.properties.insert('C380465D-2271-428C-9B83-ECEA3B4A85C1', 0);
   return mediaCapture.setEncodingPropertiesAsync(Capture.MediaStreamType.videoPreview, props, null);
-}
-
+};
 Authenticate.init = function() {
   if (typeof Windows == 'undefined') {
     console.log('Windows is not available');
     return;
   }
-  buttonReset = document.getElementById('buttonReset')
-  buttonReset.addEventListener('click', Authenticate.logout)
+
+  buttonReset = document.getElementById('buttonReset');
+    buttonReset.addEventListener('click', Authenticate.logout);
   message = document.getElementById('message');
-  facesCanvas = document.getElementById('facesCanvas');
-  video = document.getElementById('video');
+  quotePane = document.getElementById('quotePane');
+  quoteText = document.getElementById('quoteText');
+  quoteAuthor = document.getElementById('quoteAuthor');
   Authenticate.findCameraDeviceByPanelAsync(DeviceEnumeration.Panel.back).then(
     function(camera) {
       if (!camera) {
@@ -225,6 +333,5 @@ Authenticate.init = function() {
       );
     }
   );
-}
-
-window.Authenticate = Authenticate
+};
+window.Authenticate = Authenticate;

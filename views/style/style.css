@@ -8,9 +8,16 @@
 body {
   margin: 0;
   padding: 0;
-  font-size: 150%;
+  font-size: 125%;
   line-height: 1.333;
   font-family: "HKGroteskRegular", "Segoe UI", Tahoma, sans-serif;
+  overflow: hidden;
+}
+
+#videoHidden {
+  position: absolute;
+  top: -1000px;
+  left: -1000px;
 }
 
 .clear:after {
@@ -28,6 +35,10 @@ h1 {
 
 @media (min-width: 40em) {
 
+  body {
+    font-size: 150%;
+  }
+
   h1 {
     font-size: 3.5em;
   }
@@ -39,11 +50,59 @@ h1 {
 
 .setup {
   padding: 1em;
-  background: #efefef;
+  background: #dce9e8;
+  background: linear-gradient(227deg, #dce9e8, #dedede, #bdd0d5, #dedede);
+  background-size: 800% 800%;
+  text-align: center;
 }
 
-.setup-header {
-  text-align: center;
+.anim-button {
+  display: none;
+  margin-bottom: 2em;
+  border: 2px solid #000;
+  padding: .25em;
+  background: transparent;
+  font: 400 normal .625em "HKGroteskBold", "Segoe UI Bold", Tahoma, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  opacity: .6;
+}
+
+.anim-button:hover {
+  background: #000;
+  color: #fff;
+  opacity: 1;
+}
+
+
+.anim-button:active {
+  background: #fff;
+  color: #000;
+}
+
+/* Allow user to toggle animations */
+.setup.anim-active {
+  -webkit-animation: gradientAnim 20s ease infinite;
+  -moz-animation: gradientAnim 20s ease infinite;
+  animation: gradientAnim 20s ease infinite;
+}
+
+@-webkit-keyframes gradientAnim {
+  0%{background-position:93% 0%}
+  50%{background-position:0% 100%}
+  100%{background-position:93% 0%}
+}
+
+@-moz-keyframes gradientAnim {
+  0%{background-position:93% 0%}
+  50%{background-position:0% 100%}
+  100%{background-position:93% 0%}
+}
+
+@keyframes gradientAnim {
+  0%{background-position:93% 0%}
+  50%{background-position:0% 100%}
+  100%{background-position:93% 0%}
 }
 
 .setup-content {
@@ -53,7 +112,8 @@ h1 {
   background: #fff;
   width: 100%;
   max-width: 40em;
-  border-top: 8px solid #ccc;
+  border-top: 8px solid #efefef;
+  text-align: left;
 }
 
 .setup-content::before {
@@ -106,8 +166,17 @@ label {
 input[type="text"],
 input[type="email"] {
   display: block;
-  border: 2px solid #000;
+  border: 2px solid #777;
   width: 100%;
+  color: #5b5b5b;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+  position: relative;
+  border-color: #000;
+  background: #eff3f3;
+  color: #000;
 }
 
 input[type="submit"], button {
@@ -116,7 +185,7 @@ input[type="submit"], button {
 
 form #error {
   margin: 2em 0 0;
-  color: red;
+  color: #cd0a0a;
 }
 
 .field-item {
@@ -145,6 +214,12 @@ form #error {
     padding: 3em;
   }
 
+  .anim-button {
+    position: fixed;
+    top: 2em;
+    right: 2em;
+  }
+
   .setup-content {
     padding: 2em;
     text-align: center;
@@ -167,7 +242,7 @@ form #error {
 
   .field-item input[type="text"],
   .field-item input[type="email"] {
-    padding: .5em 0;
+    padding: .5em .25em;
     width: 60%;
     border-width: 0;
     border-bottom-width: 2px;
@@ -181,6 +256,12 @@ form #error {
 }
 
 /* CREATE PROFILE */
+
+/* Prevent scrollbar page jump when autocomplete triggered */
+.profile-setup {
+  overflow-y: scroll;
+}
+
 .profile-setup .setup-content::before {
   width: 50%;
 }
@@ -235,55 +316,72 @@ form #error {
 --------------------------------------------- */
 
 .mirror {
+  padding: 1.5em;
   background: #000;
   color: #fff;
   font-size: 32px;
   line-height: 1.25;
 }
 
-/* MIRROR UI: EYE-LEVEL, LEFT SIDE
- * (Alerts that warrant priority placement)
- * @TODO: Style the stuff that goes in it
+/* MIRROR UI LAYOUT
+ * Notes: the flexbox layout work in this section
+ * anchors eye-level stuff to the top, centers
+ * the face detection/greetings in the middle,
+ * and pushes low-priority content to the bottom. */
+.auth-states {
+  margin: 1.5em auto;
+}
+
+@media (min-width: 50em) {
+
+  .mirror, .auth-state {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+  }
+
+  .mirror {
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  .eyelevel {
+    align-self: flex-start;
+    width: 100%;
+  }
+
+  .auth-states {
+    display: block;
+    margin: 3em auto;
+  }
+
+  .auth-state-content {
+    flex: 1;
+  }
+
+  .low-pri-content {
+    align-self: flex-end;
+    width: 100%;
+  }
+
+  #weather {
+    float: left;
+  }
+
+  .timely-content {
+    float: right;
+  }
+
+}
+
+/* MIRROR UI: WEATHER
 --------------------------------------------- */
 
-.eyelevel-left,
-.eyelevel-right {
-  position: absolute;
-  top: 40px;
-  max-width: 400px;
-}
-
-.eyelevel-left {
-  left: 40px;
-}
-
-/* MIRROR UI: EYE-LEVEL, RIGHT SIDE
- * (Time and weather)
- * @TODO: Add weather icons
---------------------------------------------- */
-
-.eyelevel-right {
-  position: absolute;
-  top: 40px;
-  right: 40px;
-}
-
-/* TIMESTAMP */
-#timestamp {
-  margin-bottom: 32px;
-}
-
-#time {
-  font: 160px/1 "HKGroteskLight", "Segoe UI Light", Tahoma, sans-serif;
-}
-
-/* WEATHER */
 #weather {
-  position: relative;
-  padding: 20px;
+  padding: 1em;
   background: #fff;
   color: #000;
-  font-family: "HKGroteskBold", "Segoe UI Light", Tahoma, sans-serif;
+  font-family: "HKGroteskBold", "Segoe UI Bold", Tahoma, sans-serif;
 }
 
 .weather-icon {
@@ -306,9 +404,23 @@ form #error {
   letter-spacing: 1px;
 }
 
+/* MIRROR UI: TIMELY CONTENT
+ * (Timestamp and high-priority alerts)
+ * @TODO: Add weather icons
+--------------------------------------------- */
+
+#timestamp {
+  text-align: center;
+}
+
+#time {
+  font: 160px/1 "HKGroteskLight", "Segoe UI Light", Tahoma, sans-serif;
+}
+
 /* TEMPORARY CONTROLS
  * @TODO: Remove these */
 .mirror .controls {
+  margin-top: 2em;
   font-size: 16px;
 }
 
@@ -324,28 +436,61 @@ form #error {
   color: #000;
 }
 
+/* AUTH STATES
+--------------------------------------------- */
+
+.auth-state {
+  font-family: "HKGroteskLight", "Segoe UI Light", Tahoma, sans-serif;
+  text-align: center;
+}
+
+.auth-state-content {
+  flex: 1;
+}
+
+/* STATE: FACE NEARBY, TRYING TO DETECT */
+.face-detect-ring {
+  position: relative;
+  width: 580px;
+  height: 800px;
+}
+
+.face-detect-ring::before {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: inset 0 0 15px 0 #fff, 0 0 30px 0 #fff;
+  -webkit-animation: 2s ringPulseAnim infinite alternate ease-in-out;
+  -moz-animation: 2s ringPulseAnim infinite alternate ease-in-out;
+  animation: 2s ringPulseAnim infinite alternate ease-in-out;
+  content: '';
+}
+
+@-webkit-keyframes ringPulseAnim {
+  0% {opacity: 0;}
+  95% {opacity: 1;}
+  100% {opacity: 1;}
+}
+
+@-moz-keyframes ringPulseAnim {
+  0% {opacity: 0;}
+  95% {opacity: 1;}
+  100% {opacity: 1;}
+}
+
+@keyframes ringPulseAnim {
+  0% {opacity: 0;}
+  95% {opacity: 1;}
+  100% {opacity: 1;}
+}
+
 /* MIRROR UI: USER CONTENT
    (Stocks, etc.)
 --------------------------------------------- */
-
-.user-content {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-}
-
-.content-pane {
-  display: none;
-  position: absolute;
-  left: 40px;
-  bottom: 40px;
-  width: 100%;
-}
-
-.content-pane:first-child {
-  display: block;
-}
 
 /* STOCKS */
 .ticker-list {
@@ -369,4 +514,23 @@ form #error {
 .price-change {
   font-size: 48px;
   font-family: "HKGroteskBold", "Segoe UI Bold", Tahoma, sans-serif;
+}
+
+/* MIRROR UI: Quote CONTENT
+--------------------------------------------- */
+
+.quote-content{
+    display:none;
+    position:absolute;
+    bottom:30%;
+    left:10%;
+    right:10%;
+}
+
+.quote-component{
+    padding: 10px;
+}
+
+#quoteAuthor{
+    text-align:right;
 }

@@ -19,7 +19,9 @@ module.exports = function(app) {
         helpers:{
             getBandName: function() { return bandname();},
             getZipcode: function() {return '98052';},
-            getEmail: function() {return 'email@outlook.com';}
+            getEmail: function() {return 'email@outlook.com';},
+            getHomeAddress: function (){return '800 Occidental Ave S, Seattle, WA';},
+            getWorkAddress: function (){return '1 Microsoft Way Redmond, WA';},
         }
     });
   });
