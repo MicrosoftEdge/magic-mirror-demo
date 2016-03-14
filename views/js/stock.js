@@ -41,8 +41,6 @@
                             
                             tickerChange = document.createElement("div");
                             tickerChange.classList.add("price-change");
-                            
-                            initialized = true;
                         }
                         else {
                             ticker = document.getElementById(symbol);
