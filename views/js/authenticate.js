@@ -1,5 +1,4 @@
 var detectionInterval = 33; // 33ms is fastest, 200ms is default
-var faceboxColors = ['#e74c3c', '#2ecc71']; // Hex colors for facebox
 var minConfidence = 0.5; // Minimum confidence level for successful face authentication, range from 0 to 1
 var minFaceThresholds = {
   width: 20,
@@ -10,7 +9,10 @@ var faceThresholds = {
   , height: 100
 };
 var mirroring = true;
-var stabilizationTime = 1000; // in milliseconds
+// Reserved for high end devices:
+// var cycles = Math.floor(stabilizationTime / detectionInterval);
+// var stabilizationTime = 1000; // in milliseconds
+var cycles = 2;
 var maxDistance = 40;
 var maxChange = 5;
 var logoutTime = 5000; // in milliseconds
@@ -22,7 +24,7 @@ var faceDetected = false
 var checkEmotion = true
 
 // Initializations
-var buttonAddFace, buttonReset, mediaCapture, video, message, prevMessage, snapshot, facesCanvas, logoutTimeout, quotePane, quoteText, quoteAuthor;
+var buttonAddFace, buttonReset, mediaCapture, message, prevMessage, snapshot, logoutTimeout, quotePane, quoteText, quoteAuthor;
 
 var Capture = Windows.Media.Capture;
 var captureSettings = new Capture.MediaCaptureInitializationSettings;
@@ -30,7 +32,6 @@ var DeviceEnumeration = Windows.Devices.Enumeration;
 var displayRequest = new Windows.System.Display.DisplayRequest();
 var effectDefinition = new Windows.Media.Core.FaceDetectionEffectDefinition();
 var isAuthenticated = false;
-var cycles = Math.floor(stabilizationTime / detectionInterval);
 var stabilizationCounter = 0;
 var prevX, prevY, prevWidth, prevHeight;
 var mediaStreamType = Capture.MediaStreamType.videoRecord;
@@ -86,7 +87,8 @@ Authenticate.takePhoto = function(addFace) {
   var Storage = Windows.Storage;
   var stream = new Storage.Streams.InMemoryRandomAccessStream();
   mediaCapture.capturePhotoToStreamAsync(Windows.Media.MediaProperties.ImageEncodingProperties.createJpeg(), stream)
-  .then(function() {
+  .then(
+    function fulfilled() {
     var buffer = new Storage.Streams.Buffer(stream.size);
     stream.seek(0);
     stream.readAsync(buffer, stream.size, 0).done(function() {
@@ -126,6 +128,9 @@ Authenticate.takePhoto = function(addFace) {
       });
 
     });
+  },
+  function error(e) {
+    console.error(e);
   });
 }
 
@@ -177,8 +182,6 @@ Authenticate.determineEmotion = function() {
 }
 
 Authenticate.handleFaces = function(args) {
-  var context = facesCanvas.getContext('2d');
-  context.clearRect(0, 0, facesCanvas.width, facesCanvas.height);
   var detectedFaces = args.resultFrame.detectedFaces;
   var numFaces = detectedFaces.length;
   if (numFaces > 0) {
@@ -223,18 +226,7 @@ Authenticate.handleFaces = function(args) {
           }
         }
       }
-      
 
-      context.beginPath();
-      context.rect(face.x, face.y, face.width, face.height);
-      context.lineWidth = 3;
-      context.strokeStyle = faceboxColors[sufficientDimensions && i == 0 ? 1 : 0];
-      context.stroke();
-      context.closePath();
-
-      if (mirroring) {
-        facesCanvas.style.transform = 'scale(-1, 1)';
-      }
     }
     if (checkEmotion) {
         if (isStable(face)) {
@@ -282,8 +274,6 @@ Authenticate.init = function() {
   buttonReset = document.getElementById('buttonReset');
     buttonReset.addEventListener('click', Authenticate.logout);
   message = document.getElementById('message');
-  facesCanvas = document.getElementById('facesCanvas');
-  video = document.getElementById('video');
   quotePane = document.getElementById('quotePane');
   quoteText = document.getElementById('quoteText');
   quoteAuthor = document.getElementById('quoteAuthor');

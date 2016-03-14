@@ -13,6 +13,16 @@ body {
   font-family: "HKGroteskRegular", "Segoe UI", Tahoma, sans-serif;
 }
 
+body.mirror {
+  overflow: hidden;
+}
+
+#videoHidden {
+  position: absolute;
+  top: -1000px;
+  left: -1000px;
+}
+
 .clear:after {
   content: "";
   display: table;

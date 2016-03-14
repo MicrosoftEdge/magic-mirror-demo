@@ -55,11 +55,13 @@ module.exports = function(app) {
                 else {
                     body = JSON.parse(body);
                     console.log(body);
-                    var travelDuration = body.resourceSets[0].resources[0].travelDurationTraffic;
-                    var trafficCongestion = body.resourceSets[0].resources[0].trafficCongestion; //This can say "Heavy" or other things
-                    console.log(`travelDuration: ${travelDuration}`);
-                    console.log(`trafficCongestion: ${trafficCongestion}`);
-                    res.send({ "travelDuration": travelDuration, "trafficCongestion": trafficCongestion });
+                    if(body && body.resourceSets && body.resourceSets[0]){
+                        var travelDuration = body.resourceSets[0].resources[0].travelDurationTraffic;
+                        var trafficCongestion = body.resourceSets[0].resources[0].trafficCongestion; //This can say "Heavy" or other things
+                        console.log(`travelDuration: ${travelDuration}`);
+                        console.log(`trafficCongestion: ${trafficCongestion}`);
+                        res.send({ "travelDuration": travelDuration, "trafficCongestion": trafficCongestion }); 
+                    }
                 }
                 res.end();
             })
