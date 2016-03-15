@@ -13,7 +13,7 @@ module.exports = function(app) {
     , minConfidence = 0.5
     , mongoose = require('mongoose')
     , bandname = require('bandname')
-    , user_id;
+    ,user_id;
 
   captureFaceRouter.use(function(req, res, next) {
     next();
@@ -23,7 +23,7 @@ module.exports = function(app) {
     res.render('./../views/partials/captureFace', {
       bodyClass: 'setup face-setup'
     });
-    user_id = req.params.user_id
+        user_id = req.params.user_id;                                                          
   });
 
   captureFaceRouter.post('/addFace', function(req, res, next) {
@@ -110,7 +110,7 @@ module.exports = function(app) {
       if (body.length > 0) {
         // There should only be one face, but in the event there are more, the largest one is returned first
         var faceId = body[0].faceId;
-        console.log('faceid', faceId)
+        console.log('faceid', faceId);
         var req = {
           faceId: faceId,
           faceListId: oxfordList,
@@ -129,9 +129,9 @@ module.exports = function(app) {
             console.log(error)
           else {
             if(body.length > 0){
-              var face_id = body[0].persistedFaceId
-                , confidence = body[0].confidence
-              var model = mongoose.model('Person')
+              var face_id = body[0].persistedFaceId;
+              var confidence = body[0].confidence;
+              var model = mongoose.model('Person');
               model.findOne({ 'face_id': face_id }, function (err, user){
                 if(err){
                   res.write(JSON.stringify({
@@ -140,17 +140,20 @@ module.exports = function(app) {
                   }))
                   res.end()
                 }
-                if(user){
+                if (user) {                                             
                   var message, percConf = confidence.toFixed(4) * 100
                   if (confidence >= minConfidence) {
+                        authenFuncGlobalReq.session.user = user; // assign user info to a global session variable                        
                     message = `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`
                     res.write(JSON.stringify({
                       message: message
                       , authenticated: true
                       , name: user.name
                       , confidence: confidence
+                      , stock: user.stock
+                      , workAddress: user.workAddress
                     }))
-                    res.end()
+                    res.end();                     
                   } else {
                     message = `Unable to find a strong enough match. Confidence level was ${percConf}%.`
                     res.write(JSON.stringify({

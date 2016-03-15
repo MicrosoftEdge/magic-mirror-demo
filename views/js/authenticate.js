@@ -24,7 +24,7 @@ var faceDetected = false
 var checkEmotion = true
 
 // Initializations
-var buttonAddFace, buttonReset, mediaCapture, message, prevMessage, snapshot, logoutTimeout, quotePane, quoteText, quoteAuthor;
+var buttonAddFace, mediaCapture, message, prevMessage, snapshot, timeLeft, logoutTimeout, quotePane, quoteText, quoteAuthor;
 
 var Capture = Windows.Media.Capture;
 var captureSettings = new Capture.MediaCaptureInitializationSettings;
@@ -35,7 +35,7 @@ var isAuthenticated = false;
 var stabilizationCounter = 0;
 var prevX, prevY, prevWidth, prevHeight;
 var mediaStreamType = Capture.MediaStreamType.videoRecord;
-var timeoutSet = false; 
+var timeoutSet = false;
 
 function isStable(face) {
   if (stabilizationCounter == cycles) {
@@ -64,6 +64,17 @@ function isStable(face) {
   prevHeight = curHeight;
   
   return false;
+}
+
+function updateCountdown() {
+  $(".timer .text").html(timeLeft--);
+  $(".timer .circle").css("stroke-dashoffset", Math.round((timeLeft / (logoutTime / 1000)) * 100) - 100);
+  if (timeoutSet) {
+    setTimeout(function () {
+      $(".timer .text").textContent = timeLeft;
+      requestAnimationFrame(updateCountdown);
+    }, 1000);
+  }
 }
 
 var Authenticate = {};
@@ -95,7 +106,6 @@ Authenticate.takePhoto = function(addFace) {
       var dataReader = Storage.Streams.DataReader.fromBuffer(buffer);
       var byteArray = new Uint8Array(buffer.length);
       dataReader.readBytes(byteArray);
-  
       // Detect the face to get a face ID
       $.ajax({
         url: '/capture/authenticate',
@@ -111,11 +121,19 @@ Authenticate.takePhoto = function(addFace) {
         if(resultObj.authenticated){
           authenticated = true;
                   authenticating = false;
-          message.innerText = resultObj.message;
+          // message.innerText = resultObj.message;
+          Authenticate.user = { 
+            name: resultObj.name
+          }
           document.dispatchEvent(new CustomEvent("mirrorstatechange", {
             detail: MIRROR_STATES.LOGGED_IN
-            , data: resultObj
           }));
+          authenticated = true;
+          authenticating = false;
+          message.innerText = resultObj.name;          
+          Stock.init(resultObj.stock);
+          //move your Traffic.init(resultObj.workAddress) here
+                       
         } else {
           //If authenticated is false, then there was no match so start fresh
           Authenticate.logout();
@@ -177,8 +195,8 @@ Authenticate.determineEmotion = function() {
 			  console.error(e);
         checkEmotion = true;
         quotePane.style.display = "none";
-			});
-		});
+    });
+  });
 	});
 }
 
@@ -219,25 +237,29 @@ Authenticate.handleFaces = function(args) {
           }
         }
 
-        if(i == 0 && face.width > faceThresholds.width && face.height > faceThresholds.height) {
-          sufficientDimensions = true;
+      if(i == 0 && face.width > faceThresholds.width && face.height > faceThresholds.height) {
+        sufficientDimensions = true;
           if (!authenticating && isStable(face)) {
             authenticating = true;
               Authenticate.takePhoto();
-          }
         }
+      }
       }
 
     }
     if (checkEmotion) {
         if (isStable(face)) {
-            Authenticate.determineEmotion()
-        }
+            // Authenticate.determineEmotion()
+      }
     }
   }
   else {
     if (authenticated && !timeoutSet) {
       timeoutSet = true;
+      timeLeft = logoutTime / 1000;
+      $(".timer .text").html(timeLeft);
+      $(".timer .circle").css("stroke-dashoffset", Math.round((timeLeft / (logoutTime / 1000)) * 100) - 100);
+      requestAnimationFrame(updateCountdown);
       logoutTimeout = setTimeout(Authenticate.logout, logoutTime);
       document.dispatchEvent(new CustomEvent("mirrorstatechange", {
         detail: MIRROR_STATES.LOGGING_OUT
@@ -249,17 +271,20 @@ Authenticate.handleFaces = function(args) {
         document.dispatchEvent(new CustomEvent("mirrorstatechange", {
           detail: MIRROR_STATES.BLANK
         }));
-      }
-    }
-      
+  }
+}
+
   }
 };
 Authenticate.logout = function () {
-  message.innerText = ''; 
+  // message.innerText = ''; 
   authenticating = false;
   authenticated = false;
   timeoutSet = false;
   logoutTimeout = null;
+  document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+    detail: MIRROR_STATES.BLANK
+  }));
 };
 Authenticate.mirrorPreview= function () {
   var props = mediaCapture.videoDeviceController.getMediaStreamProperties(Capture.MediaStreamType.videoPreview);
@@ -271,9 +296,6 @@ Authenticate.init = function() {
     console.log('Windows is not available');
     return;
   }
-
-  buttonReset = document.getElementById('buttonReset');
-    buttonReset.addEventListener('click', Authenticate.logout);
   message = document.getElementById('message');
   quotePane = document.getElementById('quotePane');
   quoteText = document.getElementById('quoteText');

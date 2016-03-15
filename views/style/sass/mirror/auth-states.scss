@@ -26,46 +26,24 @@
   height: 800px;
 }
 
-.face-detect-ring::before {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  box-shadow: inset 0 0 15px 0 #fff, 0 0 30px 0 #fff;
-  -webkit-animation: 2s ringPulseAnim infinite alternate ease-in-out;
-  -moz-animation: 2s ringPulseAnim infinite alternate ease-in-out;
-  animation: 2s ringPulseAnim infinite alternate ease-in-out;
-  content: '';
-}
-
-@-webkit-keyframes ringPulseAnim {
-  0% {opacity: 0;}
-  95% {opacity: 1;}
-  100% {opacity: 1;}
-}
-
-@-moz-keyframes ringPulseAnim {
-  0% {opacity: 0;}
-  95% {opacity: 1;}
-  100% {opacity: 1;}
-}
-
-@keyframes ringPulseAnim {
-  0% {opacity: 0;}
-  95% {opacity: 1;}
-  100% {opacity: 1;}
-}
-
 /* AUTH STATE: LOGGING OUT */
-.countdown-value {
-  display: block;
-  font-size: 6em;
-  line-height: 1;
+.timer {
+	height: 50px;
+	width: 50px;
+	border-radius: 100%;
 }
 
-.logout-tip {
-  max-width: 14em; /* Not specific measure, just where it looks good */
+.timer .circle {
+	stroke: #ffffff;
+	fill: transparent;
+	stroke-dasharray: 100 100;
+	stroke-dashoffset: 0;
+	transition: stroke-dashoffset 1s;
+  transition-timing-function: linear;
+}
+
+.timer .text {
+	fill: rgba(255,255,255,0.7);
+	font-size: 10px;
+	text-anchor: middle;
 }

@@ -7,6 +7,13 @@
   color: $color-mirror-body;
   font-size: 32px;
   line-height: 1.25;
+  overflow: hidden;
+}
+
+#videoHidden {
+  position: absolute;
+  top: -10000px;
+  left: -10000px;
 }
 
 /* MIRROR UI LAYOUT

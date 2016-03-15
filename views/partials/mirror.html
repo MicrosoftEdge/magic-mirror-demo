@@ -9,13 +9,6 @@
       <!-- TIMESTAMP -->
       {{> timestamp}}
 
-      <!-- TEMPORARY CONTENT @TODO: remove these -->
-      <div class="controls">
-        <div id="message"></div>
-        <button id="buttonReset" class="dark-contrast-btn">Reset</button>
-        <a href="/create">Create Profile</a>
-      </div>
-
      <!-- EMOTION -->
      {{> emotion}}
     </div>
@@ -27,8 +20,6 @@
 
     <!-- FACE DETECTED W/IN RANGE -->
 
-    <div id="state-message"></div>
-    
     {{> faceClose }}
     
     <!-- USER DETECTED -->
@@ -36,14 +27,12 @@
     {{> userDetected }}
      
     <!-- NON USER DETECTED -->
-     
+    
     {{> nonUserDetected }}
     
     <!-- TIME OUT LOGS USER OUT -->
     
     {{> loggingOut }}
-     
-
 
   </section>
 
