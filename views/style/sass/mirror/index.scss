@@ -2,6 +2,7 @@
 --------------------------------------------- */
 
 .mirror {
+  position: relative;
   padding: 3em;
   background: $color-mirror-bg;
   color: $color-mirror-body;
@@ -26,6 +27,16 @@
 
 @media (min-width: $bp-m) {
 
+  .auth-states {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+
   .mirror, .auth-state {
      display: flex;
      align-items: center;
@@ -43,11 +54,8 @@
     width: 100%;
   }
 
-  .auth-states {
-    display: block;
-    margin: 3em auto;
-    width: 75%;
-    max-width: 800px;
+  .auth-state {
+    min-height: 100%;
   }
 
   .auth-state-content {
