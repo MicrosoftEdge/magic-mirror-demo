@@ -248,11 +248,11 @@ Authenticate.handleFaces = function(args) {
   else {
     if (authenticated && !timeoutSet) {
       timeoutSet = true;
-      $(".auth-content").animate({
+      /*$(".auth-content").animate({
         opacity: 0
       }, logoutTime, function () {
         $(this).css("opacity", 1);
-      });
+      });*/
       logoutTimeout = setTimeout(Authenticate.logout, logoutTime);
       document.dispatchEvent(new CustomEvent("mirrorstatechange", {
         detail: MIRROR_STATES.LOGGING_OUT
