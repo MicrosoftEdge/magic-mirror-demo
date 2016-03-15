@@ -35,7 +35,7 @@ var isAuthenticated = false;
 var stabilizationCounter = 0;
 var prevX, prevY, prevWidth, prevHeight;
 var mediaStreamType = Capture.MediaStreamType.videoRecord;
-var timeoutSet = false;
+var timeoutSet = false; 
 
 function isStable(face) {
   if (stabilizationCounter == cycles) {
@@ -114,6 +114,7 @@ Authenticate.takePhoto = function(addFace) {
           message.innerText = resultObj.message;
           document.dispatchEvent(new CustomEvent("mirrorstatechange", {
             detail: MIRROR_STATES.LOGGED_IN
+            , data: resultObj
           }));
         } else {
           //If authenticated is false, then there was no match so start fresh

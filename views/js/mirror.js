@@ -2,7 +2,6 @@
     'use strict';
 
     var time, date, day, fcast, temp, weatherDesc, loc;
-
     var MIRROR_STATES = {
         BLANK: 0, // Basic state. No face detected in screen. No one logged in.
         FACE_CLOSE: 1, // Detected a face in screen. Not close enough to authenticate. No one logged in.
@@ -10,6 +9,7 @@
         NOT_DETECTED: 3, // Unable to authenticate. Face still in screen. User not logged in.
         LOGGING_OUT: 4 // Face no longer in screen. User logged in, but timeout has begun. Will logout after timeout expires.
     };
+    window.CURRENT_MIRROR_STATE = MIRROR_STATES.BLANK
     window.MIRROR_STATES = MIRROR_STATES;
 
     function rotatePage() {
@@ -46,12 +46,27 @@
             fcast.html(f);
         });
     }
-
     function init() {
         // Need to dynamically rotate the page via CSS due to graphics bug
         rotatePage();
         document.addEventListener("mirrorstatechange", function (e) {
             console.log("STATE CHANGE: " + e.detail);
+            var message
+            switch(e.detail){
+              case 1:
+                message = "Can you get close to the camera please?"
+                break;
+              case 2:
+                var name
+                if(e.data){
+                  name = e.data.name  
+                  message = 'Hi ' + name + '! Good to see you again!'  
+                }
+                break;
+              default:
+                break;
+            }
+            $('#state-message').html(message)
         });
         document.dispatchEvent(new CustomEvent("mirrorstatechange", {
             detail: MIRROR_STATES.BLANK
@@ -72,3 +87,4 @@
     }
     document.addEventListener('DOMContentLoaded', init);
 })();
+
