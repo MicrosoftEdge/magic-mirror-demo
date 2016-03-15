@@ -1,32 +1,21 @@
 (function () {
     "use strict";
-
     var Stock = (function () {
         var stocks = []; // Array of user stocks
-        var refreshRate = 5000; // Refresh rate (in ms)
-       
+        var refreshRate = 5000; // Refresh rate (in ms)       
         var url = "http://finance.google.com/finance/info?client=ig&q=";
         var initialized = false;
         var watchList, refresh;
-                
-        function stockSmbFromDb() {            
-            $.ajax({
-                type: 'GET',
-                url: '/mirror/stock',    
-                success: function (result) {                    
-                    result = JSON.parse(result);
-                    getQuotes(result);
-                }
-            });            
-        }        
-        
-        function getQuotes(result) {
+                                 
+       
+        function getQuotes(result) {            
+            console.log('getQuotes is being called with value', result );
             //convert stock object literal to array of values
             for (var iter in result.stock) {
                 stocks.push(result.stock[iter]);
             }
             var encodeStocks = stocks.join();
-            console.log('getQuotes is being called with the following encodeStocs value ', encodeStocks);
+            //console.log('getQuotes is being called with the following encodeStocs value ', encodeStocks);
             $.get(url + encodeStocks, function (data) {
                 var stockData = JSON.parse(data.substr(3));
                 stockData.forEach(function (stock) {
@@ -85,15 +74,15 @@
                     initialized = true;
                 }
 
-                refresh = setTimeout(getQuotes, refreshRate);
+                refresh = setTimeout(stockSmbFromDb, refreshRate);
             });
         }
 
         return {
-            init: function () {
+            init: function (stock) {                
                 watchList = document.getElementById("watchList");
-                stockSmbFromDb();
-                //getQuotes();
+                //stockSmbFromDb();                
+                getQuotes(stock);
             }
         }
     })();

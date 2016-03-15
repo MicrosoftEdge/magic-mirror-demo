@@ -76,7 +76,7 @@ Authenticate.findCameraDeviceByPanelAsync = function (panel) {
   );
 }
 
-Authenticate.takePhoto = function(addFace) {
+Authenticate.takePhoto = function(addFace, faceIdCallback) {
   isAuthenticated = true;
   var Storage = Windows.Storage;
   var stream = new Storage.Streams.InMemoryRandomAccessStream();
@@ -87,8 +87,7 @@ Authenticate.takePhoto = function(addFace) {
     stream.readAsync(buffer, stream.size, 0).done(function() {
       var dataReader = Storage.Streams.DataReader.fromBuffer(buffer);
       var byteArray = new Uint8Array(buffer.length);
-      dataReader.readBytes(byteArray);
-  
+      dataReader.readBytes(byteArray);  
       // Detect the face to get a face ID
       $.ajax({
         url: '/capture/authenticate',
@@ -104,7 +103,10 @@ Authenticate.takePhoto = function(addFace) {
         if(resultObj.authenticated){
           authenticated = true
           authenticating = false
-          message.innerText = resultObj.message;
+          message.innerText = resultObj.name;          
+          Stock.init(resultObj.stock);
+          //move your Traffic.init(resultObj.workAddress) here
+                       
         } else {
           //If authenticated is false, then there was no match so start fresh
           Authenticate.logout();
@@ -118,7 +120,7 @@ Authenticate.takePhoto = function(addFace) {
   });
 }
 
-Authenticate.handleFaces = function(args) {
+Authenticate.handleFaces = function(args) {  
   var context = facesCanvas.getContext('2d');
   context.clearRect(0, 0, facesCanvas.width, facesCanvas.height);
   var detectedFaces = args.resultFrame.detectedFaces;

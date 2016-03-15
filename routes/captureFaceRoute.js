@@ -11,10 +11,8 @@ module.exports = function(app) {
     , minConfidence = 0.5
     , mongoose = require('mongoose')
     , bandname = require('bandname')
-    , user_id;
+    ,user_id;
     
-  var session = require('../common/session.js');
-  
   captureFaceRouter.use(function(req, res, next) {
     next();
   });
@@ -23,7 +21,7 @@ module.exports = function(app) {
     res.render('./../views/partial/captureFace', {
       bodyClass: 'setup face-setup'
     });
-    user_id = req.params.user_id
+        user_id = req.params.user_id;                                                          
   });
 
   captureFaceRouter.post('/addFace', function(req, res, next) {
@@ -34,7 +32,7 @@ module.exports = function(app) {
         'Content-Type': 'application/octet-stream',
         'Ocp-Apim-Subscription-Key': oxfordKey
       },
-      body: req.body
+      body: req.body     
     },
     function(error, response, body) {
       if(error)
@@ -55,9 +53,10 @@ module.exports = function(app) {
     })
   });
 
-    captureFaceRouter.post('/authenticate', function (req, res, next) {
+  captureFaceRouter.post('/authenticate', function (req, res, next) {
     var authenFuncGlobalReq = req;
-    console.log('authenticate server route post')
+    //req.session.myvalue = 'value';
+    console.log('authenticate server route post');
     request.post({
       url: 'https://api.projectoxford.ai/face/v1.0/detect',
       headers: {
@@ -67,11 +66,12 @@ module.exports = function(app) {
       body: req.body
     },
     function(error, response, body) {
+      //console.log('body: ', body);
       body = JSON.parse(body)
       if (body.length > 0) {
         // There should only be one face, but in the event there are more, the largest one is returned first
         var faceId = body[0].faceId;
-        console.log('faceid', faceId)
+        console.log('faceid', faceId);
         var req = {
           faceId: faceId,
           faceListId: oxfordList,
@@ -83,16 +83,16 @@ module.exports = function(app) {
               'Content-Type': 'application/json',
               'Ocp-Apim-Subscription-Key': oxfordKey
           },
-          body: JSON.stringify(req)
+          body: JSON.stringify(req)          
         }, function(error, response, body) {
           body = JSON.parse(body)
           if(error)
             console.log(error)
           else {
             if(body.length > 0){
-              var face_id = body[0].persistedFaceId
-                , confidence = body[0].confidence
-              var model = mongoose.model('Person')
+              var face_id = body[0].persistedFaceId;
+              var confidence = body[0].confidence;
+              var model = mongoose.model('Person');
               model.findOne({ 'face_id': face_id }, function (err, user){
                 if(err){
                   res.write(JSON.stringify({
@@ -101,18 +101,24 @@ module.exports = function(app) {
                   }))
                   res.end()
                 }
-                if (user) {                                                                         
-                    authenFuncGlobalReq.session.data = user; // assign user info to a global session variable                                    
+                if (user) {                                             
                     var message, percConf = confidence.toFixed(4) * 100
-                    if (confidence >= minConfidence) {
+                    if (confidence >= minConfidence) {                        
+                        authenFuncGlobalReq.session.user = user; // assign user info to a global session variable  
+                        anotherUser = user;
+                        //console.log('User Object Assignment Route', authenFuncGlobalReq.session.user);
+                        // console.log(authenFuncGlobalReq.sessionID);                                
+                        // authenFuncGlobalReq.session.save();
                     message = `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`
                     res.write(JSON.stringify({
                       message: message
                       , authenticated: true
                       , name: user.name
                       , confidence: confidence
-                    }))
-                    res.end()
+                      , stock: user.stock
+                      , workAddress: user.workAddress
+                    }))                    
+                    res.end();                     
                   } else {
                     message = `Unable to find a strong enough match. Confidence level was ${percConf}%.`
                     res.write(JSON.stringify({
@@ -152,7 +158,7 @@ module.exports = function(app) {
 
   captureFaceRouter.get('/file/captureFace.js', function(req, res, next) {
     res.writeHead(200, {'Content-Type': 'text/js'});
-    res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/captureFace.js'), 'utf8'));
+    res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/captureFace.js'), 'utf8'));    
     res.end();
   });
 

@@ -56,9 +56,13 @@ app.engine('html', handlebars.engine);
 app.set('view engine', 'html');
 app.set('port', process.env.PORT || 3000);
 app.use(session({
-    genid: function (req) {
-        return Math.random() * 100000; //Use a guid generator        
-    },
+    path: '/',
+    maxAge: null,
+    //resave : true, 
+   //saveUninitialized : true,
+    //genid: function (req) {
+    //    return Math.random() * 100000; //Use a guid generator        
+    //},
     secret: 'MagicMirror'
 }))
 

@@ -3,13 +3,13 @@ module.exports = function(app) {
       , express = require('express')
       , mirrorRouter = express.Router()
       , path = require('path')
-      , fs = require('fs');
-    
-  var session = require('../common/session.js');
+      , fs = require('fs')
+      , request = require('request');
   
   mirrorRouter.use(function(req, res, next) {
     next();
   });
+
 
   mirrorRouter.get('/', function(req, res, next) {
     res.render('./../views/partial/mirror', {
@@ -29,21 +29,14 @@ module.exports = function(app) {
     res.end();
   });
 
-  mirrorRouter.get('/stock.js', function(req, res, next) {
-    console.log('regular stock call');
-    console.log(session);
+  mirrorRouter.get('/stock.js', function(req, res, next) {    
     res.writeHead(200, {'Content-Type': 'text/js'});
     res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/stock.js'), 'utf8'));        
-    res.end();
+    res.end();    
   });
     
-  mirrorRouter.get('/stock/', function (req, res, next) {
-    var newSession = { "stock": ['F'] };    
-    console.log('Mirror Stock Route Object', req.session.data);
-    res.end(JSON.stringify(newSession));
-  });
-    
- mirrorRouter.get('/traffic.js', function(req, res, next) {
+
+    mirrorRouter.get('/traffic.js', function (req, res, next) {        
     res.writeHead(200, {'Content-Type': 'text/js'});
     res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/traffic.js'), 'utf8'));
     res.end();

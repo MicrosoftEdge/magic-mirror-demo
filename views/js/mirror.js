@@ -25,19 +25,24 @@
     }
 
     function init() {
-        date = $('#date')
-        day = $('#day')
-        time = $('#time')
-        fcast = $('.report')
-        temp = $('.temperature')
-        weatherDesc = $('.conditions')
-        loc = $('.weather-location')
-        updateTime()
-        updateWeather()
-        Stock.init()
-        News.init()
-        Traffic.init()
-		Authenticate.init()
+        date = $('#date');
+        day = $('#day');
+        time = $('#time');
+        fcast = $('.report');
+        temp = $('.temperature');
+        weatherDesc = $('.conditions');
+        loc = $('.weather-location');        
+        updateTime();
+        updateWeather();
+        News.init();
+        Traffic.init();
+        Authenticate.init();
+                       
+        // //     console.log(Authenticate.init());
+        // //     Stock.stockSmbFromDb(Stock.faceIdCallback)
+        // // }
+        // console.log('Stock object',Stock.stockSmbFromDb);
+        // Stock.stockSmbFromDb(Stock.faceIdCallback);
     }
     document.addEventListener('DOMContentLoaded', init);
 })();
