@@ -130,7 +130,6 @@ Authenticate.takePhoto = function(addFace) {
           }));
           authenticated = true;
           authenticating = false;
-          message.innerText = resultObj.name;          
           Stock.init(resultObj.stock);
           //move your Traffic.init(resultObj.workAddress) here
                        

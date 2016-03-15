@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    var time, date, day, fcast, temp, weatherDesc, loc;
+    var time, date, day, fcast, temp, weatherDesc, loc, weathericon;
     var MIRROR_STATES = {
         BLANK: "blank", // Basic state. No face detected in screen. No one logged in.
         FACE_CLOSE: "face-close", // Detected a face in screen. Not close enough to authenticate. No one logged in.
@@ -41,7 +41,7 @@
             temp.html(t);
             weatherDesc.html(desc);
             loc.html(city);
-            w-icon.src(icon)
+            weathericon.src(icon)
         });
         Weather.getForecast('98052', function(forecast) {
             var f = 'Forecast High in ' + Weather.kelvinToFahrenheit(forecast.high()).toFixed(0) + '°';
@@ -50,6 +50,7 @@
     }
     function init() {
         // Need to dynamically rotate the page via CSS due to graphics bug
+        console.log('rotate')
         rotatePage();
         document.addEventListener("mirrorstatechange", function (e) {
           var state = e.detail;
@@ -90,7 +91,7 @@
         temp = $('.temperature');
         weatherDesc = $('.conditions');
         loc = $('.weather-location');
-        w-icon= $('.weather-icon')
+        weathericon = $('#weather-icon')
         updateTime();
         updateWeather();
         Stock.init();
