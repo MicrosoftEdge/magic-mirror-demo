@@ -104,11 +104,7 @@ module.exports = function(app) {
                 if (user) {                                             
                     var message, percConf = confidence.toFixed(4) * 100
                     if (confidence >= minConfidence) {                        
-                        authenFuncGlobalReq.session.user = user; // assign user info to a global session variable  
-                        anotherUser = user;
-                        //console.log('User Object Assignment Route', authenFuncGlobalReq.session.user);
-                        // console.log(authenFuncGlobalReq.sessionID);                                
-                        // authenFuncGlobalReq.session.save();
+                        authenFuncGlobalReq.session.user = user; // assign user info to a global session variable                        
                     message = `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`
                     res.write(JSON.stringify({
                       message: message
