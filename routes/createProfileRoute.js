@@ -14,7 +14,7 @@ module.exports = function(app) {
   });
 
   createUserRouter.get('/', function(req, res, next) {
-    res.render('./../views/partial/createProfile', {
+    res.render('./../views/partials/createProfile', {
         bodyClass: 'setup profile-setup',
         helpers:{
             getBandName: function() { return bandname();},

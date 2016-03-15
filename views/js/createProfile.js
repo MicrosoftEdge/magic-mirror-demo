@@ -1,25 +1,26 @@
 (function () {
     "use strict";
-    var errors = {}
+    var errors = {};
+
     function validateZipcode(input) {
-        var re = new RegExp("^\\d{5}(-\\d{4})?$")
-        return re.test(input)
+        var re = new RegExp("^\\d{5}(-\\d{4})?$");
+        return re.test(input);
     }
     function validateInputs() {
-        errors = {}
+        errors = {};
         if (!$('[name=name]').val())
-            errors.name = 'Please add your name.'
+            errors.name = 'Please add your name.';
         if (!$('[name=email]').val())
-            errors.name = 'Please add your email.'
+            errors.name = 'Please add your email.';
         if (!validateZipcode($('[name=zipcode]').val()))
-            errors.zipcode = 'Please fix your zipcode.'
+            errors.zipcode = 'Please fix your zipcode.';
         if (!$('[name=homeAddress]').val())
-            errors.name = 'Please add your home address.'
+            errors.name = 'Please add your home address.';
         if (!$('[name=workAddress]').val())
-            errors.name = 'Please add your work address.'
+            errors.name = 'Please add your work address.';
         if (!$('[name=stock]').val())
-            errors.stock = 'Please enter stock symbol.'
-        return _.isEmpty(errors)
+            errors.stock = 'Please enter stock symbol.';
+        return _.isEmpty(errors);
     }    
     // query Yahoo Finance for a list of stocks
     $("#stock").autocomplete({
@@ -40,23 +41,23 @@
         minLength: 1
     });
     function getErrors() {
-        return _.values(errors)
+        return _.values(errors);
     }
     $('form').on('submit', function (event) {
         if (!validateInputs()) {
-            console.log(errors)
-            $('#error').html(getErrors()[0])
+            console.log(errors);
+            $('#error').html(getErrors()[0]);
         } else {
             $.ajax({
                 url: '/create',
                 type: 'POST',
                 data: $('form').serialize(),
                 success: function (body) {
-                    console.log('/capture/' + JSON.parse(body))
-                    window.location.href = '/capture/' + JSON.parse(body)
+                    console.log('/capture/' + JSON.parse(body));
+                    window.location.href = '/capture/' + JSON.parse(body);
                 }
-            })
+            });
         }
         return false;
-    })
+    });
 })()
