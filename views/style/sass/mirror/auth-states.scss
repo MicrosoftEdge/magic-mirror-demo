@@ -8,9 +8,24 @@
   text-align: center;
 }
 
+.auth-state-title {
+  font-size: 3em;
+}
+
 .greeting-salutation,
 .greeting-name {
   display: block;
+}
+
+.auth-state-content {
+
+  p {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 22em;
+    text-align: left;
+  }
+
 }
 
 /* AUTH STATE: LOGGING OUT */
