@@ -1,23 +1,23 @@
 module.exports = function(app) {
   var url = require('url')
-      , express = require('express')
-      , mirrorRouter = express.Router()
-      , path = require('path')
-        , fs = require('fs')
-        , Handlebars = require('handlebars')
-        , request = require('request')
-        , mongoose = require('mongoose')
-        , nconf = require('nconf').file({ file: 'environment.json' }).env()
-        , bingApiKey = nconf.get('BING_API_KEY');
+    , express = require('express')
+    , mirrorRouter = express.Router()
+    , path = require('path')
+    , fs = require('fs')
+    , Handlebars = require('handlebars')
+    , request = require('request')
+    , mongoose = require('mongoose')
+    , nconf = require('nconf').file({ file: 'environment.json' }).env()
+    , bingApiKey = nconf.get('BING_API_KEY');
 
-    mirrorRouter.use(function(req, res, next) {
-        next();
-    });
-    
-    mirrorRouter.get('/', function(req, res, next) {
-        res.render('./../views/partials/mirror', {
-            bodyClass: 'mirror',
-            helpers:{}
+  mirrorRouter.use(function(req, res, next) {
+      next();
+  });
+
+  mirrorRouter.get('/', function(req, res, next) {
+    res.render('./../views/partials/mirror', {
+      bodyClass: 'mirror',
+      helpers:{}
     });
   });
 
