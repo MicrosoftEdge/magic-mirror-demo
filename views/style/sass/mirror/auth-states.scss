@@ -29,23 +29,3 @@
 }
 
 /* AUTH STATE: LOGGING OUT */
-.timer {
-	height: 50px;
-	width: 50px;
-	border-radius: 100%;
-}
-
-.timer .circle {
-	stroke: #ffffff;
-	fill: transparent;
-	stroke-dasharray: 100 100;
-	stroke-dashoffset: 0;
-	transition: stroke-dashoffset 1s;
-  transition-timing-function: linear;
-}
-
-.timer .text {
-	fill: rgba(255,255,255,0.7);
-	font-size: 10px;
-	text-anchor: middle;
-}

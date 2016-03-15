@@ -196,8 +196,8 @@ Authenticate.handleFaces = function(args) {
     if (authenticated && timeoutSet) {
       timeoutSet = false;
       clearTimeout(logoutTimeout);
-      $(".low-pri-content").stop();
-      $(".low-pri-content").css("opacity", 1);
+      $(".auth-content").stop();
+      $(".auth-content").css("opacity", 1);
       document.dispatchEvent(new CustomEvent("mirrorstatechange", {
         detail: MIRROR_STATES.LOGGED_IN
       }));
@@ -247,7 +247,7 @@ Authenticate.handleFaces = function(args) {
   else {
     if (authenticated && !timeoutSet) {
       timeoutSet = true;
-      $(".low-pri-content").animate({
+      $(".auth-content").animate({
         opacity: 0
       }, logoutTime, function () {
         $(this).css("opacity", 1);
