@@ -3,13 +3,13 @@
 
     var time, date, day, fcast, temp, weatherDesc, loc;
     var MIRROR_STATES = {
-        BLANK: "Blank", // Basic state. No face detected in screen. No one logged in.
-        FACE_CLOSE: "Face close", // Detected a face in screen. Not close enough to authenticate. No one logged in.
-        LOGGED_IN: "Logged in", // Successfully authenticated. Face still in screen. User logged in.
-        NOT_DETECTED: "Not detected", // Unable to authenticate. Face still in screen. User not logged in.
-        LOGGING_OUT: "Logging out" // Face no longer in screen. User logged in, but timeout has begun. Will logout after timeout expires.
+        BLANK: "blank", // Basic state. No face detected in screen. No one logged in.
+        FACE_CLOSE: "face-close", // Detected a face in screen. Not close enough to authenticate. No one logged in.
+        LOGGED_IN: "logged-in", // Successfully authenticated. Face still in screen. User logged in.
+        NOT_DETECTED: "not-detected", // Unable to authenticate. Face still in screen. User not logged in.
+        LOGGING_OUT: "logging-out" // Face no longer in screen. User logged in, but timeout has begun. Will logout after timeout expires.
     };
-    window.CURRENT_MIRROR_STATE = MIRROR_STATES.BLANK
+    window.CURRENT_MIRROR_STATE = MIRROR_STATES.BLANK;
     window.MIRROR_STATES = MIRROR_STATES;
 
     function rotatePage() {
@@ -50,23 +50,32 @@
         // Need to dynamically rotate the page via CSS due to graphics bug
         rotatePage();
         document.addEventListener("mirrorstatechange", function (e) {
-            console.log("STATE CHANGE: " + e.detail);
-            var message
-            switch(e.detail){
-              case 1:
-                message = "Can you get close to the camera please?"
-                break;
-              case 2:
-                var name
-                if(e.data){
-                  name = e.data.name  
-                  message = 'Hi ' + name + '! Good to see you again!'  
-                }
-                break;
+          var state = e.detail;
+          window.CURRENT_MIRROR_STATE = state;
+            console.log("STATE CHANGE: " + state);
+            $(".auth-state").attr("aria-hidden", "true");
+            switch (state) {
+              case MIRROR_STATES.BLANK:
               default:
-                break;
+                // Nothing to show here?
+              break;
+              
+              case MIRROR_STATES.FACE_CLOSE:
+                $("#face-close").attr("aria-hidden", "false");
+              break;
+              
+              case MIRROR_STATES.LOGGED_IN:
+                $("#face-authenticated").attr("aria-hidden", "false");
+              break;
+              
+              case MIRROR_STATES.NOT_DETECTED:
+                $("#non-user-detected").attr("aria-hidden", "false");
+              break;
+              
+              case MIRROR_STATES.LOGGING_OUT:
+                $("#logging-out").attr("aria-hidden", "false");
+              break;
             }
-            $('#state-message').html(message)
         });
         document.dispatchEvent(new CustomEvent("mirrorstatechange", {
             detail: MIRROR_STATES.BLANK

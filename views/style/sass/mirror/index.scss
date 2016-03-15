@@ -9,6 +9,12 @@
   line-height: 1.25;
 }
 
+#videoHidden {
+  position: absolute;
+  top: -10000px;
+  left: -10000px;
+}
+
 /* MIRROR UI LAYOUT
  * Notes: the flexbox layout work in this section
  * anchors eye-level stuff to the top, centers

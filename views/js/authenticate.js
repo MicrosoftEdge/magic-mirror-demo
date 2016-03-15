@@ -112,9 +112,11 @@ Authenticate.takePhoto = function(addFace) {
           authenticated = true;
                   authenticating = false;
           message.innerText = resultObj.message;
+          Authenticate.user = { 
+            name: resultObj.name
+          }
           document.dispatchEvent(new CustomEvent("mirrorstatechange", {
             detail: MIRROR_STATES.LOGGED_IN
-            , data: resultObj
           }));
         } else {
           //If authenticated is false, then there was no match so start fresh
