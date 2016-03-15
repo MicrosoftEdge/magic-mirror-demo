@@ -13,14 +13,14 @@ module.exports = function(app) {
     mirrorRouter.use(function(req, res, next) {
         next();
     });
-
+    
     mirrorRouter.get('/', function(req, res, next) {
         res.render('./../views/partials/mirror', {
             bodyClass: 'mirror',
             helpers:{}
         });
     });
-
+ 
     mirrorRouter.get('/weather.js', function(req, res, next) {
         res.writeHead(200, { 'Content-Type': 'text/js' });
         res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/weather.js'), 'utf8'));
@@ -80,6 +80,6 @@ module.exports = function(app) {
         res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/authenticate.js'), 'utf8'));
         res.end();
     });
-
+    
     app.use('/mirror', mirrorRouter);
 };
