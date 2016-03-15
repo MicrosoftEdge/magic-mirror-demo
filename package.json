@@ -10,6 +10,7 @@
     "express-handlebars": "^3.0.0",
     "express-session": "^1.13.0",
     "formidable": "^1.0.17",
+    "handlebars": "^4.0.5",
     "jscs": "^2.11.0",
     "mongoose": "^4.4.5",
     "nconf": "^0.8.4",
