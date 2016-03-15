@@ -15,7 +15,7 @@ var mirroring = true;
 var cycles = 2;
 var maxDistance = 40;
 var maxChange = 5;
-var logoutTime = 5000; // in milliseconds
+var logoutTime = 10000; // in milliseconds
 
 // State variables
 var authenticating = false
@@ -64,17 +64,6 @@ function isStable(face) {
   prevHeight = curHeight;
   
   return false;
-}
-
-function updateCountdown() {
-  $(".timer .text").html(timeLeft--);
-  $(".timer .circle").css("stroke-dashoffset", Math.round((timeLeft / (logoutTime / 1000)) * 100) - 100);
-  if (timeoutSet) {
-    setTimeout(function () {
-      $(".timer .text").textContent = timeLeft;
-      requestAnimationFrame(updateCountdown);
-    }, 1000);
-  }
 }
 
 var Authenticate = {};
@@ -258,10 +247,6 @@ Authenticate.handleFaces = function(args) {
   else {
     if (authenticated && !timeoutSet) {
       timeoutSet = true;
-      timeLeft = logoutTime / 1000;
-      $(".timer .text").html(timeLeft);
-      $(".timer .circle").css("stroke-dashoffset", Math.round((timeLeft / (logoutTime / 1000)) * 100) - 100);
-      requestAnimationFrame(updateCountdown);
       $(".low-pri-content").animate({
         opacity: 0
       }, logoutTime, function () {
