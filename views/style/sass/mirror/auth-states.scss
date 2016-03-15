@@ -9,7 +9,9 @@
 }
 
 .auth-state-title {
-  font-size: 3em;
+  margin: 0 auto;
+  max-width: 10em;
+  font-size: 4em;
 }
 
 .greeting-salutation,
@@ -20,8 +22,7 @@
 .auth-state-content {
 
   p {
-    margin-right: auto;
-    margin-left: auto;
+    margin: 4em auto 0;
     max-width: 22em;
     text-align: left;
   }
