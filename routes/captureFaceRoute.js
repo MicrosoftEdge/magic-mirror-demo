@@ -20,7 +20,7 @@ module.exports = function(app) {
   });
 
   captureFaceRouter.get('/:user_id', function(req, res, next) {
-    res.render('./../views/partial/captureFace', {
+    res.render('./../views/partials/captureFace', {
       bodyClass: 'setup face-setup'
     });
     user_id = req.params.user_id

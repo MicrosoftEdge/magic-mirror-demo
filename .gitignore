@@ -3,3 +3,4 @@
 environment.txt
 node_modules
 environment.json
+*.sass-cache

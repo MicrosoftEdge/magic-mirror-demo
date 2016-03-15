@@ -4,6 +4,7 @@ module.exports = function(app) {
         , mirrorRouter = express.Router()
         , path = require('path')
         , fs = require('fs')
+        , Handlebars = require('handlebars')
         , request = require('request')
         , mongoose = require('mongoose')
         , nconf = require('nconf').file({ file: 'environment.json' }).env()
@@ -14,8 +15,9 @@ module.exports = function(app) {
     });
 
     mirrorRouter.get('/', function(req, res, next) {
-        res.render('./../views/partial/mirror', {
-            bodyClass: 'mirror'
+        res.render('./../views/partials/mirror', {
+            bodyClass: 'mirror',
+            helpers:{}
         });
     });
 
@@ -42,9 +44,6 @@ module.exports = function(app) {
         
         var waypoint0 = "Seattle, WA";
         var waypoint1 = "Redmond, WA";
-        // model.findOne({ 'face_id': face_id }, function (err, user){
-        //     console.log(user);
-        // });
         
         request.get({
             url: `http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=${waypoint0}&wp.1=${waypoint1}&optmz=timeWithTraffic&key=${bingApiKey}`,
@@ -54,12 +53,9 @@ module.exports = function(app) {
                     console.log(error)
                 else {
                     body = JSON.parse(body);
-                    console.log(body);
                     if(body && body.resourceSets && body.resourceSets[0]){
                         var travelDuration = body.resourceSets[0].resources[0].travelDurationTraffic;
                         var trafficCongestion = body.resourceSets[0].resources[0].trafficCongestion; //This can say "Heavy" or other things
-                        console.log(`travelDuration: ${travelDuration}`);
-                        console.log(`trafficCongestion: ${trafficCongestion}`);
                         res.send({ "travelDuration": travelDuration, "trafficCongestion": trafficCongestion }); 
                     }
                 }
