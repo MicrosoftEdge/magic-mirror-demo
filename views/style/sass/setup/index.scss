@@ -136,9 +136,16 @@ input[type="submit"], button {
   cursor: pointer;
 }
 
-form #error {
-  margin: 2em 0 0;
+#form-errors {
+  display: none;
   color: #cd0a0a;
+
+  p {
+    margin: 2em 0;
+    padding: 1em;
+    border: 2px solid;
+  }
+
 }
 
 .field-item {
