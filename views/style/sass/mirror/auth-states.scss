@@ -6,12 +6,6 @@
   transition: opacity 400ms ease-in-out;
   font-family: $font-light;
   text-align: center;
-
-  &[aria-hidden="true"] {
-    display: none;
-    opacity: 0;
-  }
-
 }
 
 .greeting-salutation,

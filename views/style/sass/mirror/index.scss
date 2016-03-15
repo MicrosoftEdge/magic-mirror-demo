@@ -68,6 +68,13 @@
   display: none;
 }
 
+/* HIDE THESE VISUALLY WHEN HIDDEN FROM SCREEN READERS */
+.auth-state[aria-hidden="true"],
+.low-pri-content[aria-hidden="true"] {
+  display: none;
+  opacity: 0;
+}
+
 /* SUBSECTIONS OF MIRROR */
 @import 'auth-states';
 @import 'weather';

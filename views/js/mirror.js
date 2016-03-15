@@ -3,11 +3,11 @@
 
     var time, date, day, fcast, temp, weatherDesc, loc;
     var MIRROR_STATES = {
-        BLANK: "blank", // Basic state. No face detected in screen. No one logged in.
-        FACE_CLOSE: "face-close", // Detected a face in screen. Not close enough to authenticate. No one logged in.
-        LOGGED_IN: "logged-in", // Successfully authenticated. Face still in screen. User logged in.
-        NOT_DETECTED: "not-detected", // Unable to authenticate. Face still in screen. User not logged in.
-        LOGGING_OUT: "logging-out" // Face no longer in screen. User logged in, but timeout has begun. Will logout after timeout expires.
+        BLANK: 'blank', // Basic state. No face detected in screen. No one logged in.
+        FACE_CLOSE: 'face-close', // Detected a face in screen. Not close enough to authenticate. No one logged in.
+        LOGGED_IN: 'logged-in', // Successfully authenticated. Face still in screen. User logged in.
+        NOT_DETECTED: 'not-detected', // Unable to authenticate. Face still in screen. User not logged in.
+        LOGGING_OUT: 'logging-out' // Face no longer in screen. User logged in, but timeout has begun. Will logout after timeout expires.
     };
     window.CURRENT_MIRROR_STATE = MIRROR_STATES.BLANK;
     window.MIRROR_STATES = MIRROR_STATES;
@@ -16,13 +16,13 @@
         var curWidth = $(window).width();
         var curHeight = $(window).height();
         var container = document.body;
-        container.style.transform = "rotate(0deg)";
-        container.style.width = curHeight + "px";
-        container.style.height = curWidth + "px";
-        container.style.transform = "rotate(-90deg)";
-        container.style.transformOrigin = "left top";
-        container.style.position = "relative";
-        container.style.top = curHeight + "px";
+        container.style.transform = 'rotate(0deg)';
+        container.style.width = curHeight + 'px';
+        container.style.height = curWidth + 'px';
+        container.style.transform = 'rotate(-90deg)';
+        container.style.transformOrigin = 'left top';
+        container.style.position = 'relative';
+        container.style.top = curHeight + 'px';
     }
 
     function updateTime() {
@@ -49,37 +49,37 @@
     function init() {
         // Need to dynamically rotate the page via CSS due to graphics bug
         rotatePage();
-        document.addEventListener("mirrorstatechange", function (e) {
+        document.addEventListener('mirrorstatechange', function (e) {
           var state = e.detail;
           window.CURRENT_MIRROR_STATE = state;
-            console.log("STATE CHANGE: " + state);
-            $(".auth-state").attr("aria-hidden", "true");
+            console.log('STATE CHANGE: ' + state);
+            $('.auth-state').attr('aria-hidden', 'true');
             switch (state) {
               case MIRROR_STATES.BLANK:
               default:
-                $(".low-pri-content").css("display", "none");
+                $('.low-pri-content').attr('aria-hidden', 'true');
               break;
-              
+
               case MIRROR_STATES.FACE_CLOSE:
-                $("#face-close").attr("aria-hidden", "false");
+                $('#face-close').removeAttribute('aria-hidden');
               break;
-              
+
               case MIRROR_STATES.LOGGED_IN:
-                $("#face-authenticated").attr("aria-hidden", "false");
-                $("#face-authenticated .greeting-name").html(Authenticate.user.name + '!');
-                $(".low-pri-content").css("display", "block");
+                $('#face-authenticated .greeting-name').html(Authenticate.user.name + '!');
+                $('#face-authenticated').removeAttribute('aria-hidden');
+                $('.low-pri-content').removeAttribute('aria-hidden');
               break;
-              
+
               case MIRROR_STATES.NOT_DETECTED:
-                $("#non-user-detected").attr("aria-hidden", "false");
+                $('#non-user-detected').removeAttribute('aria-hidden');
               break;
-              
+
               case MIRROR_STATES.LOGGING_OUT:
-                $("#logging-out").attr("aria-hidden", "false");
+                $('#logging-out').removeAttribute('aria-hidden');
               break;
             }
         });
-        document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+        document.dispatchEvent(new CustomEvent('mirrorstatechange', {
             detail: MIRROR_STATES.BLANK
         }));
         date = $('#date');
