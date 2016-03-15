@@ -4,28 +4,10 @@
 --------------------------------------------- */
 
 #timestamp {
+  font-size: 2em;
   text-align: center;
 }
 
 #time {
-  font: 160px/1 $font-light;
-}
-
-/* TEMPORARY CONTROLS
- * @TODO: Remove these */
-.mirror .controls {
-  margin-top: 2em;
-  font-size: 16px;
-}
-
-.mirror .controls button,
-.mirror .controls a {
-  display: inline-block;
-  vertical-align: middle;
-  border: 0;
-  outline: none;
-  text-decoration: none;
-  padding: 10px;
-  background: #fff;
-  color: #000;
+  font: 5em/1 $font-light;
 }

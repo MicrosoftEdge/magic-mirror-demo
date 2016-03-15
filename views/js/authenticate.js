@@ -15,7 +15,7 @@ var mirroring = true;
 var cycles = 2;
 var maxDistance = 40;
 var maxChange = 5;
-var logoutTime = 5000; // in milliseconds
+var logoutTime = 10000; // in milliseconds
 
 // State variables
 var authenticating = false
@@ -66,17 +66,6 @@ function isStable(face) {
   return false;
 }
 
-function updateCountdown() {
-  $(".timer .text").html(timeLeft--);
-  $(".timer .circle").css("stroke-dashoffset", Math.round((timeLeft / (logoutTime / 1000)) * 100) - 100);
-  if (timeoutSet) {
-    setTimeout(function () {
-      $(".timer .text").textContent = timeLeft;
-      requestAnimationFrame(updateCountdown);
-    }, 1000);
-  }
-}
-
 var Authenticate = {};
 Authenticate.findCameraDeviceByPanelAsync = function (panel) {
   var deviceInfo;
@@ -120,7 +109,7 @@ Authenticate.takePhoto = function(addFace) {
         var resultObj = JSON.parse(result);
         if(resultObj.authenticated){
           authenticated = true;
-                  authenticating = false;
+          authenticating = false;
           // message.innerText = resultObj.message;
           Authenticate.user = { 
             name: resultObj.name
@@ -128,11 +117,13 @@ Authenticate.takePhoto = function(addFace) {
           document.dispatchEvent(new CustomEvent("mirrorstatechange", {
             detail: MIRROR_STATES.LOGGED_IN
           }));
-          authenticated = true;
-          authenticating = false;
           Stock.init(resultObj.stock);
           //move your Traffic.init(resultObj.workAddress) here
-                       
+          setTimeout(function () {
+            $("#face-authenticated .auth-state-content").animate({
+              opacity: 0
+            }, 3000);
+          }, 2000);
         } else {
           //If authenticated is false, then there was no match so start fresh
           Authenticate.logout();
@@ -206,6 +197,8 @@ Authenticate.handleFaces = function(args) {
     if (authenticated && timeoutSet) {
       timeoutSet = false;
       clearTimeout(logoutTimeout);
+      $(".auth-content").stop();
+      $(".auth-content").css("opacity", 1);
       document.dispatchEvent(new CustomEvent("mirrorstatechange", {
         detail: MIRROR_STATES.LOGGED_IN
       }));
@@ -255,10 +248,11 @@ Authenticate.handleFaces = function(args) {
   else {
     if (authenticated && !timeoutSet) {
       timeoutSet = true;
-      timeLeft = logoutTime / 1000;
-      $(".timer .text").html(timeLeft);
-      $(".timer .circle").css("stroke-dashoffset", Math.round((timeLeft / (logoutTime / 1000)) * 100) - 100);
-      requestAnimationFrame(updateCountdown);
+      $(".auth-content").animate({
+        opacity: 0
+      }, logoutTime, function () {
+        $(this).css("opacity", 1);
+      });
       logoutTimeout = setTimeout(Authenticate.logout, logoutTime);
       document.dispatchEvent(new CustomEvent("mirrorstatechange", {
         detail: MIRROR_STATES.LOGGING_OUT
@@ -284,6 +278,7 @@ Authenticate.logout = function () {
   document.dispatchEvent(new CustomEvent("mirrorstatechange", {
     detail: MIRROR_STATES.BLANK
   }));
+  $("#face-authenticated .auth-state-content").css("opacity", 1);
 };
 Authenticate.mirrorPreview= function () {
   var props = mediaCapture.videoDeviceController.getMediaStreamProperties(Capture.MediaStreamType.videoPreview);
