@@ -1,0 +1,15 @@
+/* COMMAND TO COMPILE SASS:
+   sass --watch style.scss:../style.css --style compressed
+ */
+
+/* Variables, mixins, functions, etc. */
+@import 'sass-helpers';
+
+/* Global CSS */
+@import 'index';
+
+/* Account setup UIs */
+@import 'setup/index';
+
+/* Mirror UI */
+@import 'mirror/index';

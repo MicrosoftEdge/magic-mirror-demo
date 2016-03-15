@@ -1,0 +1,58 @@
+  <div class="clear eyelevel">
+
+    <!-- WEATHER-->
+    {{> weather}}
+
+    <!-- TIMELY CONTENT: TIMESTAMP AND ALERTS -->
+    <div class="timely-content">
+
+      <!-- TIMESTAMP -->
+      {{> timestamp}}
+
+     <!-- EMOTION -->
+     {{> emotion}}
+    </div>
+
+  </div>
+
+  <!-- AUTH STATES -->
+  <section class="auth-states">
+
+    <!-- FACE DETECTED W/IN RANGE -->
+
+    {{> faceClose }}
+
+    <!-- USER DETECTED -->
+
+    {{> userDetected }}
+
+    <!-- NON USER DETECTED -->
+
+    {{> nonUserDetected }}
+    
+    <!-- TIME OUT LOGS USER OUT -->
+    
+    {{> loggingOut }}
+
+
+  </section>
+
+  <!-- LOW PRIORITY CONTENT -->
+  <section class="low-pri-content">
+    {{> traffic}}
+    {{> stocks}}
+    {{> newsFeed}}
+  </section>
+
+<div id="videoHidden">
+  <video id="cameraPreview" class="cameraPreview"></video>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.2.1.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/2.11.2/moment.min.js"></script>
+<script src="/mirror/weather.js"></script>
+<script src="/mirror/stock.js"></script>
+<script src="/mirror/news.js"></script>
+<script src="/mirror/traffic.js"></script>
+<script src="/mirror/mirror.js"></script>
+<script src="/mirror/authenticate.js"></script>

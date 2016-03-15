@@ -1,0 +1,49 @@
+/* AUTH STATES
+--------------------------------------------- */
+
+.auth-state {
+  opacity: 1;
+  transition: opacity 400ms ease-in-out;
+  font-family: $font-light;
+  text-align: center;
+
+  &[aria-hidden="true"] {
+    display: none;
+    opacity: 0;
+  }
+
+}
+
+.greeting-salutation,
+.greeting-name {
+  display: block;
+}
+
+/* STATE: FACE NEARBY, TRYING TO DETECT */
+.face-detect-ring {
+  position: relative;
+  width: 580px;
+  height: 800px;
+}
+
+/* AUTH STATE: LOGGING OUT */
+.timer {
+	height: 50px;
+	width: 50px;
+	border-radius: 100%;
+}
+
+.timer .circle {
+	stroke: #ffffff;
+	fill: transparent;
+	stroke-dasharray: 100 100;
+	stroke-dashoffset: 0;
+	transition: stroke-dashoffset 1s;
+  transition-timing-function: linear;
+}
+
+.timer .text {
+	fill: rgba(255,255,255,0.7);
+	font-size: 10px;
+	text-anchor: middle;
+}

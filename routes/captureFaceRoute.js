@@ -6,19 +6,21 @@ module.exports = function(app) {
     , fs = require('fs')
     , request = require('request')
     , nconf = require('nconf').file({file: 'environment.json'}).env()
+    , quotes = JSON.parse(fs.readFileSync('quotes.json', 'utf8'))
     , oxfordKey = nconf.get("OXFORD_SECRET_KEY") // Subscription key for Project Oxford
+    , oxfordEmotionKey = nconf.get("OXFORD_EMOTION_SECRET_KEY")
     , oxfordList = "magic-mirror-test"
     , minConfidence = 0.5
     , mongoose = require('mongoose')
     , bandname = require('bandname')
     ,user_id;
-    
+
   captureFaceRouter.use(function(req, res, next) {
     next();
   });
 
   captureFaceRouter.get('/:user_id', function(req, res, next) {
-    res.render('./../views/partial/captureFace', {
+    res.render('./../views/partials/captureFace', {
       bodyClass: 'setup face-setup'
     });
         user_id = req.params.user_id;                                                          
@@ -32,7 +34,7 @@ module.exports = function(app) {
         'Content-Type': 'application/octet-stream',
         'Ocp-Apim-Subscription-Key': oxfordKey
       },
-      body: req.body     
+      body: req.body
     },
     function(error, response, body) {
       if(error)
@@ -53,10 +55,48 @@ module.exports = function(app) {
     })
   });
 
-  captureFaceRouter.post('/authenticate', function (req, res, next) {
-    var authenFuncGlobalReq = req;
-    //req.session.myvalue = 'value';
-    console.log('authenticate server route post');
+  captureFaceRouter.post('/determineEmotion', function(req, res, next) {
+    console.log('determineEmotion server route post')
+    request.post({
+      url: 'https://api.projectoxford.ai/emotion/v1.0/recognize',
+      headers: {
+        'Content-Type': 'application/octet-stream',
+        'Ocp-Apim-Subscription-Key': oxfordEmotionKey
+      },
+      body: req.body
+    },
+    function (error, response, body) {
+      if(error)
+        console.log(error)
+      else {
+                var emotions = JSON.parse(body);
+                if (emotions.length > 0) {
+                    // Just take first face
+                    var scores = emotions[0].scores;
+                    var includeNeutral = true;
+                    var threshold = 0.5;
+                    // Sum all the probabilities of non-positive emotions to decide if we should act
+                    var nonPositive = scores.anger + scores.contempt + scores.disgust + scores.fear + scores.sadness;
+                    if (includeNeutral) {
+                        nonPositive += scores.neutral;
+                    }
+                    if (nonPositive >= threshold) {
+                        var quote = quotes[Math.floor(Math.random()*quotes.length)];
+                        res.write(JSON.stringify(quote));
+                    }
+                    else {
+                        res.write(JSON.stringify({
+                            emotionState: "positive"
+                        }));
+                    }
+                }
+                res.end();
+      }
+    })
+  });
+
+  captureFaceRouter.post('/authenticate', function(req, res, next) {
+    console.log('authenticate server route post')
     request.post({
       url: 'https://api.projectoxford.ai/face/v1.0/detect',
       headers: {
@@ -66,7 +106,6 @@ module.exports = function(app) {
       body: req.body
     },
     function(error, response, body) {
-      //console.log('body: ', body);
       body = JSON.parse(body)
       if (body.length > 0) {
         // There should only be one face, but in the event there are more, the largest one is returned first
@@ -83,7 +122,7 @@ module.exports = function(app) {
               'Content-Type': 'application/json',
               'Ocp-Apim-Subscription-Key': oxfordKey
           },
-          body: JSON.stringify(req)          
+          body: JSON.stringify(req)
         }, function(error, response, body) {
           body = JSON.parse(body)
           if(error)
@@ -102,8 +141,8 @@ module.exports = function(app) {
                   res.end()
                 }
                 if (user) {                                             
-                    var message, percConf = confidence.toFixed(4) * 100
-                    if (confidence >= minConfidence) {                        
+                  var message, percConf = confidence.toFixed(4) * 100
+                  if (confidence >= minConfidence) {
                         authenFuncGlobalReq.session.user = user; // assign user info to a global session variable                        
                     message = `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`
                     res.write(JSON.stringify({
@@ -113,7 +152,7 @@ module.exports = function(app) {
                       , confidence: confidence
                       , stock: user.stock
                       , workAddress: user.workAddress
-                    }))                    
+                    }))
                     res.end();                     
                   } else {
                     message = `Unable to find a strong enough match. Confidence level was ${percConf}%.`
@@ -154,7 +193,7 @@ module.exports = function(app) {
 
   captureFaceRouter.get('/file/captureFace.js', function(req, res, next) {
     res.writeHead(200, {'Content-Type': 'text/js'});
-    res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/captureFace.js'), 'utf8'));    
+    res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/captureFace.js'), 'utf8'));
     res.end();
   });
 
