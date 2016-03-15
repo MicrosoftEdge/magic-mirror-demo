@@ -57,25 +57,25 @@
             switch (state) {
               case MIRROR_STATES.BLANK:
               default:
-                $('.low-pri-content').attr('aria-hidden', 'true');
+                $('.auth-content').attr('aria-hidden', 'true');
               break;
 
               case MIRROR_STATES.FACE_CLOSE:
-                $('#face-close').removeAttribute('aria-hidden');
+                $('#face-close').attr('aria-hidden', 'false');
               break;
 
               case MIRROR_STATES.LOGGED_IN:
                 $('#face-authenticated .greeting-name').html(Authenticate.user.name + '!');
-                $('#face-authenticated').removeAttribute('aria-hidden');
-                $('.low-pri-content').removeAttribute('aria-hidden');
+                $('#face-authenticated').attr('aria-hidden', 'false');
+                $('.auth-content').attr('aria-hidden', 'false');
               break;
 
               case MIRROR_STATES.NOT_DETECTED:
-                $('#non-user-detected').removeAttribute('aria-hidden');
+                $('#non-user-detected').attr('aria-hidden', 'false');
               break;
 
               case MIRROR_STATES.LOGGING_OUT:
-                $('#logging-out').removeAttribute('aria-hidden');
+                $('#logging-out').attr('aria-hidden', 'false');
               break;
             }
         });
