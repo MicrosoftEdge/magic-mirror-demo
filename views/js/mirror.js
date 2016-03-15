@@ -66,6 +66,7 @@
               
               case MIRROR_STATES.LOGGED_IN:
                 $("#face-authenticated").attr("aria-hidden", "false");
+                $("#face-authenticated .greeting-name").html(Authenticate.user.name + '!');
               break;
               
               case MIRROR_STATES.NOT_DETECTED:

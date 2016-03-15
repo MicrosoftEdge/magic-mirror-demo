@@ -24,7 +24,7 @@ var faceDetected = false
 var checkEmotion = true
 
 // Initializations
-var buttonAddFace, buttonReset, mediaCapture, message, prevMessage, snapshot, logoutTimeout, quotePane, quoteText, quoteAuthor;
+var buttonAddFace, mediaCapture, message, prevMessage, snapshot, timeLeft, logoutTimeout, quotePane, quoteText, quoteAuthor;
 
 var Capture = Windows.Media.Capture;
 var captureSettings = new Capture.MediaCaptureInitializationSettings;
@@ -64,6 +64,17 @@ function isStable(face) {
   prevHeight = curHeight;
   
   return false;
+}
+
+function updateCountdown() {
+  $(".timer .text").html(timeLeft--);
+  $(".timer .circle").css("stroke-dashoffset", Math.round((timeLeft / (logoutTime / 1000)) * 100) - 100);
+  if (timeoutSet) {
+    setTimeout(function () {
+      $(".timer .text").textContent = timeLeft;
+      requestAnimationFrame(updateCountdown);
+    }, 1000);
+  }
 }
 
 var Authenticate = {};
@@ -111,7 +122,7 @@ Authenticate.takePhoto = function(addFace) {
         if(resultObj.authenticated){
           authenticated = true;
                   authenticating = false;
-          message.innerText = resultObj.message;
+          // message.innerText = resultObj.message;
           Authenticate.user = { 
             name: resultObj.name
           }
@@ -233,13 +244,17 @@ Authenticate.handleFaces = function(args) {
     }
     if (checkEmotion) {
         if (isStable(face)) {
-            Authenticate.determineEmotion()
+            // Authenticate.determineEmotion()
         }
     }
   }
   else {
     if (authenticated && !timeoutSet) {
       timeoutSet = true;
+      timeLeft = logoutTime / 1000;
+      $(".timer .text").html(timeLeft);
+      $(".timer .circle").css("stroke-dashoffset", Math.round((timeLeft / (logoutTime / 1000)) * 100) - 100);
+      requestAnimationFrame(updateCountdown);
       logoutTimeout = setTimeout(Authenticate.logout, logoutTime);
       document.dispatchEvent(new CustomEvent("mirrorstatechange", {
         detail: MIRROR_STATES.LOGGING_OUT
@@ -257,11 +272,14 @@ Authenticate.handleFaces = function(args) {
   }
 };
 Authenticate.logout = function () {
-  message.innerText = ''; 
+  // message.innerText = ''; 
   authenticating = false;
   authenticated = false;
   timeoutSet = false;
   logoutTimeout = null;
+  document.dispatchEvent(new CustomEvent("mirrorstatechange", {
+    detail: MIRROR_STATES.BLANK
+  }));
 };
 Authenticate.mirrorPreview= function () {
   var props = mediaCapture.videoDeviceController.getMediaStreamProperties(Capture.MediaStreamType.videoPreview);
@@ -273,9 +291,6 @@ Authenticate.init = function() {
     console.log('Windows is not available');
     return;
   }
-
-  buttonReset = document.getElementById('buttonReset');
-    buttonReset.addEventListener('click', Authenticate.logout);
   message = document.getElementById('message');
   quotePane = document.getElementById('quotePane');
   quoteText = document.getElementById('quoteText');
