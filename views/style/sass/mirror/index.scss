@@ -64,6 +64,10 @@
 
 }
 
+#video-hidden {
+  display: none;
+}
+
 /* SUBSECTIONS OF MIRROR */
 @import 'auth-states';
 @import 'weather';
