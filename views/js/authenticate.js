@@ -121,7 +121,7 @@ Authenticate.takePhoto = function(addFace) {
         var resultObj = JSON.parse(result);
         if(resultObj.authenticated){
           authenticated = true;
-                  authenticating = false;
+          authenticating = false;
           // message.innerText = resultObj.message;
           Authenticate.user = { 
             name: resultObj.name
@@ -129,6 +129,11 @@ Authenticate.takePhoto = function(addFace) {
           document.dispatchEvent(new CustomEvent("mirrorstatechange", {
             detail: MIRROR_STATES.LOGGED_IN
           }));
+          setTimeout(function () {
+            $("#face-authenticated .auth-state-content").animate({
+              opacity: 0
+            }, 3000);
+          }, 2000);
         } else {
           //If authenticated is false, then there was no match so start fresh
           Authenticate.logout();
@@ -202,6 +207,8 @@ Authenticate.handleFaces = function(args) {
     if (authenticated && timeoutSet) {
       timeoutSet = false;
       clearTimeout(logoutTimeout);
+      $(".low-pri-content").stop();
+      $(".low-pri-content").css("opacity", 1);
       document.dispatchEvent(new CustomEvent("mirrorstatechange", {
         detail: MIRROR_STATES.LOGGED_IN
       }));
@@ -255,6 +262,11 @@ Authenticate.handleFaces = function(args) {
       $(".timer .text").html(timeLeft);
       $(".timer .circle").css("stroke-dashoffset", Math.round((timeLeft / (logoutTime / 1000)) * 100) - 100);
       requestAnimationFrame(updateCountdown);
+      $(".low-pri-content").animate({
+        opacity: 0
+      }, logoutTime, function () {
+        $(this).css("opacity", 1);
+      });
       logoutTimeout = setTimeout(Authenticate.logout, logoutTime);
       document.dispatchEvent(new CustomEvent("mirrorstatechange", {
         detail: MIRROR_STATES.LOGGING_OUT
@@ -280,6 +292,7 @@ Authenticate.logout = function () {
   document.dispatchEvent(new CustomEvent("mirrorstatechange", {
     detail: MIRROR_STATES.BLANK
   }));
+  $("#face-authenticated .auth-state-content").css("opacity", 1);
 };
 Authenticate.mirrorPreview= function () {
   var props = mediaCapture.videoDeviceController.getMediaStreamProperties(Capture.MediaStreamType.videoPreview);

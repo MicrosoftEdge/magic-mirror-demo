@@ -57,7 +57,7 @@
             switch (state) {
               case MIRROR_STATES.BLANK:
               default:
-                // Nothing to show here?
+                $(".low-pri-content").css("display", "none");
               break;
               
               case MIRROR_STATES.FACE_CLOSE:
@@ -67,6 +67,7 @@
               case MIRROR_STATES.LOGGED_IN:
                 $("#face-authenticated").attr("aria-hidden", "false");
                 $("#face-authenticated .greeting-name").html(Authenticate.user.name + '!');
+                $(".low-pri-content").css("display", "block");
               break;
               
               case MIRROR_STATES.NOT_DETECTED:
