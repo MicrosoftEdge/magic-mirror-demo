@@ -2,18 +2,12 @@
 --------------------------------------------- */
 
 .mirror {
-  padding: 1.5em;
+  padding: 3em;
   background: $color-mirror-bg;
   color: $color-mirror-body;
-  font-size: 32px;
+  font-size: 100%;
   line-height: 1.25;
   overflow: hidden;
-}
-
-#videoHidden {
-  position: absolute;
-  top: -10000px;
-  left: -10000px;
 }
 
 /* MIRROR UI LAYOUT
