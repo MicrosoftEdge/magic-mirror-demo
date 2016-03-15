@@ -11,9 +11,10 @@
         function getQuotes(result) {            
             console.log('getQuotes is being called with value', result );
             //convert stock object literal to array of values
-            for (var iter in result.stock) {
-                stocks.push(result.stock[iter]);
-            }
+            // for (var iter in result.stock) {
+            //     stocks.push(result.stock[iter]);
+            // }
+            stocks.push(result);
             var encodeStocks = stocks.join();
             //console.log('getQuotes is being called with the following encodeStocs value ', encodeStocks);
             $.get(url + encodeStocks, function (data) {
@@ -73,7 +74,6 @@
                 if (!initialized) {
                     initialized = true;
                 }
-
                 refresh = setTimeout(stockSmbFromDb, refreshRate);
             });
         }
