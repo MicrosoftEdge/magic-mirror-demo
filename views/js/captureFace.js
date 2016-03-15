@@ -65,7 +65,7 @@
         $.ajax({
           url: '/capture/addFace',
           beforeSend: function(xhrObj) {
-            xhrObj.setRequestHeader('Content-Type', 'application/octet-stream')
+            xhrObj.setRequestHeader('Content-Type', 'application/octet-stream');
           },
           type: 'POST',
           data: byteArray,
@@ -120,8 +120,7 @@
                 result.desiredDetectionInterval = detectionInterval;
                 buttonAddFace.addEventListener('click', function() {
                   takePhoto(true);
-                })
-               
+                });
               },
               function error(e) {
                 console.error(e);

@@ -11,61 +11,67 @@
         var watchList, refresh;       
 
         function getQuotes() {
-            $.get(url + encodeStocks, function (data) {
-                var stockData = JSON.parse(data.substr(3));
-                stockData.forEach(function (stock) {
-                    var symbol = stock.t;
-                    var lastPrice = stock.l;
-                    var changePercentage = stock.cp;
-                    var changeSinceClose = stock.c;
-                    var ticker;
-                    var symbolLabel;
-                    var tickerPrice;
-                    var tickerChange;
+            $.ajax({
+                type: "GET",
+                url: url + encodeStocks,
+                dataType: "jsonp",
+                success: function (data) {
+                    data.forEach(function (stock) {
+                        var symbol = stock.t;
+                        var lastPrice = stock.l;
+                        var changePercentage = stock.cp;
+                        var changeSinceClose = stock.c;
+                        var ticker;
+                        var symbolLabel;
+                        var tickerPrice;
+                        var tickerChange;
 
-                    // Set up initial ticker item
-                    if (!initialized) {
-                        ticker = document.createElement("li");
-                        ticker.classList.add("ticker");
-                        ticker.id = symbol;
+                        // Set up initial ticker item
+                        if (!initialized) {
+                            ticker = document.createElement("li");
+                            ticker.classList.add("ticker");
+                            ticker.id = symbol;
 
-                        symbolLabel = document.createElement("div");
-                        symbolLabel.classList.add("symbol");
-                        ticker.appendChild(symbolLabel);
-                        symbolLabel.innerText = `${symbol}`;
+                            symbolLabel = document.createElement("div");
+                            symbolLabel.classList.add("symbol");
+                            symbolLabel.innerText = symbol;
 
-                        tickerPrice = document.createElement("div");
-                        tickerPrice.classList.add("price");
-                        ticker.appendChild(tickerPrice);
+                            tickerPrice = document.createElement("div");
+                            tickerPrice.classList.add("price");
+                            
+                            tickerChange = document.createElement("div");
+                            tickerChange.classList.add("price-change");
+                        }
+                        else {
+                            ticker = document.getElementById(symbol);
+                            tickerPrice = ticker.childNodes[1];
+                            tickerChange = ticker.childNodes[2];
+                        }
 
-                        tickerChange = document.createElement("div");
-                        tickerChange.classList.add("price-change");
-                        ticker.appendChild(tickerChange);
+                        // Update price and change values
+                        tickerPrice.innerText = lastPrice;
+                        tickerChange.innerText = changePercentage + "%";
 
-                    }
-                    else {
-                        ticker = document.getElementById(symbol);
-                    }
+                        // Show positive or negative change icon
+                        if (changePercentage > 0 && !tickerChange.classList.contains("pos-change")) {
+                          tickerChange.classList.add("pos-change");
+                          tickerChange.classList.remove("neg-change");
+                        } else if (changePercentage < 0 && !tickerChange.classList.contains("neg-change")) {
+                          tickerChange.classList.add("neg-change");
+                          tickerChange.classList.remove("pos-change");
+                        }
 
-                    // Update price and change values
-                    tickerPrice.innerText = `${lastPrice}`;
-                    tickerChange.innerText = `${changePercentage}%`;
-
-                    // Show positive or negative change icon
-                    if (`${changePercentage}` > 0 && !tickerChange.classList.contains("pos-change")) {
-                      tickerChange.classList.add("pos-change");
-                      tickerChange.classList.remove("neg-change");
-                    } else if (`${changePercentage}` < 0 && !tickerChange.classList.contains("neg-change")) {
-                      tickerChange.classList.add("neg-change");
-                      tickerChange.classList.remove("pos-change");
-                    }
-
-                    // Add initial ticker item
-                    if (!initialized) {
-                        watchList.appendChild(ticker);
-                    }
-                });
-            }).done(function () {
+                        // Add initial ticker item
+                        if (!initialized) {
+                            watchList.appendChild(ticker);
+                            ticker.appendChild(symbolLabel);
+                            ticker.appendChild(tickerPrice);
+                            ticker.appendChild(tickerChange);
+                        }
+                    });
+                }
+            })
+            .done(function () {
                 if (!initialized) {
                     initialized = true;
                 }
@@ -79,7 +85,7 @@
                 watchList = document.getElementById("watchList");
                 getQuotes();
             }
-        }
+        };
     })();
 
     window.Stock = Stock;

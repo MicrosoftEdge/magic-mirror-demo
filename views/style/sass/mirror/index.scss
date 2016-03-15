@@ -1,0 +1,77 @@
+/* MIRROR UI GLOBALS
+--------------------------------------------- */
+
+.mirror {
+  padding: 1.5em;
+  background: $color-mirror-bg;
+  color: $color-mirror-body;
+  font-size: 32px;
+  line-height: 1.25;
+  overflow: hidden;
+}
+
+#videoHidden {
+  position: absolute;
+  top: -10000px;
+  left: -10000px;
+}
+
+/* MIRROR UI LAYOUT
+ * Notes: the flexbox layout work in this section
+ * anchors eye-level stuff to the top, centers
+ * the face detection/greetings in the middle,
+ * and pushes low-priority content to the bottom. */
+.auth-states {
+  margin: 1.5em auto;
+}
+
+@media (min-width: $bp-m) {
+
+  .mirror, .auth-state {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+  }
+
+  .mirror {
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .eyelevel {
+    align-self: flex-start;
+    width: 100%;
+  }
+
+  .auth-states {
+    display: block;
+    margin: 3em auto;
+    width: 75%;
+    max-width: 800px;
+  }
+
+  .auth-state-content {
+    flex: 1;
+  }
+
+  .low-pri-content {
+    align-self: flex-end;
+    width: 100%;
+  }
+
+  #weather {
+    float: left;
+  }
+
+  .timely-content {
+    float: right;
+  }
+
+}
+
+/* SUBSECTIONS OF MIRROR */
+@import 'auth-states';
+@import 'weather';
+@import 'timely-content';
+@import 'stocks';

@@ -6,7 +6,9 @@ module.exports = function(app) {
     , fs = require('fs')
     , request = require('request')
     , nconf = require('nconf').file({file: 'environment.json'}).env()
+    , quotes = JSON.parse(fs.readFileSync('quotes.json', 'utf8'))
     , oxfordKey = nconf.get("OXFORD_SECRET_KEY") // Subscription key for Project Oxford
+    , oxfordEmotionKey = nconf.get("OXFORD_EMOTION_SECRET_KEY")
     , oxfordList = "magic-mirror-test"
     , minConfidence = 0.5
     , mongoose = require('mongoose')
@@ -18,7 +20,7 @@ module.exports = function(app) {
   });
 
   captureFaceRouter.get('/:user_id', function(req, res, next) {
-    res.render('./../views/partial/captureFace', {
+    res.render('./../views/partials/captureFace', {
       bodyClass: 'setup face-setup'
     });
     user_id = req.params.user_id
@@ -49,6 +51,46 @@ module.exports = function(app) {
           }
           res.end()
         })
+      }
+    })
+  });
+
+  captureFaceRouter.post('/determineEmotion', function(req, res, next) {
+    console.log('determineEmotion server route post')
+    request.post({
+      url: 'https://api.projectoxford.ai/emotion/v1.0/recognize',
+      headers: {
+        'Content-Type': 'application/octet-stream',
+        'Ocp-Apim-Subscription-Key': oxfordEmotionKey
+      },
+      body: req.body
+    },
+    function (error, response, body) {
+      if(error)
+        console.log(error)
+      else {
+                var emotions = JSON.parse(body);
+                if (emotions.length > 0) {
+                    // Just take first face
+                    var scores = emotions[0].scores;
+                    var includeNeutral = true;
+                    var threshold = 0.5;
+                    // Sum all the probabilities of non-positive emotions to decide if we should act
+                    var nonPositive = scores.anger + scores.contempt + scores.disgust + scores.fear + scores.sadness;
+                    if (includeNeutral) {
+                        nonPositive += scores.neutral;
+                    }
+                    if (nonPositive >= threshold) {
+                        var quote = quotes[Math.floor(Math.random()*quotes.length)];
+                        res.write(JSON.stringify(quote));
+                    }
+                    else {
+                        res.write(JSON.stringify({
+                            emotionState: "positive"
+                        }));
+                    }
+                }
+                res.end();
       }
     })
   });
