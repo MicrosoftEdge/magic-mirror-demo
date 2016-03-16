@@ -15,8 +15,7 @@
             //     stocks.push(result.stock[iter]);
             // }
             stocks.push(result);
-            var encodeStocks = stocks.join();
-            //console.log('getQuotes is being called with the following encodeStocs value ', encodeStocks);
+            var encodeStocks = stocks.join();            
             $.get(url + encodeStocks, function (data) {
                 var stockData = JSON.parse(data.substr(3));
                 stockData.forEach(function (stock) {

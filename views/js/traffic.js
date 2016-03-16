@@ -4,11 +4,13 @@
     var Traffic = (function () {
         var refreshRate = 5000; // Refresh rate (in ms)
         var initialized = false;
-        var refresh, traffic, trafficElement;
-
-        function getTravelDuration() {
+        var refresh, traffic, trafficElement;        
+        function getTravelDuration(home_addr,work_addr) {
+            //    url: "/mirror/getTraffic/?home_addr="+home_addr+"&work_addr="+work_addr,
+            console.log('getTravelDuration values are ', home_addr);
+               var url = "/mirror/getTraffic/?home_addr=" + home_addr + "&work_addr=" + work_addr;
             $.ajax({
-                url: "/mirror/getTraffic",
+                url: url,
                 success: function (data) {
                     var trafficCongestion = data.trafficCongestion;
                     var travelDuration = data.travelDuration;
@@ -36,9 +38,9 @@
         }
 
         return {
-            init: function () {
+            init: function (home_addr, work_addr) {
                 traffic = document.getElementById("traffic");
-                getTravelDuration();
+                getTravelDuration(home_addr, work_addr);
             }
         };
     })();

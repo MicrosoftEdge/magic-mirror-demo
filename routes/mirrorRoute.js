@@ -40,11 +40,11 @@ module.exports = function(app) {
     res.end();
     });
 
-    mirrorRouter.get('/getTraffic', function(req, res, next) {
-        var model = mongoose.model('Person');
-        
-        var waypoint0 = "Seattle, WA";
-        var waypoint1 = "Redmond, WA";
+    mirrorRouter.get('/getTraffic/:home_addr/:work_addr', function(req, res, next) {        
+        var model = mongoose.model('Person');        
+        console.log('I am inside mirror route and req params are ',req.params);
+        var waypoint0 = req.params.home_addr;
+        var waypoint1 = req.params.work_addr;
         
         request.get({
             url: `http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=${waypoint0}&wp.1=${waypoint1}&optmz=timeWithTraffic&key=${bingApiKey}`,
