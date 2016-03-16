@@ -37,3 +37,15 @@ h1 {
   }
 
 }
+
+/* ICONS */
+
+/* Icons in :before/:after pseudo-elements */
+%icon {
+  display: block;
+  position: absolute;
+  top: 50%;
+  background-image: url('../icons/icons.svg');
+  background-size: 160px 80px;
+  content: '';
+}

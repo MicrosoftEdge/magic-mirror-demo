@@ -4,8 +4,8 @@
 .low-pri-block {
 	display: inline-block;
 	vertical-align: top;
-	padding-right: 2em;
-	width: 12em;
+	padding: 0 2em 0 48px; /* Left padding = affordance for icons */
+	width: 14em;
 	font-size: 2.25em;
 
 	&:last-child {
@@ -15,12 +15,24 @@
 }
 
 .low-pri-block-title {
+	position: relative;
 	margin: 0 0 .75em;
 	font: .875em/1 $font-bold;
+
+	&:before {
+		@extend %icon;
+		margin-top: -17px;
+		left: -48px;
+		width: 35px;
+		height: 35px;
+		opacity: .5;
+	}
+
 }
 
 .logged-in-stamp {
 	margin-bottom: 3.5em;
+	padding-left: 48px; /* Left padding = affordance for icons */
 	font: 1em $font-bold;
   text-transform: uppercase;
   letter-spacing: .05em;
@@ -30,3 +42,7 @@
 	padding-bottom: 2px;
 	border-bottom: 2px solid rgba(255,255,255,.5);
 }
+
+/* SUBSECTIONS OF LOW-PRI CONTENT */
+@import 'traffic';
+@import 'stocks';

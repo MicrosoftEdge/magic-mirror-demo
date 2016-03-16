@@ -1,7 +1,7 @@
 (function () {
     "use strict";
     var Stock = (function () {
-        var stocks = []; // Array of user stocks
+        var stocks = ['M']; // Array of user stocks
         var refreshRate = 5000; // Refresh rate (in ms)
         var url = "http://finance.google.com/finance/info?client=ig&q=";
         var initialized = false;
