@@ -1,23 +1,17 @@
-/* STOCKS */
+/* STOCKS
+--------------------------------------------- */
+
 .ticker-list {
-  display: flex;
-  flex-flow: row;
   margin: 0;
   padding: 0;
   list-style: none;
-  width: 100%;
-}
 
-.ticker {
-  flex-grow: 1;
-  padding: 0 2.5em;
+  li + li {
+    margin-top: .5em;
+  }
+
 }
 
 .symbol {
-  margin-bottom: 1.25em;
-}
-
-.price-change {
-  font-size: 3em;
   font-family: $font-bold;
 }

@@ -1,0 +1,31 @@
+/* LOW-PRIORITY CONTENT
+--------------------------------------------- */
+
+.low-pri-title {
+	margin: 0 auto 2em;
+	font: 3em/1 $font-light;
+}
+
+#low-pri-name {
+	display: block;
+}
+
+.low-pri-blocks {
+  display: flex;
+  flex-flow: row;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.low-pri-block {
+  flex-grow: 1;
+	font-size: 2.25em;
+	max-width: 15em;
+}
+
+.low-pri-block-title {
+	margin: 0 0 1em;
+	font: .875em/1 $font-bold;
+}

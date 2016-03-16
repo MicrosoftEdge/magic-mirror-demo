@@ -48,7 +48,7 @@
     }
     function init() {
         // Need to dynamically rotate the page via CSS due to graphics bug
-        rotatePage();
+        // rotatePage();
         document.addEventListener('mirrorstatechange', function (e) {
           var state = e.detail;
           window.CURRENT_MIRROR_STATE = state;
@@ -57,7 +57,7 @@
             switch (state) {
               case MIRROR_STATES.BLANK:
               default:
-                $('.auth-content').attr('aria-hidden', 'true');
+                // $('.auth-content').attr('aria-hidden', 'true');
               break;
 
               case MIRROR_STATES.FACE_CLOSE:
@@ -68,6 +68,7 @@
                 $('#face-authenticated .greeting-name').html(Authenticate.user.name + '!');
                 $('#face-authenticated').attr('aria-hidden', 'false');
                 $('.auth-content').attr('aria-hidden', 'false');
+                $('#low-pri-name').html(Authenticate.user.name + ':');
               break;
 
               case MIRROR_STATES.NOT_DETECTED:

@@ -34,9 +34,12 @@
 
 <!-- LOW PRIORITY CONTENT -->
 <section class="low-pri-content auth-content">
-  {{> traffic}}
-  {{> stocks}}
-  {{> newsFeed}}
+  <h2 class="low-pri-title">Here's your updates, <span id="low-pri-name"></span></h2>
+  <div class="low-pri-blocks">
+    {{> stocks}}
+    <!--{{> newsFeed}}-->
+    {{> traffic}}
+  </div>
 </section>
 
 <div id="video-hidden" aria-hidden="true">

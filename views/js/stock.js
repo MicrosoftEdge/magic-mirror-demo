@@ -32,14 +32,14 @@
                             ticker.classList.add("ticker");
                             ticker.id = symbol;
 
-                            symbolLabel = document.createElement("div");
+                            symbolLabel = document.createElement("span");
                             symbolLabel.classList.add("symbol");
-                            symbolLabel.innerText = symbol;
+                            symbolLabel.innerText = symbol + ': ';
 
-                            tickerPrice = document.createElement("div");
+                            tickerPrice = document.createElement("span");
                             tickerPrice.classList.add("price");
-                            
-                            tickerChange = document.createElement("div");
+
+                            tickerChange = document.createElement("span");
                             tickerChange.classList.add("price-change");
                         }
                         else {
@@ -50,15 +50,15 @@
 
                         // Update price and change values
                         tickerPrice.innerText = lastPrice;
-                        tickerChange.innerText = changePercentage + "%";
+                        tickerChange.innerText = ' (' + changePercentage + "%)";
 
                         // Show positive or negative change icon
                         if (changePercentage > 0 && !tickerChange.classList.contains("pos-change")) {
-                          tickerChange.classList.add("pos-change");
-                          tickerChange.classList.remove("neg-change");
+                          ticker.classList.add("pos-change");
+                          ticker.classList.remove("neg-change");
                         } else if (changePercentage < 0 && !tickerChange.classList.contains("neg-change")) {
-                          tickerChange.classList.add("neg-change");
-                          tickerChange.classList.remove("pos-change");
+                          ticker.classList.add("neg-change");
+                          ticker.classList.remove("pos-change");
                         }
 
                         // Add initial ticker item
