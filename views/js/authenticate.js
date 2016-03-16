@@ -132,7 +132,7 @@ Authenticate.takePhoto = function(addFace) {
           authenticating = false;
           message.innerText = resultObj.name;          
           Stock.init(resultObj.stock);
-          Traffic.init(resultObj.workAddress,resultObj.workAddress);
+          Traffic.init(resultObj.homeAddress,resultObj.workAddress);
                        
         } else {
           //If authenticated is false, then there was no match so start fresh
