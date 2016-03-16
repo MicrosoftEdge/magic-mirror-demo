@@ -6,9 +6,10 @@
         var initialized = false;
         var refresh, traffic, trafficElement;
 
-        function getTravelDuration() {
+        function getTravelDuration(homeAddress, workAddress) {
+            var url = "/mirror/getTraffic?homeAddress=" + homeAddress + "&workAddress=" + workAddress;
             $.ajax({
-                url: "/mirror/getTraffic",
+                url: url,
                 success: function (data) {
                     var trafficCongestion = data.trafficCongestion;
                     var travelDuration = data.travelDuration;
@@ -36,9 +37,9 @@
         }
 
         return {
-            init: function () {
+            init: function (homeAddress, workAddres) {
                 traffic = document.getElementById("traffic");
-                getTravelDuration();
+                getTravelDuration(homeAddress, workAddres);
             }
         };
     })();

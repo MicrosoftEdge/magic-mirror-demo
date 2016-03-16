@@ -152,6 +152,7 @@ module.exports = function(app) {
                       , confidence: confidence
                       , stock: user.stock
                       , workAddress: user.workAddress
+                      , homeAddress: user.homeAddress
                     }))
                     res.end();                     
                   } else {
