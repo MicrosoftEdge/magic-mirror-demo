@@ -209,6 +209,7 @@ input[type="submit"], button {
 
   .anim-button {
     position: fixed;
+    z-index: 2;
     top: 2em;
     right: 2em;
   }
