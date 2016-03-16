@@ -2,18 +2,18 @@
 --------------------------------------------- */
 
 .mirror {
-  padding: 1.5em;
+  position: relative;
+  padding: 3em;
   background: $color-mirror-bg;
   color: $color-mirror-body;
-  font-size: 32px;
+  font-size: 100%;
   line-height: 1.25;
   overflow: hidden;
-}
 
-#videoHidden {
-  position: absolute;
-  top: -10000px;
-  left: -10000px;
+  p {
+    line-height: 1.5;
+  }
+
 }
 
 /* MIRROR UI LAYOUT
@@ -26,6 +26,16 @@
 }
 
 @media (min-width: $bp-m) {
+
+  .auth-states {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
 
   .mirror, .auth-state {
      display: flex;
@@ -44,11 +54,8 @@
     width: 100%;
   }
 
-  .auth-states {
-    display: block;
-    margin: 3em auto;
-    width: 75%;
-    max-width: 800px;
+  .auth-state {
+    min-height: 100%;
   }
 
   .auth-state-content {
@@ -68,6 +75,18 @@
     float: right;
   }
 
+}
+
+#video-hidden {
+  display: none;
+}
+
+/* HIDE THESE VISUALLY WHEN HIDDEN FROM SCREEN READERS */
+.auth-state[aria-hidden="true"],
+.low-pri-content[aria-hidden="true"],
+#weather[aria-hidden="true"] {
+  display: none;
+  opacity: 0;
 }
 
 /* SUBSECTIONS OF MIRROR */

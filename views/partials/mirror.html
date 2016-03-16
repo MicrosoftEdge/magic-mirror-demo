@@ -1,50 +1,46 @@
-  <div class="clear eyelevel">
+<!-- AUTH STATES -->
+<section class="auth-states">
 
-    <!-- WEATHER-->
-    {{> weather}}
+  <!-- FACE DETECTED W/IN RANGE -->
+  {{> faceClose }}
 
-    <!-- TIMELY CONTENT: TIMESTAMP AND ALERTS -->
-    <div class="timely-content">
+  <!-- USER DETECTED -->
+  {{> userDetected }}
 
-      <!-- TIMESTAMP -->
-      {{> timestamp}}
+  <!-- NON USER DETECTED -->
+  {{> nonUserDetected }}
 
-     <!-- EMOTION -->
-     {{> emotion}}
-    </div>
+  <!-- TIME OUT LOGS USER OUT -->
+  {{> loggingOut }}
 
+</section>
+
+<div class="clear eyelevel">
+
+  <!-- WEATHER-->
+  {{> weather}}
+
+  <!-- TIMELY CONTENT: TIMESTAMP AND ALERTS -->
+  <div class="timely-content">
+
+    <!-- TIMESTAMP -->
+    {{> timestamp}}
+
+   <!-- EMOTION -->
+   {{> emotion}}
   </div>
 
-  <!-- AUTH STATES -->
-  <section class="auth-states">
-
-    <!-- FACE DETECTED W/IN RANGE -->
-
-    {{> faceClose }}
-
-    <!-- USER DETECTED -->
-
-    {{> userDetected }}
-
-    <!-- NON USER DETECTED -->
-
-    {{> nonUserDetected }}
-    
-    <!-- TIME OUT LOGS USER OUT -->
-    
-    {{> loggingOut }}
+</div>
 
 
-  </section>
+<!-- LOW PRIORITY CONTENT -->
+<section class="low-pri-content auth-content">
+  {{> traffic}}
+  {{> stocks}}
+  {{> newsFeed}}
+</section>
 
-  <!-- LOW PRIORITY CONTENT -->
-  <section class="low-pri-content">
-    {{> traffic}}
-    {{> stocks}}
-    {{> newsFeed}}
-  </section>
-
-<div id="videoHidden">
+<div id="video-hidden" aria-hidden="true">
   <video id="cameraPreview" class="cameraPreview"></video>
 </div>
 
