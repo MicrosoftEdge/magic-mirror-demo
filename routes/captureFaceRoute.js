@@ -13,7 +13,7 @@ module.exports = function(app) {
     , minConfidence = 0.5
     , mongoose = require('mongoose')
     , bandname = require('bandname')
-    ,user_id;
+    , user_id;
 
   captureFaceRouter.use(function(req, res, next) {
     next();
@@ -142,8 +142,7 @@ module.exports = function(app) {
                 }
                 if (user) {                                             
                   var message, percConf = confidence.toFixed(4) * 100
-                  if (confidence >= minConfidence) {
-                        authenFuncGlobalReq.session.user = user; // assign user info to a global session variable                        
+                  if (confidence >= minConfidence) {                        
                     message = `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`
                     res.write(JSON.stringify({
                       message: message

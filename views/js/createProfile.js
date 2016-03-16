@@ -9,19 +9,19 @@
     function validateInputs() {
         errors = {};
         if (!$('[name=name]').val())
-            errors.name = 'Please add your name.';
+            errors.name = '<p>Please add your name.</p>';
         if (!$('[name=email]').val())
-            errors.name = 'Please add your email.';
+            errors.name = '<p>Please add your email.</p>';
         if (!validateZipcode($('[name=zipcode]').val()))
-            errors.zipcode = 'Please fix your zipcode.';
+            errors.zipcode = '<p>Please fix your zipcode.</p>';
         if (!$('[name=homeAddress]').val())
-            errors.name = 'Please add your home address.';
+            errors.name = '<p>Please add your home address.</p>';
         if (!$('[name=workAddress]').val())
-            errors.name = 'Please add your work address.';
+            errors.name = '<p>Please add your work address.</p>';
         if (!$('[name=stock]').val())
-            errors.stock = 'Please enter stock symbol.';
+            errors.stock = '<p>Please enter stock symbol.</p>';
         return _.isEmpty(errors);
-    }    
+    }
     // query Yahoo Finance for a list of stocks
     $("#stock").autocomplete({
         source: function (request, response) {
@@ -46,7 +46,8 @@
     $('form').on('submit', function (event) {
         if (!validateInputs()) {
             console.log(errors);
-            $('#error').html(getErrors()[0]);
+            $('#form-errors').html(getErrors()[0]);
+            $('#form-errors').show();
         } else {
             $.ajax({
                 url: '/create',
