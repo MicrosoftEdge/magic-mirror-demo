@@ -1,15 +1,6 @@
 /* LOW-PRIORITY CONTENT
 --------------------------------------------- */
 
-.low-pri-title {
-	margin: 0 auto 1.5em;
-	font: 3em/1 $font-light;
-}
-
-#low-pri-name {
-	display: block;
-}
-
 .low-pri-block {
 	display: inline-block;
 	vertical-align: top;
@@ -26,4 +17,18 @@
 .low-pri-block-title {
 	margin: 0 0 1em;
 	font: .875em/1 $font-bold;
+}
+
+#login-stamp {
+  margin-bottom: 3em;
+  padding-top: 1em;
+  border-top: 2px solid rgba(255,255,255,.2);
+	font: 1em $font-light;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+	opacity: .75;
+}
+
+#logged-in-name {
+	font-family: $font-bold;
 }
