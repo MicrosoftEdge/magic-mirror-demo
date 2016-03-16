@@ -201,7 +201,7 @@ input[type="submit"], button {
 
 }
 
-@media (min-width: 40em) {
+@media (min-width: $bp-m) {
 
   .setup {
     padding: 3em;

@@ -26,7 +26,7 @@ h1 {
   font: 400 normal 2em $font-bold;
 }
 
-@media (min-width: 40em) {
+@media (min-width: $bp-m) {
 
   body {
     font-size: 150%;
