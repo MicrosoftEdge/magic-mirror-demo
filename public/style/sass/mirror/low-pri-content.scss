@@ -15,20 +15,18 @@
 }
 
 .low-pri-block-title {
-	margin: 0 0 1em;
+	margin: 0 0 .75em;
 	font: .875em/1 $font-bold;
 }
 
-#login-stamp {
-  margin-bottom: 3em;
-  padding-top: 1em;
-  border-top: 2px solid rgba(255,255,255,.2);
-	font: 1em $font-light;
+.logged-in-stamp {
+	margin-bottom: 3.5em;
+	font: 1em $font-bold;
   text-transform: uppercase;
   letter-spacing: .05em;
-	opacity: .75;
 }
 
 #logged-in-name {
-	font-family: $font-bold;
+	padding-bottom: 2px;
+	border-bottom: 2px solid rgba(255,255,255,.5);
 }
