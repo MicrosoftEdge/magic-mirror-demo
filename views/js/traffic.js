@@ -29,7 +29,7 @@
                     if (!initialized) {
                         initialized = true;
                     }
-
+                    
                     refresh = setTimeout(getTravelDuration, refreshRate);
                 }
             });

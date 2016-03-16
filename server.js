@@ -1,6 +1,8 @@
 var express = require('express')
   , bodyParser = require('body-parser')
   , exphbr = require('express-handlebars')
+  , static = require('express-static')
+  , session = require('express-session')
   , formidable = require('formidable')
   , util = require('util')
   , app = express()
@@ -54,7 +56,19 @@ handlebars = exphbr.create({
 app.engine('html', handlebars.engine);
 app.set('view engine', 'html');
 app.set('port', process.env.PORT || 3000);
+app.use(session({
+    path: '/',
+    maxAge: null,
+    //resave : true, 
+   //saveUninitialized : true,
+    //genid: function (req) {
+    //    return Math.random() * 100000; //Use a guid generator        
+    //},
+    secret: 'MagicMirror'
+}))
+
 app.use(bodyParser.raw());
+app.use(express.static(path.join(__dirname, 'public')));
 
 http.createServer(app).listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));

@@ -35,7 +35,7 @@ var isAuthenticated = false;
 var stabilizationCounter = 0;
 var prevX, prevY, prevWidth, prevHeight;
 var mediaStreamType = Capture.MediaStreamType.videoRecord;
-var timeoutSet = false; 
+var timeoutSet = false;
 
 function isStable(face) {
   if (stabilizationCounter == cycles) {
@@ -95,7 +95,6 @@ Authenticate.takePhoto = function(addFace) {
       var dataReader = Storage.Streams.DataReader.fromBuffer(buffer);
       var byteArray = new Uint8Array(buffer.length);
       dataReader.readBytes(byteArray);
-  
       // Detect the face to get a face ID
       $.ajax({
         url: '/capture/authenticate',
@@ -118,6 +117,8 @@ Authenticate.takePhoto = function(addFace) {
           document.dispatchEvent(new CustomEvent("mirrorstatechange", {
             detail: MIRROR_STATES.LOGGED_IN
           }));
+          Stock.init(resultObj.stock);
+          //move your Traffic.init(resultObj.workAddress) here
           setTimeout(function () {
             $("#face-authenticated .auth-state-content").animate({
               opacity: 0
@@ -184,8 +185,8 @@ Authenticate.determineEmotion = function() {
 			  console.error(e);
         checkEmotion = true;
         quotePane.style.display = "none";
-			});
-		});
+    });
+  });
 	});
 }
 
@@ -228,30 +229,30 @@ Authenticate.handleFaces = function(args) {
           }
         }
 
-        if(i == 0 && face.width > faceThresholds.width && face.height > faceThresholds.height) {
-          sufficientDimensions = true;
+      if(i == 0 && face.width > faceThresholds.width && face.height > faceThresholds.height) {
+        sufficientDimensions = true;
           if (!authenticating && isStable(face)) {
             authenticating = true;
               Authenticate.takePhoto();
-          }
         }
+      }
       }
 
     }
     if (checkEmotion) {
         if (isStable(face)) {
             // Authenticate.determineEmotion()
-        }
+      }
     }
   }
   else {
     if (authenticated && !timeoutSet) {
       timeoutSet = true;
-      $(".auth-content").animate({
+      /*$(".auth-content").animate({
         opacity: 0
       }, logoutTime, function () {
         $(this).css("opacity", 1);
-      });
+      });*/
       logoutTimeout = setTimeout(Authenticate.logout, logoutTime);
       document.dispatchEvent(new CustomEvent("mirrorstatechange", {
         detail: MIRROR_STATES.LOGGING_OUT
@@ -263,9 +264,9 @@ Authenticate.handleFaces = function(args) {
         document.dispatchEvent(new CustomEvent("mirrorstatechange", {
           detail: MIRROR_STATES.BLANK
         }));
-      }
-    }
-      
+  }
+}
+
   }
 };
 Authenticate.logout = function () {

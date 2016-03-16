@@ -172,6 +172,54 @@ Weather.Current.prototype.city = function () {
   return this.data.name;
 };
 
+Weather.Current.prototype.icon = function () {
+  var res
+  switch(this.data.icon){
+    case '01d':
+      res = '01d.svg';
+      break;
+    case '01n':
+      res = '01n.svg';
+      break;
+    case '02d':
+      res = '02d.svg';
+      break;
+    case '02n':
+      res = '02n.svg';
+      break;
+    case '03d':
+    case '03n':
+    case '04d':
+    case '04n':
+      res = '03or4.svg';
+      break;
+    case '09n':
+    case '09d':
+      res = '09.svg';
+      break;
+    case '10d':
+    case '10n':
+      res = '09.svg';
+      break;
+    case '11d':
+      res = '11d.svg';
+      break;
+    case '11n':
+      res = '11n.svg';
+      break;
+    case '13d':
+    case '13n':
+      res = '13.svg';
+      break;
+    case '50n':
+    case '50d':
+    default:
+      res = '50.svg';
+      break;     
+  }
+  return '/icons/' + res;
+}
+
 sentenceCase = function (s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
