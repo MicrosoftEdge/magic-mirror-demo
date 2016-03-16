@@ -41,7 +41,8 @@ module.exports = function(app) {
 
   mirrorRouter.get('/getTraffic', function(req, res, next) {
     var model = mongoose.model('Person');
-    
+    console.log("get Traffic route", req.query.homeAddress);
+    console.log("get Traffic route",req.query.workAddress);
     var waypoint0 = "Seattle, WA";
     var waypoint1 = "Redmond, WA";
     

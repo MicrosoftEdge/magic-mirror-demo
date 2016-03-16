@@ -6,9 +6,10 @@
         var initialized = false;
         var refresh, traffic, trafficElement;
 
-        function getTravelDuration() {
+        function getTravelDuration(homeAddress, workAddress) {
+            var url = "/mirror/getTraffic?homeAddress=" + homeAddress + "&workAddress=" + workAddress;
             $.ajax({
-                url: "/mirror/getTraffic",
+                url: url,
                 success: function (data) {
                     var trafficCongestion = data.trafficCongestion;
                     var travelDuration = data.travelDuration;
@@ -20,7 +21,7 @@
                         trafficElement = document.getElementById("trafficElement");
                     }
 
-                    trafficElement.innerText = `Travel Time ${trafficCongestion == "None" ? "" : `(including ${trafficCongestion} traffic)`}: ${(travelDuration / 60).toFixed(0) } minutes`;
+                    trafficElement.innerText = `${(travelDuration / 60).toFixed(0) } minutes ${trafficCongestion == "None" ? "" : `(including ${trafficCongestion} traffic)`}`;
 
                     if (!initialized) {
                         traffic.appendChild(trafficElement);
@@ -28,7 +29,8 @@
 
                     if (!initialized) {
                         initialized = true;
-                    }                    
+                    }
+                    
                     refresh = setTimeout(getTravelDuration, refreshRate);
                 }
             });
@@ -36,9 +38,9 @@
         }
 
         return {
-            init: function () {
+            init: function (homeAddress, workAddres) {
                 traffic = document.getElementById("traffic");
-                getTravelDuration();
+                getTravelDuration(homeAddress, workAddres);
             }
         };
     })();
