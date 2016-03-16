@@ -60,7 +60,7 @@
             switch (state) {
               case MIRROR_STATES.BLANK:
               default:
-                // $('.auth-content').attr('aria-hidden', 'true');
+                $('.auth-content').attr('aria-hidden', 'true');
               break;
 
               case MIRROR_STATES.FACE_CLOSE:
