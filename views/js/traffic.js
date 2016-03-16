@@ -21,7 +21,7 @@
                         trafficElement = document.getElementById("trafficElement");
                     }
 
-                    trafficElement.innerText = `Travel Time ${trafficCongestion == "None" ? "" : `(including ${trafficCongestion} traffic)`}: ${(travelDuration / 60).toFixed(0) } minutes`;
+                    trafficElement.innerText = `${(travelDuration / 60).toFixed(0) } minutes ${trafficCongestion == "None" ? "" : `(including ${trafficCongestion} traffic)`}`;
 
                     if (!initialized) {
                         traffic.appendChild(trafficElement);
@@ -29,7 +29,8 @@
 
                     if (!initialized) {
                         initialized = true;
-                    }                    
+                    }
+                    
                     refresh = setTimeout(getTravelDuration, refreshRate);
                 }
             });

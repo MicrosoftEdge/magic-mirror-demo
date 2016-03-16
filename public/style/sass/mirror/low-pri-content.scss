@@ -1,0 +1,29 @@
+/* LOW-PRIORITY CONTENT
+--------------------------------------------- */
+
+.low-pri-title {
+	margin: 0 auto 1.5em;
+	font: 3em/1 $font-light;
+}
+
+#low-pri-name {
+	display: block;
+}
+
+.low-pri-block {
+	display: inline-block;
+	vertical-align: top;
+	padding-right: 2em;
+	width: 12em;
+	font-size: 2.25em;
+
+	&:last-child {
+		padding-right: 0;
+	}
+
+}
+
+.low-pri-block-title {
+	margin: 0 0 1em;
+	font: .875em/1 $font-bold;
+}

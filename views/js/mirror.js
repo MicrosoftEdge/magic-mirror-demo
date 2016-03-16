@@ -71,6 +71,7 @@
                 $('#face-authenticated .greeting-name').html(Authenticate.user.name + '!');
                 $('#face-authenticated').attr('aria-hidden', 'false');
                 $('.auth-content').attr('aria-hidden', 'false');
+                $('#low-pri-name').html(Authenticate.user.name + ':');
               break;
 
               case MIRROR_STATES.NOT_DETECTED:

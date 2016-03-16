@@ -1,0 +1,17 @@
+/* STOCKS
+--------------------------------------------- */
+
+.ticker-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li + li {
+    margin-top: .5em;
+  }
+
+}
+
+.symbol {
+  font-family: $font-bold;
+}
