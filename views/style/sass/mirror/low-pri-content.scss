@@ -2,7 +2,7 @@
 --------------------------------------------- */
 
 .low-pri-title {
-	margin: 0 auto 2em;
+	margin: 0 auto 1.5em;
 	font: 3em/1 $font-light;
 }
 
@@ -10,19 +10,17 @@
 	display: block;
 }
 
-.low-pri-blocks {
-  display: flex;
-  flex-flow: row;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  width: 100%;
-}
-
 .low-pri-block {
-  flex-grow: 1;
+	display: inline-block;
+	vertical-align: top;
+	padding-right: 2em;
+	width: 12em;
 	font-size: 2.25em;
-	max-width: 15em;
+
+	&:last-child {
+		padding-right: 0;
+	}
+
 }
 
 .low-pri-block-title {
