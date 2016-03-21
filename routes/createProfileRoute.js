@@ -25,13 +25,13 @@ module.exports = function(app) {
         }
     });
   });
-
+  /*
   createUserRouter.get('/createProfile.js', function(req, res, next) {
     res.writeHead(200, { 'Content-Type': 'text/js' });
     res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/createProfile.js'), 'utf8'));
     res.end();
   });
-
+  */
   createUserRouter.post('/', function(req, res, next) {
     processAllFieldsOfTheForm(req, res)
   });

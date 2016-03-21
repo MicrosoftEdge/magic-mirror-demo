@@ -69,28 +69,28 @@ module.exports = function(app) {
       if(error)
         console.log(error)
       else {
-                var emotions = JSON.parse(body);
-                if (emotions.length > 0) {
-                    // Just take first face
-                    var scores = emotions[0].scores;
-                    var includeNeutral = true;
-                    var threshold = 0.5;
-                    // Sum all the probabilities of non-positive emotions to decide if we should act
-                    var nonPositive = scores.anger + scores.contempt + scores.disgust + scores.fear + scores.sadness;
-                    if (includeNeutral) {
-                        nonPositive += scores.neutral;
-                    }
-                    if (nonPositive >= threshold) {
-                        var quote = quotes[Math.floor(Math.random()*quotes.length)];
-                        res.write(JSON.stringify(quote));
-                    }
-                    else {
-                        res.write(JSON.stringify({
-                            emotionState: "positive"
-                        }));
-                    }
-                }
-                res.end();
+        var emotions = JSON.parse(body);
+        if (emotions.length > 0) {
+            // Just take first face
+            var scores = emotions[0].scores;
+            var includeNeutral = true;
+            var threshold = 0.5;
+            // Sum all the probabilities of non-positive emotions to decide if we should act
+            var nonPositive = scores.anger + scores.contempt + scores.disgust + scores.fear + scores.sadness;
+            if (includeNeutral) {
+                nonPositive += scores.neutral;
+            }
+            if (nonPositive >= threshold) {
+                var quote = quotes[Math.floor(Math.random()*quotes.length)];
+                res.write(JSON.stringify(quote));
+            }
+            else {
+                res.write(JSON.stringify({
+                    emotionState: "positive"
+                }));
+            }
+        }
+        res.end();
       }
     })
   });
@@ -190,12 +190,12 @@ module.exports = function(app) {
       }
     })
   });
-
+/*
   captureFaceRouter.get('/file/captureFace.js', function(req, res, next) {
     res.writeHead(200, {'Content-Type': 'text/js'});
     res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/captureFace.js'), 'utf8'));
     res.end();
   });
-
+  */
   app.use('/capture', captureFaceRouter);
 };
