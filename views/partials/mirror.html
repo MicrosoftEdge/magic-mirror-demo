@@ -28,19 +28,22 @@
 
    <!-- EMOTION -->
    {{> emotion}}
+
   </div>
 
 </div>
 
-
 <!-- LOW PRIORITY CONTENT -->
 <section class="low-pri-content auth-content">
-  <h2 class="low-pri-title">Here's your updates, <span id="low-pri-name"></span></h2>
-  <div class="low-pri-blocks">
-    {{> stocks}}
-    <!--{{> newsFeed}}-->
-    {{> traffic}}
-  </div>
+
+  <h2 class="logged-in-stamp">
+    Here's the scoop, <span id="logged-in-name"></span>:
+  </h2>
+
+  {{> traffic}}
+  {{> stocks}}
+  <!--{{> newsFeed}}-->
+
 </section>
 
 <div id="video-hidden" aria-hidden="true">

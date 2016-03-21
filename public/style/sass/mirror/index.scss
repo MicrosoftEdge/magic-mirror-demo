@@ -90,8 +90,15 @@
 }
 
 /* SUBSECTIONS OF MIRROR */
+
+/* Different states of face detection */
 @import 'auth-states';
+
+/* Weather */
 @import 'weather';
+
+/* Time stamp and other content in top-left */
 @import 'timely-content';
+
+/* Content at bottom of mirror UI */
 @import 'low-pri-content';
-@import 'stocks';

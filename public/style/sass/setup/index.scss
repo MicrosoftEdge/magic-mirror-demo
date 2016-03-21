@@ -153,22 +153,55 @@ input[type="submit"], button {
 }
 
 .submit-wrapper {
-  margin-top: 2em;
+  margin: 2em 36px 0;
 }
 
 .back-btn,
 .forward-btn {
-  float: left;
+  position: relative;
   background: transparent;
   padding: .5em 0;
   text-decoration: none;
+  color: #000;
+
+  &:before {
+    @extend %icon;
+    margin-top: -20px;
+    width: 40px;
+    height: 40px;
+  }
+
+}
+
+.back-btn {
+  float: left;
+
+  &:before {
+    left: -36px;
+    background-position: -120px 0;
+  }
+
+  &:hover:before {
+    left: -40px;
+  }
+
 }
 
 .forward-btn {
   float: right;
+
+  &:before {
+    right: -36px;
+    background-position: -80px 0;
+  }
+
+  &:hover:before {
+    right: -40px;
+  }
+
 }
 
-@media (min-width: 40em) {
+@media (min-width: $bp-m) {
 
   .setup {
     padding: 3em;
@@ -176,6 +209,7 @@ input[type="submit"], button {
 
   .anim-button {
     position: fixed;
+    z-index: 2;
     top: 2em;
     right: 2em;
   }
@@ -209,7 +243,8 @@ input[type="submit"], button {
   }
 
   .submit-wrapper {
-    margin: 0 auto;
+    margin-right: auto;
+    margin-left: auto;
     width: 90%;
   }
 

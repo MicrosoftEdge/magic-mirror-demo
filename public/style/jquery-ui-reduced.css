@@ -110,6 +110,7 @@
 .ui-widget-content {
   background: #000;
   color: #fff;
+	text-align: left;
 }
 
 .ui-menu .ui-menu-item {
