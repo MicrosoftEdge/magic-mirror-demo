@@ -1,0 +1,16 @@
+c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bin\Debug\ReverseMap\resources.pri
+c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bin\Debug\AppxManifest.xml
+c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bin\Debug\Magic Mirror UWP App.build.appxrecipe
+c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bld\Debug\ResourceHandlingTask.state
+c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bld\Debug\priconfig.xml
+c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bld\Debug\priconfig.xml.intermediate
+c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bld\Debug\layout.resfiles
+c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bld\Debug\layout.resfiles.intermediate
+c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bld\Debug\resources.resfiles
+c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bld\Debug\resources.resfiles.intermediate
+c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bld\Debug\pri.resfiles
+c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bld\Debug\pri.resfiles.intermediate
+c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bld\Debug\qualifiers.txt
+c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bld\Debug\qualifiers.txt.intermediate
+c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bld\Debug\MultipleQualifiersPerDimensionFound.txt
+c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bld\Debug\ProjectArchitectures.txt
