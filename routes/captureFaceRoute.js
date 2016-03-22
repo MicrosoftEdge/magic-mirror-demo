@@ -23,7 +23,7 @@ module.exports = function(app) {
     res.render('./../views/partials/captureFace', {
       bodyClass: 'setup face-setup'
     });
-        user_id = req.params.user_id;                                                          
+    user_id = req.params.user_id;                                                          
   });
 
   captureFaceRouter.post('/addFace', function(req, res, next) {
@@ -106,96 +106,124 @@ module.exports = function(app) {
       body: req.body
     },
     function(error, response, body) {
+      var payload 
       body = JSON.parse(body)
       if (body.length > 0) {
         // There should only be one face, but in the event there are more, the largest one is returned first
         var faceId = body[0].faceId;
         console.log('faceid', faceId);
+        //Specifying the face id and the faceList Id for Project Oxford's REST API's
         var req = {
           faceId: faceId,
           faceListId: oxfordList,
           maxNumOfCandidatesReturned: 1
         }
-        request.post({
-          url: "https://api.projectoxford.ai/face/v1.0/findsimilars",
-          headers: {
-              'Content-Type': 'application/json',
-              'Ocp-Apim-Subscription-Key': oxfordKey
-          },
-          body: JSON.stringify(req)
-        }, function(error, response, body) {
-          body = JSON.parse(body)
-          if(error)
-            console.log(error)
-          else {
-            if(body.length > 0){
-              var face_id = body[0].persistedFaceId;
-              var confidence = body[0].confidence;
-              var model = mongoose.model('Person');
-              model.findOne({ 'face_id': face_id }, function (err, user){
-                if(err){
-                  res.write(JSON.stringify({
-                    message: 'There was an error with authentication.'
-                    , authenticated: false
-                  }))
-                  res.end()
-                }
-                if (user) {                                             
-                  var message, percConf = confidence.toFixed(4) * 100
-                  if (confidence >= minConfidence) {                        
-                    message = `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`
-                    res.write(JSON.stringify({
-                      message: message
-                      , authenticated: true
-                      , name: user.name
-                      , confidence: confidence
-                      , stock: user.stock
-                      , workAddress: user.workAddress
-                      , homeAddress: user.homeAddress
-                    }))
-                    res.end();                     
-                  } else {
-                    message = `Unable to find a strong enough match. Confidence level was ${percConf}%.`
-                    res.write(JSON.stringify({
-                      message: message
-                      , authenticated: false
-                    }))
-                    res.end()
-                  }
-                } else {
-                  message = `Unable to find a database obj that matches the face id`
-                    res.write(JSON.stringify({
-                      message: message
-                      , authenticated: false
-                    }))
-                    res.end()
-                }
-              })
-            } else {
-              message = `Unable to find a face in the provided picture`
-                res.write(JSON.stringify({
-                  message: message
-                  , authenticated: false
-                }))
-                res.end()
-            }
-          }
-        })
+        //findSimilarFaces func interact with Project Oxford to find a similar face in the face bank
+        findSimilarFaces(req, res);
+        
       } else {
-        res.write(JSON.stringify({
+        payload = {
           message: `Unable to find a face in the picture.`
           , authenticated: false
-        }))
-        res.end()
+        };
+        res.write(JSON.stringify(payload));
+        res.end();
       }
+      /*console.log('final payload ', payload) 
+      res.write(JSON.stringify(payload));
+      res.end();   */  
     })
   });
-/*
-  captureFaceRouter.get('/file/captureFace.js', function(req, res, next) {
-    res.writeHead(200, {'Content-Type': 'text/js'});
-    res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/captureFace.js'), 'utf8'));
-    res.end();
-  });
-  */
+  
+  //function to interact with oxford find similar faces api
+  function findSimilarFaces(req, res) {
+    var payload = {
+      message: 'There was an error with authentication.'
+      , authenticated: false
+    };
+    request.post({
+      url: "https://api.projectoxford.ai/face/v1.0/findsimilars",
+      headers: {
+          'Content-Type': 'application/json',
+          'Ocp-Apim-Subscription-Key': oxfordKey
+      },
+      body: JSON.stringify(req)
+    }, function(error, response, body) {
+      body = JSON.parse(body)
+      if(error){
+        console.log(error);
+        res.write(JSON.stringify(payload));
+        res.end();
+      } else {
+        if(body.length > 0){
+          var face_id = body[0].persistedFaceId;
+          var confidence = body[0].confidence;
+          var model = mongoose.model('Person');
+          model.findOne({ 'face_id': face_id }, function (err, user){
+            if(err){
+              console.log(err)
+              payload = {
+                message: 'There was an error with authentication.'
+                , authenticated: false
+              };
+              res.write(JSON.stringify(payload));
+              res.end(); 
+            }
+            if (user) {                                             
+              var message, percConf = confidence.toFixed(4) * 100
+              if (confidence >= minConfidence) {                        
+                message = `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`
+                payload = {
+                  message: message
+                  , authenticated: true
+                  , name: user.name
+                  , confidence: confidence
+                  , stock: user.stock
+                  , workAddress: user.workAddress
+                  , homeAddress: user.homeAddress
+                }; 
+                res.write(JSON.stringify(payload));
+                res.end();         
+              } else {
+                
+                message = `Unable to find a strong enough match. Confidence level was ${percConf}%.`
+                payload = {
+                  message: message
+                  , authenticated: false
+                };
+                res.write(JSON.stringify(payload));
+                res.end();  
+              }
+            } else {
+              message = `Unable to find a database obj that matches the face id`
+              payload = {
+                message: message
+                , authenticated: false
+              };
+              res.write(JSON.stringify(payload));
+              res.end();
+            }
+          })
+        } else {
+          message = `Unable to find a face in the provided picture`
+          payload = {
+            message: message
+            , authenticated: false
+          };
+          res.write(JSON.stringify(payload));
+          res.end();
+        }
+      }
+    });
+  };
+  
+  //function to destroy session
+  function  destroySession(req) {
+    req.session.destroy(function(err){
+      if(err)
+        console.log(err);
+    });
+  };
+  
   app.use('/capture', captureFaceRouter);
 };

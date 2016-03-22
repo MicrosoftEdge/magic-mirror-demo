@@ -12,7 +12,7 @@ var mirroring = true;
 // Reserved for high end devices:
 // var cycles = Math.floor(stabilizationTime / detectionInterval);
 // var stabilizationTime = 1000; // in milliseconds
-var cycles = 2;
+var cycles = 30;
 var maxDistance = 40;
 var maxChange = 5;
 var logoutTime = 5000; // in milliseconds
@@ -78,6 +78,7 @@ function updateCountdown() {
 }
 
 var Authenticate = {};
+
 Authenticate.findCameraDeviceByPanelAsync = function (panel) {
   var deviceInfo;
   return DeviceEnumeration.DeviceInformation.findAllAsync(DeviceEnumeration.DeviceClass.videoCapture).then(
@@ -93,6 +94,7 @@ Authenticate.findCameraDeviceByPanelAsync = function (panel) {
     }
   );
 };
+
 Authenticate.takePhoto = function(addFace) {
   isAuthenticated = true;
   var Storage = Windows.Storage;
@@ -120,11 +122,10 @@ Authenticate.takePhoto = function(addFace) {
         var resultObj = JSON.parse(result);
         if(resultObj.authenticated){
           authenticated = true;
-                  authenticating = false;
-          // message.innerText = resultObj.message;
+          authenticating = false;
           Authenticate.user = { 
             name: resultObj.name
-          }
+          };
           document.dispatchEvent(new CustomEvent("mirrorstatechange", {
             detail: MIRROR_STATES.LOGGED_IN
           }));
@@ -237,13 +238,13 @@ Authenticate.handleFaces = function(args) {
           }
         }
 
-      if(i == 0 && face.width > faceThresholds.width && face.height > faceThresholds.height) {
-        sufficientDimensions = true;
+        if(i == 0 && face.width > faceThresholds.width && face.height > faceThresholds.height) {
+          sufficientDimensions = true;
           if (!authenticating && isStable(face)) {
             authenticating = true;
-              Authenticate.takePhoto();
+            Authenticate.takePhoto();
+          }
         }
-      }
       }
 
     }
@@ -277,7 +278,6 @@ Authenticate.handleFaces = function(args) {
   }
 };
 Authenticate.logout = function () {
-  // message.innerText = ''; 
   authenticating = false;
   authenticated = false;
   timeoutSet = false;

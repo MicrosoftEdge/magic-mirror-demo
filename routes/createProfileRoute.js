@@ -25,13 +25,7 @@ module.exports = function(app) {
         }
     });
   });
-  /*
-  createUserRouter.get('/createProfile.js', function(req, res, next) {
-    res.writeHead(200, { 'Content-Type': 'text/js' });
-    res.write(fs.readFileSync(path.resolve(__dirname + '/../views/js/createProfile.js'), 'utf8'));
-    res.end();
-  });
-  */
+
   createUserRouter.post('/', function(req, res, next) {
     processAllFieldsOfTheForm(req, res)
   });
@@ -46,11 +40,12 @@ module.exports = function(app) {
         'content-type': 'text/plain'
       })
       var person = new Person(fields)
-      person.save(function (err, fluffy) {
-        if (err) return console.error(err)
+      person.save(function (err) {
+        if (err) 
+          return console.error(err);
       })
-      res.write(JSON.stringify(person._id))
-      res.end()
+      res.write(JSON.stringify(person._id));
+      res.end();
     });
   }
 

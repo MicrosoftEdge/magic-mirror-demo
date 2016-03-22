@@ -59,11 +59,6 @@ app.set('port', process.env.PORT || 3000);
 app.use(session({
     path: '/',
     maxAge: null,
-    //resave : true, 
-   //saveUninitialized : true,
-    //genid: function (req) {
-    //    return Math.random() * 100000; //Use a guid generator        
-    //},
     secret: 'MagicMirror'
 }))
 
