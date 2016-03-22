@@ -54,7 +54,6 @@
                 type: 'POST',
                 data: $('form').serialize(),
                 success: function (body) {
-                    console.log('/capture/' + JSON.parse(body));
                     window.location.href = '/capture/' + JSON.parse(body);
                 }
             });

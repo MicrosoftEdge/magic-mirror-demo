@@ -96,7 +96,7 @@ module.exports = function(app) {
   });
 
   captureFaceRouter.post('/authenticate', function(req, res, next) {
-    console.log('authenticate server route post')
+    console.log('authenticate server route post');
     request.post({
       url: 'https://api.projectoxford.ai/face/v1.0/detect',
       headers: {
@@ -106,7 +106,7 @@ module.exports = function(app) {
       body: req.body
     },
     function(error, response, body) {
-      var payload 
+      var payload; 
       body = JSON.parse(body)
       if (body.length > 0) {
         // There should only be one face, but in the event there are more, the largest one is returned first
@@ -117,7 +117,7 @@ module.exports = function(app) {
           faceId: faceId,
           faceListId: oxfordList,
           maxNumOfCandidatesReturned: 1
-        }
+        };
         //findSimilarFaces func interact with Project Oxford to find a similar face in the face bank
         findSimilarFaces(req, res);
         
@@ -129,9 +129,6 @@ module.exports = function(app) {
         res.write(JSON.stringify(payload));
         res.end();
       }
-      /*console.log('final payload ', payload) 
-      res.write(JSON.stringify(payload));
-      res.end();   */  
     })
   });
   
@@ -170,9 +167,9 @@ module.exports = function(app) {
               res.end(); 
             }
             if (user) {                                             
-              var message, percConf = confidence.toFixed(4) * 100
+              var message, percConf = confidence.toFixed(4) * 100;
               if (confidence >= minConfidence) {                        
-                message = `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`
+                message = `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`;
                 payload = {
                   message: message
                   , authenticated: true
@@ -185,8 +182,7 @@ module.exports = function(app) {
                 res.write(JSON.stringify(payload));
                 res.end();         
               } else {
-                
-                message = `Unable to find a strong enough match. Confidence level was ${percConf}%.`
+                message = `Unable to find a strong enough match. Confidence level was ${percConf}%.`;
                 payload = {
                   message: message
                   , authenticated: false
