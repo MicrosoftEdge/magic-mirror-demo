@@ -67,7 +67,7 @@ Weather._getJSON = function( url, callback ) {
     } );
   } else {
     jsonp(url).then(callback).catch(function(e) {
-        console.log(e);
+      console.log(e);
     });
   }
 };
@@ -215,7 +215,7 @@ Weather.Current.prototype.icon = function () {
     case '50d':
     default:
       res = '50.svg';
-      break;     
+      break;
   }
   return '/icons/' + res;
 }
@@ -230,4 +230,3 @@ Weather.Current.prototype.conditions = function () {
 
 if (isModule) { module.exports = Weather; }
 else { window.Weather = Weather; }
-

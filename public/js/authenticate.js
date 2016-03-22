@@ -155,27 +155,27 @@ Authenticate.takePhoto = function(addFace) {
 }
 
 Authenticate.determineEmotion = function() {
-	checkEmotion = false;
-	var Storage = Windows.Storage;
-	var stream = new Storage.Streams.InMemoryRandomAccessStream();
-	mediaCapture.capturePhotoToStreamAsync(Windows.Media.MediaProperties.ImageEncodingProperties.createJpeg(), stream)
+  checkEmotion = false;
+  var Storage = Windows.Storage;
+  var stream = new Storage.Streams.InMemoryRandomAccessStream();
+  mediaCapture.capturePhotoToStreamAsync(Windows.Media.MediaProperties.ImageEncodingProperties.createJpeg(), stream)
     .then(function () {
-		var buffer = new Storage.Streams.Buffer(stream.size);
-		stream.seek(0);
-		stream.readAsync(buffer, stream.size, 0).done(function () {
-			var dataReader = Storage.Streams.DataReader.fromBuffer(buffer);
-			var byteArray = new Uint8Array(buffer.length);
-			dataReader.readBytes(byteArray);
+    var buffer = new Storage.Streams.Buffer(stream.size);
+    stream.seek(0);
+    stream.readAsync(buffer, stream.size, 0).done(function () {
+      var dataReader = Storage.Streams.DataReader.fromBuffer(buffer);
+      var byteArray = new Uint8Array(buffer.length);
+      dataReader.readBytes(byteArray);
       console.log("Determining emotion");
-			$.ajax({
-				url: '/capture/determineEmotion',
-				beforeSend: function (xhrObj) {
-					xhrObj.setRequestHeader('Content-Type', 'application/octet-stream')
-				},
-				type: 'POST',
-				data: byteArray,
-				processData: false
-			})
+      $.ajax({
+        url: '/capture/determineEmotion',
+        beforeSend: function (xhrObj) {
+          xhrObj.setRequestHeader('Content-Type', 'application/octet-stream')
+        },
+        type: 'POST',
+        data: byteArray,
+        processData: false
+      })
       .done(function (result) {
         console.log("successfully determined emotion");
         var parsed = JSON.parse(result);
@@ -187,18 +187,18 @@ Authenticate.determineEmotion = function() {
           quotePane.style.display = "none";
         }
         console.log("setting timeout");
-			  setTimeout(function () {
+        setTimeout(function () {
           checkEmotion = true;
           quotePane.style.display = "none";
-			  }, 20000);
-			})
+        }, 20000);
+      })
       .fail(function (e) {
-			  console.error(e);
+        console.error(e);
         checkEmotion = true;
         quotePane.style.display = "none";
     });
   });
-	});
+  });
 }
 
 Authenticate.handleFaces = function(args) {
