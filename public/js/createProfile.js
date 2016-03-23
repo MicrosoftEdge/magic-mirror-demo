@@ -54,7 +54,7 @@
         type: 'POST',
         data: $('form').serialize(),
         success: function (body) {
-          window.location.href = '/capture/' + JSON.parse(body);
+          window.location.href = '/face/' + JSON.parse(body);
         }
       });
     }

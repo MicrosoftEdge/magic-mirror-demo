@@ -11,8 +11,10 @@ var express = require('express')
   , router = express.Router()
   , handlebars
   , mongoose = require('mongoose')
+  , mongoStore = require('connect-mongodb')
   , nconf = require('nconf').file({file: 'environment.json'}).env()
-  , connectionString = nconf.get('CUSTOMCONNSTR_MONGOLAB_URI');
+  , connectionString = nconf.get('CUSTOMCONNSTR_MONGOLAB_URI')
+  , sessionSecretString = nconf.get('SESSION_SECRET_STRING');
 
 //Database
 mongoose.connect(connectionString);
@@ -58,7 +60,8 @@ app.set('view engine', 'html');
 app.set('port', process.env.PORT || 3000);
 app.use(session({
   maxAge: null,
-  secret: 'MagicMirror'
+  secret: sessionSecretString,
+  store: new mongoStore({ db: mongoose.connections[0].db })
 }))
 
 app.use(bodyParser.raw());

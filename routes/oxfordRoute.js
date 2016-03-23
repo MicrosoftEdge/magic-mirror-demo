@@ -9,7 +9,7 @@ module.exports = function(app) {
     , quotes = JSON.parse(fs.readFileSync('quotes.json', 'utf8'))
     , oxfordKey = nconf.get("OXFORD_SECRET_KEY") // Subscription key for Project Oxford
     , oxfordEmotionKey = nconf.get("OXFORD_EMOTION_SECRET_KEY")
-    , oxfordList = "magic-mirror-demo"
+    , oxfordList = "magic-mirror-demo"//magic-mirror-list-using-msft-employee-key
     , minConfidence = 0.5
     , mongoose = require('mongoose')
     , bandname = require('bandname')
@@ -98,6 +98,8 @@ module.exports = function(app) {
 
   oxfordRouter.post('/authenticate', function(req, res, next) {
     console.log('authenticate server route post');
+    //destroying previous session
+    //destroySession(req);
     request.post({
       url: 'https://api.projectoxford.ai/face/v1.0/detect',
       headers: {
@@ -138,6 +140,7 @@ module.exports = function(app) {
       message: 'There was an error with authentication.'
       , authenticated: false
     };
+    
     request.post({
       url: "https://api.projectoxford.ai/face/v1.0/findsimilars",
       headers: {
@@ -153,10 +156,11 @@ module.exports = function(app) {
         res.end();
       } else {
         if(body.length > 0){
- 
+          
           var face_id = body[0].persistedFaceId;
           var confidence = body[0].confidence;
           var model = mongoose.model('Person');
+          
           model.findOne({ 'face_id': face_id }, function (err, user){
             if(err){
               console.log(err)
@@ -172,6 +176,7 @@ module.exports = function(app) {
               var message, percConf = confidence.toFixed(4) * 100;
               if (confidence >= minConfidence) {                        
                 message = `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`;
+                //req.session.user = user
                 payload = {
                   message: message
                   , authenticated: true
@@ -227,5 +232,5 @@ module.exports = function(app) {
     });
   };
   
-  app.use('/capture', oxfordRouter);
+  app.use('/face', oxfordRouter);
 };

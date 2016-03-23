@@ -27,27 +27,28 @@ module.exports = function(app) {
   });
 
   createUserRouter.post('/', function(req, res, next) {
-    processAllFieldsOfTheForm(req, res)
-  });
-
-  function processAllFieldsOfTheForm(req, res) {
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
       //Store the data from the fields in your data store.
       //The data store could be a file or database or any other store based
       //on your application.
-      res.writeHead(200, {
-        'content-type': 'text/plain'
-      })
       var person = new Person(fields)
       person.save(function (err) {
         if (err) 
-          console.log(err);   
+          console.log(err); 
+        else {
+          res.writeHead(200, {
+            'content-type': 'text/plain'
+          })
+          req.session.user = person;
+          res.write(JSON.stringify(person._id));
+          res.end();  
+        }  
       })
-      res.write(JSON.stringify(person._id));
-      res.end();
     });
-  }
+  });
+
+
 
   app.use('/create', createUserRouter);
 };

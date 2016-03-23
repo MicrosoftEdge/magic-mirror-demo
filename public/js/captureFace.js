@@ -63,7 +63,7 @@
         var base64 = Uint8ToBase64(byteArray);
         
         $.ajax({
-          url: '/capture/addFace',
+          url: '/face/addFace',
           beforeSend: function(xhrObj) {
             xhrObj.setRequestHeader('Content-Type', 'application/octet-stream');
           },

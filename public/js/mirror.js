@@ -39,7 +39,7 @@
       var t = Weather.kelvinToFahrenheit(current.temperature()).toFixed(0) + '°';
       var desc = current.conditions();
       var city = current.city();
-      var icon = current.icon();
+      var icon = Weather.Utils.getIcon(current.icon());
       temp.html(t);
       weatherDesc.html(desc);
       loc.html(city);
@@ -52,7 +52,6 @@
   }
   
   function handleStateChange(state){
-    console.log('STATE CHANGE: ' + state);
     $('.auth-state').attr('aria-hidden', 'true');
     switch (state) {
       case MIRROR_STATES.BLANK:

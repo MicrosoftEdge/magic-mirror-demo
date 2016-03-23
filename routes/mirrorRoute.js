@@ -23,18 +23,13 @@ module.exports = function(app) {
 
   mirrorRouter.get('/getTraffic', function(req, res, next) {
     var model = mongoose.model('Person');
-    console.log("get Traffic route", req.query.homeAddress);
-    console.log("get Traffic route",req.query.workAddress);
-    var waypoint0 = "Seattle, WA";
-    var waypoint1 = "Redmond, WA";
-    
     request.get({
-        url: `http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=${waypoint0}&wp.1=${waypoint1}&optmz=timeWithTraffic&key=${bingApiKey}`,
+        url: `http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=${req.query.homeAddress}&wp.1=${req.query.workAddress}&optmz=timeWithTraffic&key=${bingApiKey}`,
     },
     function(error, response, body) {
       if (error)
         console.log(error)
-      else {
+      else {        
         body = JSON.parse(body);
         if(body && body.resourceSets && body.resourceSets[0]){
           var travelDuration = body.resourceSets[0].resources[0].travelDurationTraffic;

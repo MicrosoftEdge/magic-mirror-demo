@@ -5,8 +5,9 @@
     var refreshRate = 5000; // Refresh rate (in ms)
     var initialized = false;
     var refresh, traffic, trafficElement;
+    var homeAddress, workAddress;
 
-    function getTravelDuration(homeAddress, workAddress) {
+    function getTravelDuration() {
       var url = "/mirror/getTraffic?homeAddress=" + homeAddress + "&workAddress=" + workAddress;
       $.ajax({
         url: url,
@@ -38,9 +39,11 @@
     }
 
     return {
-      init: function (homeAddress, workAddres) {
+      init: function (homeAddr, workAddr) {
+        homeAddress = homeAddr;
+        workAddress =  workAddr;
         traffic = document.getElementById("traffic");
-        getTravelDuration(homeAddress, workAddres);
+        getTravelDuration();
       }
     };
   })();

@@ -10,8 +10,6 @@ var faceThresholds = {
 };
 var mirroring = true;
 // Reserved for high end devices:
-// var cycles = Math.floor(stabilizationTime / detectionInterval);
-// var stabilizationTime = 1000; // in milliseconds
 var cycles = 30;
 var maxDistance = 40;
 var maxChange = 5;
@@ -110,7 +108,7 @@ Authenticate.takePhoto = function(addFace) {
       dataReader.readBytes(byteArray);
       // Detect the face to get a face ID
       $.ajax({
-        url: '/capture/authenticate',
+        url: '/face/authenticate',
         beforeSend: function(xhrObj) {
           xhrObj.setRequestHeader('Content-Type', 'application/octet-stream');
         },
@@ -120,7 +118,6 @@ Authenticate.takePhoto = function(addFace) {
       })
       .done(function(result) {    
         var resultObj = JSON.parse(result);
-        console.log('RESULT OBJ', resultObj);
         if(resultObj.authenticated){
           console.log('inside the authenticated')
           authenticated = true;
@@ -160,7 +157,7 @@ Authenticate.determineEmotion = function() {
   var Storage = Windows.Storage;
   var stream = new Storage.Streams.InMemoryRandomAccessStream();
   mediaCapture.capturePhotoToStreamAsync(Windows.Media.MediaProperties.ImageEncodingProperties.createJpeg(), stream)
-    .then(function () {
+  .then(function () {
     var buffer = new Storage.Streams.Buffer(stream.size);
     stream.seek(0);
     stream.readAsync(buffer, stream.size, 0).done(function () {
@@ -169,7 +166,7 @@ Authenticate.determineEmotion = function() {
       dataReader.readBytes(byteArray);
       console.log("Determining emotion");
       $.ajax({
-        url: '/capture/determineEmotion',
+        url: '/face/determineEmotion',
         beforeSend: function (xhrObj) {
           xhrObj.setRequestHeader('Content-Type', 'application/octet-stream')
         },
@@ -197,8 +194,8 @@ Authenticate.determineEmotion = function() {
         console.error(e);
         checkEmotion = true;
         quotePane.style.display = "none";
+      });
     });
-  });
   });
 }
 
@@ -285,6 +282,22 @@ Authenticate.logout = function () {
   document.dispatchEvent(new CustomEvent("mirrorstatechange", {
     detail: MIRROR_STATES.BLANK
   }));
+  /*
+  $.ajax({
+    url: '/face/determineEmotion',
+    beforeSend: function (xhrObj) {
+      xhrObj.setRequestHeader('Content-Type', 'application/octet-stream')
+    },
+    type: 'POST',
+    processData: false
+  })
+  .done(function (result) {
+    console.log(result)
+  })
+  .fail(function (e) {
+    console.log(e)
+  });
+  */
 };
 Authenticate.mirrorPreview= function () {
   var props = mediaCapture.videoDeviceController.getMediaStreamProperties(Capture.MediaStreamType.videoPreview);
