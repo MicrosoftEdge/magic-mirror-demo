@@ -47,6 +47,7 @@ module.exports = function(app) {
             console.log(err)
             res.write('Please try again.')
           } else {
+            console.log('success')
             res.write('Success!')
           }
           res.end()
@@ -111,7 +112,6 @@ module.exports = function(app) {
       if (body.length > 0) {
         // There should only be one face, but in the event there are more, the largest one is returned first
         var faceId = body[0].faceId;
-        console.log('faceid', faceId);
         //Specifying the face id and the faceList Id for Project Oxford's REST API's
         var req = {
           faceId: faceId,
@@ -153,6 +153,7 @@ module.exports = function(app) {
         res.end();
       } else {
         if(body.length > 0){
+ 
           var face_id = body[0].persistedFaceId;
           var confidence = body[0].confidence;
           var model = mongoose.model('Person');
@@ -163,6 +164,7 @@ module.exports = function(app) {
                 message: 'There was an error with authentication.'
                 , authenticated: false
               };
+              console.log(payload)
               res.write(JSON.stringify(payload));
               res.end(); 
             }
@@ -179,6 +181,7 @@ module.exports = function(app) {
                   , workAddress: user.workAddress
                   , homeAddress: user.homeAddress
                 }; 
+                console.log(payload);
                 res.write(JSON.stringify(payload));
                 res.end();         
               } else {
@@ -187,6 +190,7 @@ module.exports = function(app) {
                   message: message
                   , authenticated: false
                 };
+                console.log(payload);
                 res.write(JSON.stringify(payload));
                 res.end();  
               }
@@ -196,6 +200,7 @@ module.exports = function(app) {
                 message: message
                 , authenticated: false
               };
+              console.log(payload);
               res.write(JSON.stringify(payload));
               res.end();
             }
@@ -206,6 +211,7 @@ module.exports = function(app) {
             message: message
             , authenticated: false
           };
+          console.log(payload);
           res.write(JSON.stringify(payload));
           res.end();
         }

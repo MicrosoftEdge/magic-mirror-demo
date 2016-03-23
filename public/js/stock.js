@@ -1,35 +1,25 @@
 (function () {
     "use strict";
     var Stock = (function () {
-        var stocks = ['M']; // Array of user stocks
         var refreshRate = 5000; // Refresh rate (in ms)
         var url = "http://finance.google.com/finance/info?client=ig&q=";
         var initialized = false;
         var watchList, refresh;
 
 
-        function getQuotes(result) {
-            console.log('getQuotes is being called with value', result );
-            //convert stock object literal to array of values
-            // for (var iter in result.stock) {
-            //     stocks.push(result.stock[iter]);
-            // }
-            if (result) {
-              stocks = [];
+        function getQuotes(stock) {
+            if (!stock) {
+              return
             }
-            stocks.push(result);
-            var encodeStocks = stocks.join();
-            //console.log('getQuotes is being called with the following encodeStocs value ', encodeStocks);
             $.ajax({
               type: "GET",
-                url: url + encodeStocks,
+                url: url + stock,
                 dataType: "jsonp",
                 success: function (data) {
                   data.forEach(function (stock) {
                       var symbol = stock.t;
                       var lastPrice = stock.l;
                       var changePercentage = stock.cp;
-                      // var changeSinceClose = stock.c;
                       var ticker;
                       var symbolLabel;
                       var tickerPrice;

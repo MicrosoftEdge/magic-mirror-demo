@@ -118,9 +118,11 @@ Authenticate.takePhoto = function(addFace) {
         data: byteArray,
         processData: false
       })
-      .done(function(result) {
+      .done(function(result) {    
         var resultObj = JSON.parse(result);
+        console.log('RESULT OBJ', resultObj);
         if(resultObj.authenticated){
+          console.log('inside the authenticated')
           authenticated = true;
           authenticating = false;
           Authenticate.user = { 
@@ -131,7 +133,6 @@ Authenticate.takePhoto = function(addFace) {
           }));
           authenticated = true;
           authenticating = false;
-          message.innerText = resultObj.name;          
           Stock.init(resultObj.stock);
           Traffic.init(resultObj.homeAddress,resultObj.workAddress);
                        
@@ -272,9 +273,8 @@ Authenticate.handleFaces = function(args) {
         document.dispatchEvent(new CustomEvent("mirrorstatechange", {
           detail: MIRROR_STATES.BLANK
         }));
-  }
-}
-
+      }
+    }
   }
 };
 Authenticate.logout = function () {

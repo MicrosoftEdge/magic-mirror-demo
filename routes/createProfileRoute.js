@@ -42,7 +42,7 @@ module.exports = function(app) {
       var person = new Person(fields)
       person.save(function (err) {
         if (err) 
-          return console.error(err);
+          console.log(err);   
       })
       res.write(JSON.stringify(person._id));
       res.end();
