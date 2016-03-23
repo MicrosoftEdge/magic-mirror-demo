@@ -5,4 +5,5 @@ module.exports = function(app) {
   require('./createProfileRoute')(app);
   require('./oxfordRoute')(app);
   require('./mirrorRoute')(app);
+  require('./tosRoute')(app);
 };

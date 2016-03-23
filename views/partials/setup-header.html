@@ -1,4 +1,9 @@
 <header class="setup-header" role="banner">
-  <h1>Set up your Magic&nbsp;Mirror</h1>
+  {{#if partialTitle}}
+    <h1>{{partialTitle}}</h1>
+  {{else}}
+    <h1 class="setup-title">Set up your Magic Mirror</h1>
+  {{/if}}
+
 </header>
 <button id="anim-button" class="anim-button pause" aria-hidden="true" tabindex="-1">Pause animations</button>

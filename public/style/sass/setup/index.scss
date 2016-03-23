@@ -67,6 +67,23 @@
   max-width: 40em;
   border-top: 8px solid #efefef;
   text-align: left;
+
+  a {
+    border-bottom: 1px solid;
+    color: $color-setup-link;
+    text-decoration: none;
+
+    &:hover {
+      color: $color-setup-link-hover;
+    }
+
+    &:active {
+      border-bottom: 0;
+      color: $color-setup-link-active;
+    }
+
+  }
+
 }
 
 .setup-content::before {
@@ -150,6 +167,22 @@ input[type="submit"], button {
 
 .field-item {
   margin-bottom: 1em;
+
+  .check-label,
+  .radio-label {
+    position: relative;
+    padding-left: 1.75em;
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      position: absolute;
+      left: 0;
+      width: 1em;
+      height: 1em;
+    }
+
+  }
+
 }
 
 .submit-wrapper {
@@ -171,6 +204,14 @@ input[type="submit"], button {
     height: 40px;
   }
 
+}
+
+/* Reset link styles */
+a.back-btn,
+a.back-btn:hover,
+a.back-btn:active {
+  border-bottom: 0;
+  color: #000;
 }
 
 .back-btn {
@@ -203,6 +244,10 @@ input[type="submit"], button {
 
 @media (min-width: $bp-m) {
 
+  .setup-title {
+    font-size: 3.5em;
+  }
+
   .setup {
     padding: 3em;
   }
@@ -223,23 +268,33 @@ input[type="submit"], button {
     margin-bottom: 2em;
   }
 
-  .field-item label,
-  .field-item input {
-    display: inline-block;
-  }
+  .field-item {
 
-  .field-item label {
-    padding-right: 1em;
-    width: 30%;
-    text-align: left;
-  }
+    label,
+    input {
+      display: inline-block;
+    }
 
-  .field-item input[type="text"],
-  .field-item input[type="email"] {
-    padding: .5em .25em;
-    width: 60%;
-    border-width: 0;
-    border-bottom-width: 2px;
+    label {
+      padding-right: 1em;
+      width: 30%;
+      text-align: left;
+    }
+
+    .check-label,
+    .radio-label {
+      margin-left: 30%;
+      width: 60%;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      padding: .5em .25em;
+      width: 60%;
+      border-width: 0;
+      border-bottom-width: 2px;
+    }
+
   }
 
   .submit-wrapper {
@@ -253,3 +308,4 @@ input[type="submit"], button {
 /* SUBSECTIONS OF ACCOUNT SETUP */
 @import 'create-profile';
 @import 'capture-face';
+@import 'tos'; /* Terms of Service */
