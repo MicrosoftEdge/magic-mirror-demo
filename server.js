@@ -13,7 +13,7 @@ var express = require('express')
   , mongoose = require('mongoose')
   , nconf = require('nconf').file({file: 'environment.json'}).env()
   , connectionString = nconf.get('CUSTOMCONNSTR_MONGOLAB_URI');
-  
+
 //Database
 mongoose.connect(connectionString);
 
@@ -57,8 +57,8 @@ app.engine('html', handlebars.engine);
 app.set('view engine', 'html');
 app.set('port', process.env.PORT || 3000);
 app.use(session({
-    maxAge: null,
-    secret: 'MagicMirror'
+  maxAge: null,
+  secret: 'MagicMirror'
 }))
 
 app.use(bodyParser.raw());

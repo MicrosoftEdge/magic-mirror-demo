@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>MININTGA23LR5</Machine>
+    <WindowsUser>glyuk</WindowsUser>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetOsVersion>10.0</TargetOsVersion>
+    <TargetOsDescription>Windows 10.0</TargetOsDescription>
+    <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
+    <PackageArchitecture>neutral</PackageArchitecture>
+    <PackageIdentityName>87d08277-b4a2-4e1f-b54c-2aa127aa3a5b</PackageIdentityName>
+    <IntermediateOutputPath>c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bld\Debug\</IntermediateOutputPath>
+    <RegisteredManifestChecksum>FEEC13F0B5390BADB2F129F99ECFB3F46058705B8EBD6571484900D116D89FDD</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>87d08277-b4a2-4e1f-b54c-2aa127aa3a5b_1.0.0.0_neutral__ht0qwgna6rtdj</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>87d08277-b4a2-4e1f-b54c-2aa127aa3a5b_ht0qwgna6rtdj!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>87d08277-b4a2-4e1f-b54c-2aa127aa3a5b</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=glyuk</RegisteredPackagePublisher>
+    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+    <JitOptimizationSuppressed>True</JitOptimizationSuppressed>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bin\Debug\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2016-03-22T18:52:59.814</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\images\LockScreenLogo.scale-200.png">
+      <PackagePath>images\LockScreenLogo.scale-200.png</PackagePath>
+      <Modified>2015-10-11T05:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\images\SplashScreen.scale-200.png">
+      <PackagePath>images\SplashScreen.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-10-11T05:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\images\Square150x150Logo.scale-200.png">
+      <PackagePath>images\Square150x150Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-10-11T05:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\images\Square44x44Logo.scale-200.png">
+      <PackagePath>images\Square44x44Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-10-11T05:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\images\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <PackagePath>images\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-10-11T05:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\images\StoreLogo.png">
+      <PackagePath>images\StoreLogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-10-11T05:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\images\Wide310x150Logo.scale-200.png">
+      <PackagePath>images\Wide310x150Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-10-11T05:09:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\glyuk\documents\visual studio 2015\Projects\Magic Mirror UWP App\Magic Mirror UWP App\bin\Debug\ReverseMap\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <Modified>2016-03-22T18:52:59.577</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

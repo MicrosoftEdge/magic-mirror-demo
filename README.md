@@ -39,6 +39,8 @@ If you are not using Visual Studio, you can open the `package.appxmanifest` and 
 </Capabilities>
 ```
 
+If you are developeing on Windows, we have provided a dummy UWP app that you can run locally. It is located in **\Magic Mirror UWP App** folder.
+
 ###Setting up Node IDE in Visual Studio 2015 for backend debugging
 
 There is a great VS plugin that can enable you to debug your node project.

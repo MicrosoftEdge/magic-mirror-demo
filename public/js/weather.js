@@ -6,6 +6,7 @@ if (isModule) {
 }
 
 var Weather = {
+  MAX_RETRIES: 3,
   AppID: '6097f99594e4b40d3bbe1be191201d0c',
   Utils: {}
 };
@@ -60,14 +61,17 @@ Weather.getForecast = function (city, callback) {
   });
 };
 
-Weather._getJSON = function( url, callback ) {
+Weather._getJSON = function( url, callback, retries ) {
+  var that = this;
+  retries = retries === undefined ? Weather.MAX_RETRIES : retries;
   if (isModule) {
     return http.get(URL.parse(url), function(response) {
       return callback(response.body);
     } );
-  } else {
+  } else if (retries) {
     jsonp(url).then(callback).catch(function(e) {
-        console.log(e);
+      console.log(e);
+      that._getJSON(url, callback, --retries);
     });
   }
 };
@@ -215,7 +219,7 @@ Weather.Current.prototype.icon = function () {
     case '50d':
     default:
       res = '50.svg';
-      break;     
+      break;
   }
   return '/icons/' + res;
 }
@@ -230,4 +234,3 @@ Weather.Current.prototype.conditions = function () {
 
 if (isModule) { module.exports = Weather; }
 else { window.Weather = Weather; }
-
