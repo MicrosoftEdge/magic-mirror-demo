@@ -11,7 +11,6 @@
       if (!stock) {
         return
       }
-      console.log('stock ', stock)
       $.ajax({
         type: "GET",
         url: url + stock,
