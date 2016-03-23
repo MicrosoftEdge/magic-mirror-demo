@@ -1,7 +1,7 @@
 module.exports = function(app) {
   var url = require('url')
     , express = require('express')
-    , captureFaceRouter = express.Router()
+    , oxfordRouter = express.Router()
     , path = require('path')
     , fs = require('fs')
     , request = require('request')
@@ -15,18 +15,18 @@ module.exports = function(app) {
     , bandname = require('bandname')
     , user_id;
 
-  captureFaceRouter.use(function(req, res, next) {
+  oxfordRouter.use(function(req, res, next) {
     next();
   });
 
-  captureFaceRouter.get('/:user_id', function(req, res, next) {
+  oxfordRouter.get('/:user_id', function(req, res, next) {
     res.render('./../views/partials/captureFace', {
       bodyClass: 'setup face-setup'
     });
     user_id = req.params.user_id;                                                          
   });
 
-  captureFaceRouter.post('/addFace', function(req, res, next) {
+  oxfordRouter.post('/addFace', function(req, res, next) {
     console.log('addface server route post')
     request.post({
       url: 'https://api.projectoxford.ai/face/v1.0/facelists/' + oxfordList + '/persistedFaces',
@@ -56,7 +56,7 @@ module.exports = function(app) {
     })
   });
 
-  captureFaceRouter.post('/determineEmotion', function(req, res, next) {
+  oxfordRouter.post('/determineEmotion', function(req, res, next) {
     console.log('determineEmotion server route post')
     request.post({
       url: 'https://api.projectoxford.ai/emotion/v1.0/recognize',
@@ -96,7 +96,7 @@ module.exports = function(app) {
     })
   });
 
-  captureFaceRouter.post('/authenticate', function(req, res, next) {
+  oxfordRouter.post('/authenticate', function(req, res, next) {
     console.log('authenticate server route post');
     request.post({
       url: 'https://api.projectoxford.ai/face/v1.0/detect',
@@ -227,5 +227,5 @@ module.exports = function(app) {
     });
   };
   
-  app.use('/capture', captureFaceRouter);
+  app.use('/capture', oxfordRouter);
 };

@@ -3,6 +3,6 @@
 module.exports = function(app) {
   require('./homeRoute')(app);
   require('./createProfileRoute')(app);
-  require('./captureFaceRoute')(app);
+  require('./oxfordRoute')(app);
   require('./mirrorRoute')(app);
 };
