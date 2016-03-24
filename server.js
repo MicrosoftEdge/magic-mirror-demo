@@ -59,7 +59,7 @@ app.engine('html', handlebars.engine);
 app.set('view engine', 'html');
 app.set('port', process.env.PORT || 3000);
 app.use(session({
-  maxAge: null,
+  maxAge: null,  
   secret: sessionSecretString,
   store: new mongoStore({ db: mongoose.connections[0].db })
 }))

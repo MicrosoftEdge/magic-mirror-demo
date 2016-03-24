@@ -264,7 +264,7 @@ Authenticate.handleFaces = function(args) {
         detail: MIRROR_STATES.LOGGING_OUT
       }));
     }
-    else if (!authenticated) {
+    else if (!authenticated) {        
       if (faceDetected) {
         faceDetected = false;
         document.dispatchEvent(new CustomEvent("mirrorstatechange", {
