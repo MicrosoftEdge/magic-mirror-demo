@@ -220,6 +220,10 @@ Weather.Current.prototype.temperature = function () {
   return this.data.main.temp;
 };
 
+Weather.Current.prototype.icon = function () {
+  return this.data.weather[0].icon;
+};
+
 Weather.Current.prototype.city = function () {
   return this.data.name;
 };

@@ -43,7 +43,7 @@
       temp.html(t);
       weatherDesc.html(desc);
       loc.html(city);
-      weathericon.src(icon)
+      weathericon.attr('src',icon);
     });
     Weather.getForecast('98052', function(forecast) {
       var f = 'Forecast High in ' + Weather.kelvinToFahrenheit(forecast.high()).toFixed(0) + '°';
@@ -96,7 +96,7 @@
     time = $('#time');
     fcast = $('.report');
     temp = $('.temperature');
-    weatherDesc = $('.conditions');
+    weatherDesc = $('.conditions span');
     loc = $('.weather-location');
     weathericon = $('#weather-icon')
     updateTime();
