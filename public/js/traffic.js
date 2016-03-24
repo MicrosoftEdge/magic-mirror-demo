@@ -17,6 +17,7 @@
           if (!initialized) {
             trafficElement = document.createElement("div");
             trafficElement.id = "trafficElement";
+            
           }
           else {
             trafficElement = document.getElementById("trafficElement");
