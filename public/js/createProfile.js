@@ -20,6 +20,9 @@
       errors.name = '<p>Please add your work address.</p>';
     if (!$('[name=stock]').val())
       errors.stock = '<p>Please enter stock symbol.</p>';
+    console.log('checked ', $('[name=agree-terms]').prop('checked'))
+    if (!$('[name=agree-terms]').prop('checked'))
+      errors.stock = '<p>Please accept the terms and conditions.</p>';
     return _.isEmpty(errors);
   }
   // query Yahoo Finance for a list of stocks
