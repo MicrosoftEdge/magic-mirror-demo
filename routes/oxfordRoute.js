@@ -97,7 +97,6 @@ module.exports = function(app) {
   });
 
   oxfordRouter.post('/authenticate', function(req, res, next) {
-    console.log('authenticate server route post');
     //destroying previous session
     //destroySession(req);
     request.post({
@@ -115,14 +114,13 @@ module.exports = function(app) {
         // There should only be one face, but in the event there are more, the largest one is returned first
         var faceId = body[0].faceId;
         //Specifying the face id and the faceList Id for Project Oxford's REST API's
-        var req = {
+        var oxfordAttr = {
           faceId: faceId,
           faceListId: oxfordList,
           maxNumOfCandidatesReturned: 1
         };
-        //findSimilarFaces func interact with Project Oxford to find a similar face in the face bank
-        findSimilarFaces(req, res);
-        
+        //findSimilarFaces func interact with Project Oxford to find a similar face in the face bank         
+        findSimilarFaces(oxfordAttr, res, req.session);        
       } else {
         payload = {
           message: `Unable to find a face in the picture.`
@@ -132,22 +130,20 @@ module.exports = function(app) {
         res.end();
       }
     })
-  });
-  
+  });  
   //function to interact with oxford find similar faces api
-  function findSimilarFaces(req, res) {
+  function findSimilarFaces(oxfordAttr, res, sess) {    
     var payload = {
       message: 'There was an error with authentication.'
       , authenticated: false
-    };
-    
+    };    
     request.post({
       url: "https://api.projectoxford.ai/face/v1.0/findsimilars",
       headers: {
           'Content-Type': 'application/json',
           'Ocp-Apim-Subscription-Key': oxfordKey
       },
-      body: JSON.stringify(req)
+      body: JSON.stringify(oxfordAttr)
     }, function(error, response, body) {
       body = JSON.parse(body)
       if(error){
@@ -175,8 +171,7 @@ module.exports = function(app) {
             if (user) {                                             
               var message, percConf = confidence.toFixed(4) * 100;
               if (confidence >= minConfidence) {                        
-                message = `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`;
-                //req.session.user = user
+                message = `Successfully logged in as ${user.name}! Confidence level was ${percConf}%.`;                
                 payload = {
                   message: message
                   , authenticated: true
@@ -186,7 +181,9 @@ module.exports = function(app) {
                   , workAddress: user.workAddress
                   , homeAddress: user.homeAddress
                 }; 
-                console.log(payload);
+                sess.data = payload;
+                sess.save();
+                // console.log('Oxford Route session data', sess.data);
                 res.write(JSON.stringify(payload));
                 res.end();         
               } else {
@@ -204,8 +201,7 @@ module.exports = function(app) {
               payload = {
                 message: message
                 , authenticated: false
-              };
-              console.log(payload);
+              };              
               res.write(JSON.stringify(payload));
               res.end();
             }
@@ -222,6 +218,7 @@ module.exports = function(app) {
         }
       }
     });
+    return payload;
   };
   
   //function to destroy session
