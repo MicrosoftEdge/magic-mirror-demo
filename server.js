@@ -59,6 +59,10 @@ app.engine('html', handlebars.engine);
 app.set('view engine', 'html');
 app.set('port', process.env.PORT || 3000);
 app.use(session({
+//   genid: function(req) {
+//     var randomGenId = Math.floor(Math.random()*101);
+//     return randomGenId;
+//   },
   maxAge: null,  
   secret: sessionSecretString,
   store: new mongoStore({ db: mongoose.connections[0].db })

@@ -22,6 +22,7 @@ module.exports = function(app) {
   });
 
   mirrorRouter.get('/getTraffic', function(req, res, next) {
+    console.log('Mirror Route - Traffic Post ', req.session.data);
     var model = mongoose.model('Person');
     request.get({
         url: `http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=${req.query.homeAddress}&wp.1=${req.query.workAddress}&optmz=timeWithTraffic&key=${bingApiKey}`,
