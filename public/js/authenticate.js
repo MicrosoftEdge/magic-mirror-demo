@@ -282,20 +282,6 @@ Authenticate.logout = function () {
   document.dispatchEvent(new CustomEvent("mirrorstatechange", {
     detail: MIRROR_STATES.BLANK
   }));
-  $.ajax({
-    url: '/face/determineEmotion',
-    beforeSend: function (xhrObj) {
-      xhrObj.setRequestHeader('Content-Type', 'application/octet-stream')
-    },
-    type: 'POST',
-    processData: false
-  })
-  .done(function (result) {
-    console.log(result)
-  })
-  .fail(function (e) {
-    console.log(e)
-  });
 };
 Authenticate.mirrorPreview= function () {
   var props = mediaCapture.videoDeviceController.getMediaStreamProperties(Capture.MediaStreamType.videoPreview);
