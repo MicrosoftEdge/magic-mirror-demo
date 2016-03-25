@@ -32,7 +32,7 @@ module.exports = function(app) {
         console.log(error)
       else {        
         body = JSON.parse(body);
-        if(body && body.resourceSets && body.resourceSets[0]){
+        if(body && body.resourceSets && body.resourceSets[0]){          
           var travelDuration = body.resourceSets[0].resources[0].travelDurationTraffic;
           var trafficCongestion = body.resourceSets[0].resources[0].trafficCongestion; //This can say "Heavy" or other things
           res.send({ "travelDuration": travelDuration, "trafficCongestion": trafficCongestion }); 

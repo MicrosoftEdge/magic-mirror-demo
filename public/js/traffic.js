@@ -6,8 +6,13 @@
     var initialized = false;
     var refresh, traffic, trafficElement;
     var homeAddress, workAddress;
-
+    
     function getTravelDuration(homeAddress, workAddress) {
+      if( homeAddress === "" || (typeof(homeAddress) == "undefined" && homeAddress == null)) {
+          homeAddress = "Seattle, WA";   
+      } else if(workAddress === "" || (typeof(workAddress) == "undefined" && workAddress == null)) {
+          workAddress = "Redmond, WA";
+      }
       var url = "/mirror/getTraffic?homeAddress=" + homeAddress + "&workAddress=" + workAddress;    
       $.ajax({
         url: url,
