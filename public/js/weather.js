@@ -6,7 +6,7 @@ if (isModule) {
 }
 
 var Weather = {
-  MAX_RETRIES: 3,
+  MAX_RETRIES: 6,
   AppID: '6097f99594e4b40d3bbe1be191201d0c',
   Utils: {}
 };
