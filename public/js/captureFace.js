@@ -43,7 +43,6 @@
   }
 
   function mirrorPreview() {
-    var props = mediaCapture.videoDeviceController.getMediaStreamProperties(Capture.MediaStreamType.videoPreview);
     props.properties.insert('C380465D-2271-428C-9B83-ECEA3B4A85C1', 0);
     return mediaCapture.setEncodingPropertiesAsync(Capture.MediaStreamType.videoPreview, props, null);
   }
@@ -115,6 +114,21 @@
         captureSettings.streamingCaptureMode = Capture.StreamingCaptureMode.video;
         mediaCapture.initializeAsync(captureSettings).then(
           function fulfilled(result) {
+            
+            // Attempt to use the target camera settings
+            var controller = mediaCapture.videoDeviceController;
+            var availableProps = controller.getAvailableMediaStreamProperties(mediaStreamType);
+            availableProps.forEach(function (prop) {
+                if (prop.height == targetResolutionHeight && prop.frameRate.numerator == 30) {
+                    controller.setMediaStreamPropertiesAsync(mediaStreamType, prop);
+                    return;
+                }
+            });
+
+            // Get the current camera settings
+            props = mediaCapture.videoDeviceController.getMediaStreamProperties(mediaStreamType);
+
+            
             mediaCapture.addVideoEffectAsync(effectDefinition, mediaStreamType).done(
               function complete(result) {
                 result.addEventListener('facedetected', handleFaces);
@@ -158,9 +172,13 @@
     width: 40,
     height: 100
   };
+  // Height of target video resolution (e.g. 480, 720, 1080) at 30fps. 
+  // It will fall back to device default if target setting not found.
+  var targetResolutionHeight = 480; 
+
 
   // Initializations
-  var buttonAddFace, buttonAuthenticate, mediaCapture, facesCanvas, video, message, prevMessage, snapshot;
+  var buttonAddFace, buttonAuthenticate, mediaCapture, facesCanvas, video, message, prevMessage, snapshot, props;
 
   var Capture = Windows.Media.Capture;
   var captureSettings = new Capture.MediaCaptureInitializationSettings;
