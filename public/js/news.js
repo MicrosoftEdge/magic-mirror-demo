@@ -1,7 +1,7 @@
-(function () {
+(function() {
   "use strict";
 
-  var News = (function () {
+  var News = (function() {
     // Configurations
     var numHeadlines = 20; // Max number of headlines
     var feeds = {
@@ -54,12 +54,12 @@
         }
       }
 
-      feedList.forEach(function (feed) {
+      feedList.forEach(function(feed) {
         var a = document.createElement("a");
         a.href = feed;
         var domain = a.hostname;
-        $.get(feed, function (data) {
-          $(data).find("item").each(function () {
+        $.get(feed, function(data) {
+          $(data).find("item").each(function() {
             var el = $(this);
             var date = new Date(Date.parse(el.find("pubDate").text()));
             var title = el.find("title").text();
@@ -70,7 +70,7 @@
             });
           });
         })
-        .done(function () {
+        .done(function() {
           i++;
           if (i == feedList.length) {
             if (!initialized) {
@@ -85,7 +85,7 @@
     }
 
     function renderList() {
-      headlines.sort(function (a, b) {
+      headlines.sort(function(a, b) {
         return new Date(b.date) - new Date(a.date);
       });
 
@@ -100,7 +100,7 @@
     }
 
     return {
-      init: function () {
+      init: function() {
         newsFeed = document.getElementById("newsFeed");
         headlines = [];
         getList();

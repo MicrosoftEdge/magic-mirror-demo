@@ -1,6 +1,6 @@
-(function () {
+(function() {
   "use strict";
-  var Stock = (function () {
+  var Stock = (function() {
     var refreshRate = 5000; // Refresh rate (in ms)
     var url = "http://finance.google.com/finance/info?client=ig&q=";
     var initialized = false;
@@ -15,8 +15,8 @@
         type: "GET",
         url: url + stock,
         dataType: "jsonp",
-        success: function (data) {
-          data.forEach(function (stock) {
+        success: function(data) {
+          data.forEach(function(stock) {
             var symbol = stock.t;
             var lastPrice = stock.l;
             var changePercentage = stock.cp;
@@ -70,7 +70,7 @@
           });
         }
       })
-      .done(function () {
+      .done(function() {
         if (!initialized) {
           initialized = true;
         }
@@ -79,7 +79,7 @@
     }
 
     return {
-      init: function (stock) {
+      init: function(stock) {
         watchList = document.getElementById("watchList");
         getQuotes(stock);
       }

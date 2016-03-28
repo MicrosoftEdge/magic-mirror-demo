@@ -51,7 +51,7 @@
     });
   }
   
-  function handleStateChange(state){
+  function handleStateChange(state) {
     $('.auth-state').attr('aria-hidden', 'true');
     switch (state) {
       case MIRROR_STATES.BLANK:
@@ -84,7 +84,7 @@
     // Need to dynamically rotate the page via CSS due to graphics bug
     rotatePage();
  
-    document.addEventListener('mirrorstatechange', function (e) {
+    document.addEventListener('mirrorstatechange', function(e) {
       handleStateChange(e.detail)
     });
     document.dispatchEvent(new CustomEvent('mirrorstatechange', {

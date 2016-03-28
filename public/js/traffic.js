@@ -1,22 +1,22 @@
-﻿(function () {
+(function() {
   "use strict";
 
-  var Traffic = (function () {
+  var Traffic = (function() {
     var refreshRate = 60000; // Refresh rate (in ms)
     var initialized = false;
     var refresh, traffic, trafficElement;
     var homeAddress, workAddress;
     
     function getTravelDuration(homeAddress, workAddress) {
-      if( homeAddress === "" || (typeof(homeAddress) == "undefined" && homeAddress == null)) {
+      if ( homeAddress === "" || (typeof(homeAddress) == "undefined" && homeAddress == null)) {
           homeAddress = "Seattle, WA";   
-      } else if(workAddress === "" || (typeof(workAddress) == "undefined" && workAddress == null)) {
+      } else if (workAddress === "" || (typeof(workAddress) == "undefined" && workAddress == null)) {
           workAddress = "Redmond, WA";
       }
       var url = "/mirror/getTraffic?homeAddress=" + homeAddress + "&workAddress=" + workAddress;    
       $.ajax({
         url: url,
-        success: function (data) {          
+        success: function(data) {          
           var trafficCongestion = data.trafficCongestion;
           var travelDuration = data.travelDuration;
           if (!initialized) {
@@ -42,7 +42,7 @@
       });
     }
     return {
-      init: function (homeAddr, workAddr) {
+      init: function(homeAddr, workAddr) {
         homeAddress = homeAddr;
         workAddress =  workAddr;
         traffic = document.getElementById("traffic");       

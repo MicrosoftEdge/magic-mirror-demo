@@ -1,29 +1,29 @@
-var express = require('express')
-  , bodyParser = require('body-parser')
-  , exphbr = require('express-handlebars')
-  , static = require('express-static')
-  , session = require('express-session')
-  , formidable = require('formidable')
-  , util = require('util')
-  , app = express()
-  , path = require('path')
-  , http = require('http')
-  , router = express.Router()
-  , handlebars
-  , mongoose = require('mongoose')
-  , mongoStore = require('connect-mongodb')
-  , nconf = require('nconf').file({file: 'environment.json'}).env()
-  , connectionString = nconf.get('CUSTOMCONNSTR_MONGOLAB_URI')
-  , sessionSecretString = nconf.get('SESSION_SECRET_STRING');
+var handlebars,
+    express = require('express'),
+    bodyParser = require('body-parser'),
+    exphbr = require('express-handlebars'),
+    static = require('express-static'),
+    session = require('express-session'),
+    formidable = require('formidable'),
+    util = require('util'),
+    app = express(),
+    path = require('path'),
+    http = require('http'),
+    router = express.Router(),
+    mongoose = require('mongoose'),
+    mongoStore = require('connect-mongodb'),
+    nconf = require('nconf').file({ 'file': 'environment.json' }).env(),
+    connectionString = nconf.get('CUSTOMCONNSTR_MONGOLAB_URI'),
+    sessionSecretString = nconf.get('SESSION_SECRET_STRING');
 
 //Database
 mongoose.connect(connectionString);
 
 // If the Node process ends, close the Mongoose connection
 process.on('SIGINT', function() {
-  mongoose.connection.close(function () {
-    console.log('Mongoose default connection disconnected through app termination')
-    process.exit(0)
+  mongoose.connection.close(function() {
+    console.log('Mongoose default connection disconnected through app termination');
+    process.exit(0);
   });
 });
 
@@ -35,21 +35,21 @@ db.once('open', function() {
 
 //Schemas
 var Person = mongoose.model('Person', mongoose.Schema({
-  name: String,
-  email: String,
-  zipcode: String,
-  face_id: String,
-  stock: String,
-  homeAddress: String,
-  workAddress: String
+  'name': String,
+  'email': String,
+  'zipcode': String,
+  'face_id': String,
+  'stock': String,
+  'homeAddress': String,
+  'workAddress': String
 }));
 
 handlebars = exphbr.create({
-  defaultLayout: 'main',
-  extname: '.html',
+  'defaultLayout': 'main',
+  'extname': '.html',
   // Uses multiple partials dirs, templates in 'shared/templates/' are shared
   // with the client-side of the app (see below).
-  partialsDir: [
+  'partialsDir': [
     'views/shared/',
     'views/partials/'
   ]
@@ -59,14 +59,14 @@ app.engine('html', handlebars.engine);
 app.set('view engine', 'html');
 app.set('port', process.env.PORT || 3000);
 app.use(session({
-//   genid: function(req) {
-//     var randomGenId = Math.floor(Math.random()*101);
-//     return randomGenId;
-//   },
-  maxAge: null,  
-  secret: sessionSecretString,
-  store: new mongoStore({ db: mongoose.connections[0].db })
-}))
+  //  genid: function(req) {
+  //    var randomGenId = Math.floor(Math.random()*101);
+  //    return randomGenId;
+  //  },
+  'maxAge': null,
+  'secret': sessionSecretString,
+  'store': new mongoStore({ 'db': mongoose.connections[0].db })
+}));
 
 app.use(bodyParser.raw());
 app.use(express.static(path.join(__dirname, 'public')));
