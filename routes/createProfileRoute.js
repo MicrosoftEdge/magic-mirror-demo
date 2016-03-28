@@ -1,5 +1,8 @@
+'use strict';
+
 module.exports = function(app) {
-  var express = require('express'),
+  var _ = require('lodash'),
+      express = require('express'),
       createUserRouter = express.Router(),
       formidable = require('formidable'),
       mongoose = require('mongoose'),
@@ -17,11 +20,11 @@ module.exports = function(app) {
     res.render('./../views/partials/createProfile', {
       'bodyClass': 'setup profile-setup',
       'helpers': {
-        'getBandName': function() { return bandname(); },
-        'getZipcode': function() { return '98052'; },
-        'getEmail': function() { return 'email@outlook.com';},
-        'getHomeAddress': function() { return '800 Occidental Ave S, Seattle, WA'; },
-        'getWorkAddress': function() { return '1 Microsoft Way Redmond, WA'; }
+        'getBandName': bandname,
+        'getZipcode': _.constant('98052'),
+        'getEmail': _.constant('email@outlook.com'),
+        'getHomeAddress': _.constant('800 Occidental Ave S, Seattle, WA'),
+        'getWorkAddress': _.constant('1 Microsoft Way Redmond, WA')
       }
     });
   });

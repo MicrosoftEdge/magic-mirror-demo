@@ -1,8 +1,8 @@
 var handlebars,
     express = require('express'),
     bodyParser = require('body-parser'),
-    exphbr = require('express-handlebars'),
-    static = require('express-static'),
+    expHbr = require('express-handlebars'),
+    expStatic = require('express-static'),
     session = require('express-session'),
     formidable = require('formidable'),
     util = require('util'),
@@ -16,10 +16,10 @@ var handlebars,
     connectionString = nconf.get('CUSTOMCONNSTR_MONGOLAB_URI'),
     sessionSecretString = nconf.get('SESSION_SECRET_STRING');
 
-//Database
+// Connect to the database.
 mongoose.connect(connectionString);
 
-// If the Node process ends, close the Mongoose connection
+// If the Node process ends, close the Mongoose connection.
 process.on('SIGINT', function() {
   mongoose.connection.close(function() {
     console.log('Mongoose default connection disconnected through app termination');
@@ -33,7 +33,7 @@ db.once('open', function() {
   console.log("we're connected!");
 });
 
-//Schemas
+// Enforce the `Person` schema.
 var Person = mongoose.model('Person', mongoose.Schema({
   'name': String,
   'email': String,
@@ -44,7 +44,7 @@ var Person = mongoose.model('Person', mongoose.Schema({
   'workAddress': String
 }));
 
-handlebars = exphbr.create({
+handlebars = expHbr.create({
   'defaultLayout': 'main',
   'extname': '.html',
   // Uses multiple partials dirs, templates in 'shared/templates/' are shared
@@ -58,18 +58,16 @@ handlebars = exphbr.create({
 app.engine('html', handlebars.engine);
 app.set('view engine', 'html');
 app.set('port', process.env.PORT || 3000);
+
+// Saving session in mongoDB.
 app.use(session({
-  //  genid: function(req) {
-  //    var randomGenId = Math.floor(Math.random()*101);
-  //    return randomGenId;
-  //  },
   'maxAge': null,
   'secret': sessionSecretString,
   'store': new mongoStore({ 'db': mongoose.connections[0].db })
 }));
 
 app.use(bodyParser.raw());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.expStatic(path.join(__dirname, 'public')));
 
 http.createServer(app).listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));

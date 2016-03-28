@@ -14,13 +14,14 @@
     "formidable": "^1.0.17",
     "handlebars": "^4.0.5",
     "jscs": "^2.11.0",
+    "lodash": "^4.6.1",
     "mongoose": "^4.4.5",
     "nconf": "^0.8.4",
     "request": "^2.69.0"
   },
   "devDependencies": {},
   "scripts": {
-    "style": "jscs *.js **/*.js",
+    "style": "jscs *.js **/*.js **/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },

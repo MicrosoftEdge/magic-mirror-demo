@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(app, settings) {
   var url = require('url'),
       express = require('express'),

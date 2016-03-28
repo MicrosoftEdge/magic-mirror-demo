@@ -4,9 +4,9 @@
   var errors = {};
 
   function validateZipcode(input) {
-    var re = new RegExp('^\\d{5}(-\\d{4})?$');
-    return re.test(input);
+    return /^\d{5}(-\d{4})?$/.test(input);
   }
+
   function validateInputs() {
     errors = {};
     if (!$('[name=name]').val()) {
@@ -27,48 +27,48 @@
     if (!$('[name=stock]').val()) {
       errors.stock = '<p>Please enter stock symbol.</p>';
     }
-    console.log('checked ', $('[name=agree-terms]').prop('checked'));
     if (!$('[name=agree-terms]').prop('checked')) {
       errors.stock = '<p>Please accept the terms and conditions.</p>';
     }
     return _.isEmpty(errors);
   }
-  // query Yahoo Finance for a list of stocks
+  // Query Yahoo Finance for a list of stocks.
   $('#stock').autocomplete({
-    source: function(request, response) {
+    'source': function(request, response) {
       var YAHOO = window.YAHOO = { 'util': { 'ScriptNodeDataSource': {} } };
       YAHOO.util.ScriptNodeDataSource.callbacks = function(data) {
-        var mapped = $.map(data.ResultSet.Result, function(e, i) {
+        response($.map(data.ResultSet.Result, function(stock) {
           return {
-            'label': e.symbol + ' (' + e.name + ')',
-            'value': e.symbol
+            'label': stock.symbol + ' (' + stock.name + ')',
+            'value': stock.symbol
           };
-        });
-        response(mapped);
+        }));
       };
-      var url = ['https://s.yimg.com/aq/autoc?query=' + request.term + '&region=CA&lang=en-CA&callback=YAHOO.util.ScriptNodeDataSource.callbacks'];
-      $.getScript(url + '');
+      $.getScript('https://s.yimg.com/aq/autoc?query=' + request.term + '&region=CA&lang=en-CA&callback=YAHOO.util.ScriptNodeDataSource.callbacks');
     },
     'minLength': 1
   });
+
   function getErrors() {
     return _.values(errors);
   }
+
   $('form').on('submit', function(event) {
     if (!validateInputs()) {
       console.log(errors);
       $('#form-errors').html(getErrors()[0]);
       $('#form-errors').show();
-    } else {
+    }
+    else {
       $.ajax({
         'url': '/create',
         'type': 'POST',
         'data': $('form').serialize(),
         'success': function(body) {
-          window.location.href = '/face/' + JSON.parse(body);
+          location.href = '/face/' + JSON.parse(body);
         }
       });
     }
     return false;
   });
-})();
+}());
