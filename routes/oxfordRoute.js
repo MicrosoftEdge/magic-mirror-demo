@@ -23,7 +23,8 @@ module.exports = function(app) {
     res.render('./../views/partials/captureFace', {
       'bodyClass': 'setup face-setup'
     });
-    userId = req.params['user_id'];
+    // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+    userId = req.params.user_id;
   });
 
   oxfordRouter.post('/addFace', function(req, res, next) {
