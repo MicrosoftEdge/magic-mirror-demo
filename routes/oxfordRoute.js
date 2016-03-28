@@ -122,10 +122,14 @@ module.exports = function(app) {
         };
         //findSimilarFaces func interact with Project Oxford to find a similar face in the face bank
         findSimilarFaces(req, res);
-        
       } else {
+        var message = 'Unable to find a face in the picture.';
+        if(error){
+          console.log(error)
+          message = 'Error from project oxford';
+        }
         payload = {
-          message: `Unable to find a face in the picture.`
+          message: message
           , authenticated: false
         };
         res.write(JSON.stringify(payload));
