@@ -19,7 +19,7 @@ var logoutTime = 5000; // in milliseconds
 var authenticating = false
 var authenticated = false
 var faceDetected = false
-var checkEmotion = true
+var checkEmotion = false
 
 // Initializations
 var buttonAddFace, mediaCapture, message, prevMessage, snapshot, timeLeft, logoutTimeout, quotePane, quoteText, quoteAuthor;
@@ -119,7 +119,6 @@ Authenticate.takePhoto = function(addFace) {
       .done(function(result) {    
         var resultObj = JSON.parse(result);
         if(resultObj.authenticated){
-          console.log('inside the authenticated')
           authenticated = true;
           authenticating = false;
           Authenticate.user = { 
@@ -248,7 +247,7 @@ Authenticate.handleFaces = function(args) {
     }
     if (checkEmotion) {
         if (isStable(face)) {
-            // Authenticate.determineEmotion()
+            Authenticate.determineEmotion()
       }
     }
   }
@@ -297,7 +296,7 @@ Authenticate.init = function() {
   quotePane = document.getElementById('quotePane');
   quoteText = document.getElementById('quoteText');
   quoteAuthor = document.getElementById('quoteAuthor');
-  Authenticate.findCameraDeviceByPanelAsync(DeviceEnumeration.Panel.back).then(
+  Authenticate.findCameraDeviceByPanelAsync(DeviceEnumeration.Panel.front).then(
     function(camera) {
       if (!camera) {
         console.error('No camera device found!');

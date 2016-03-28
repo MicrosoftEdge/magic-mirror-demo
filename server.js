@@ -1,29 +1,28 @@
-var express = require('express')
-  , bodyParser = require('body-parser')
-  , exphbr = require('express-handlebars')
-  , static = require('express-static')
-  , session = require('express-session')
-  , formidable = require('formidable')
-  , util = require('util')
-  , app = express()
-  , path = require('path')
-  , http = require('http')
-  , router = express.Router()
-  , handlebars
-  , mongoose = require('mongoose')
-  , mongoStore = require('connect-mongodb')
-  , nconf = require('nconf').file({file: 'environment.json'}).env()
-  , connectionString = nconf.get('CUSTOMCONNSTR_MONGOLAB_URI')
-  , sessionSecretString = nconf.get('SESSION_SECRET_STRING');
+var handlebars,
+    express = require('express'),
+    bodyParser = require('body-parser'),
+    expHbr = require('express-handlebars'),
+    session = require('express-session'),
+    formidable = require('formidable'),
+    util = require('util'),
+    app = express(),
+    path = require('path'),
+    http = require('http'),
+    router = express.Router(),
+    mongoose = require('mongoose'),
+    mongoStore = require('connect-mongodb'),
+    nconf = require('nconf').file({ 'file': 'environment.json' }).env(),
+    connectionString = nconf.get('CUSTOMCONNSTR_MONGOLAB_URI'),
+    sessionSecretString = nconf.get('SESSION_SECRET_STRING');
 
-//Database
+// Connect to the database.
 mongoose.connect(connectionString);
 
-// If the Node process ends, close the Mongoose connection
+// If the Node process ends, close the Mongoose connection.
 process.on('SIGINT', function() {
-  mongoose.connection.close(function () {
-    console.log('Mongoose default connection disconnected through app termination')
-    process.exit(0)
+  mongoose.connection.close(function() {
+    console.log('Mongoose default connection disconnected through app termination');
+    process.exit(0);
   });
 });
 
@@ -33,23 +32,23 @@ db.once('open', function() {
   console.log("we're connected!");
 });
 
-//Schemas
+// Enforce the `Person` schema.
 var Person = mongoose.model('Person', mongoose.Schema({
-  name: String,
-  email: String,
-  zipcode: String,
-  face_id: String,
-  stock: String,
-  homeAddress: String,
-  workAddress: String
+  'name': String,
+  'email': String,
+  'zipcode': String,
+  'face_id': String,
+  'stock': String,
+  'homeAddress': String,
+  'workAddress': String
 }));
 
-handlebars = exphbr.create({
-  defaultLayout: 'main',
-  extname: '.html',
+handlebars = expHbr.create({
+  'defaultLayout': 'main',
+  'extname': '.html',
   // Uses multiple partials dirs, templates in 'shared/templates/' are shared
   // with the client-side of the app (see below).
-  partialsDir: [
+  'partialsDir': [
     'views/shared/',
     'views/partials/'
   ]
@@ -58,18 +57,16 @@ handlebars = exphbr.create({
 app.engine('html', handlebars.engine);
 app.set('view engine', 'html');
 app.set('port', process.env.PORT || 3000);
+
+// Saving session in mongoDB.
 app.use(session({
-//   genid: function(req) {
-//     var randomGenId = Math.floor(Math.random()*101);
-//     return randomGenId;
-//   },
-  maxAge: null,  
-  secret: sessionSecretString,
-  store: new mongoStore({ db: mongoose.connections[0].db })
-}))
+  'maxAge': null,
+  'secret': sessionSecretString,
+  'store': new mongoStore({ 'db': mongoose.connections[0].db })
+}));
 
 app.use(bodyParser.raw());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express['static'](path.join(__dirname, 'public')));
 
 http.createServer(app).listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
