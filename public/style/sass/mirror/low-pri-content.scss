@@ -9,7 +9,6 @@
   &:last-child {
     margin-bottom: 0;
   }
-
 }
 
 .low-pri-block-title {
@@ -19,7 +18,6 @@
   &:before {
     @extend %icon;
   }
-
 }
 
 .logged-in-stamp {
@@ -36,7 +34,6 @@
 }
 
 @media (min-width: $bp-m) {
-
   .low-pri-block {
     display: inline-block;
     vertical-align: top;
@@ -47,7 +44,6 @@
     &:last-child {
       padding-right: 0;
     }
-
   }
 
   .low-pri-block-title {
@@ -60,11 +56,9 @@
       height: 35px;
       opacity: .5;
     }
-
   }
-
 }
 
 /* SUBSECTIONS OF LOW-PRI CONTENT */
-@import 'traffic';
-@import 'stocks';
+@import "traffic";
+@import "stocks";

@@ -29,14 +29,13 @@
   z-index: 2;
 }
 
-#message, #snapshot {
+#message,
+#snapshot {
   text-align: center;
 }
 
 @media (min-width: $bp-m) {
-
   .capture-face #video {
     width: 90%;
   }
-
 }
