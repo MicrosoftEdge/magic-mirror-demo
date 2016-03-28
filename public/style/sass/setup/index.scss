@@ -36,26 +36,44 @@
 /* Allow user to toggle animations */
 .setup.anim-active {
   -webkit-animation: gradientAnim 20s ease infinite;
-  -moz-animation: gradientAnim 20s ease infinite;
-  animation: gradientAnim 20s ease infinite;
+     -moz-animation: gradientAnim 20s ease infinite;
+          animation: gradientAnim 20s ease infinite;
 }
 
 @-webkit-keyframes gradientAnim {
-  0%{background-position:93% 0%}
-  50%{background-position:0% 100%}
-  100%{background-position:93% 0%}
+  0% {
+    background-position: 93% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 93% 0%;
+  }
 }
 
 @-moz-keyframes gradientAnim {
-  0%{background-position:93% 0%}
-  50%{background-position:0% 100%}
-  100%{background-position:93% 0%}
+  0% {
+    background-position: 93% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 93% 0%;
+  }
 }
 
 @keyframes gradientAnim {
-  0%{background-position:93% 0%}
-  50%{background-position:0% 100%}
-  100%{background-position:93% 0%}
+  0% {
+    background-position: 93% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 93% 0%;
+  }
 }
 
 .setup-content {
@@ -81,9 +99,7 @@
       border-bottom: 0;
       color: $color-setup-link-active;
     }
-
   }
-
 }
 
 .setup-content::before {
@@ -93,7 +109,7 @@
   left: 0;
   width: 0;
   height: 8px;
-  content: '';
+  content: "";
   background: #000;
 }
 
@@ -121,7 +137,8 @@ fieldset {
   border: none;
 }
 
-input, button {
+input,
+button {
   padding: .5em;
   border: 0;
   outline: 0;
@@ -149,7 +166,8 @@ input[type="email"]:focus {
   color: #000;
 }
 
-input[type="submit"], button {
+input[type="submit"],
+button {
   cursor: pointer;
 }
 
@@ -162,7 +180,6 @@ input[type="submit"], button {
     padding: 1em;
     border: 2px solid;
   }
-
 }
 
 .field-item {
@@ -180,9 +197,7 @@ input[type="submit"], button {
       width: 1em;
       height: 1em;
     }
-
   }
-
 }
 
 .submit-wrapper {
@@ -203,7 +218,6 @@ input[type="submit"], button {
     width: 40px;
     height: 40px;
   }
-
 }
 
 /* Reset link styles */
@@ -225,7 +239,6 @@ a.back-btn:active {
   &:hover:before {
     left: -40px;
   }
-
 }
 
 .forward-btn {
@@ -239,11 +252,9 @@ a.back-btn:active {
   &:hover:before {
     right: -40px;
   }
-
 }
 
 @media (min-width: $bp-m) {
-
   .setup-title {
     font-size: 3.5em;
   }
@@ -269,7 +280,6 @@ a.back-btn:active {
   }
 
   .field-item {
-
     label,
     input {
       display: inline-block;
@@ -294,7 +304,6 @@ a.back-btn:active {
       border-width: 0;
       border-bottom-width: 2px;
     }
-
   }
 
   .submit-wrapper {
@@ -302,10 +311,9 @@ a.back-btn:active {
     margin-left: auto;
     width: 90%;
   }
-
 }
 
 /* SUBSECTIONS OF ACCOUNT SETUP */
-@import 'create-profile';
-@import 'capture-face';
-@import 'tos'; /* Terms of Service */
+@import "create-profile";
+@import "capture-face";
+@import "tos"; /* Terms of Service */
