@@ -1,66 +1,78 @@
-(function () {
-  "use strict";
+(function() {
+  'use strict';
+
   var errors = {};
 
   function validateZipcode(input) {
-    var re = new RegExp("^\\d{5}(-\\d{4})?$");
-    return re.test(input);
+    return /^\d{5}(-\d{4})?$/.test(input);
   }
+
   function validateInputs() {
     errors = {};
-    if (!$('[name=name]').val())
+    if (!$('[name=name]').val()) {
       errors.name = '<p>Please add your name.</p>';
-    if (!$('[name=email]').val())
+    }
+    if (!$('[name=email]').val()) {
       errors.name = '<p>Please add your email.</p>';
-    if (!validateZipcode($('[name=zipcode]').val()))
+    }
+    if (!validateZipcode($('[name=zipcode]').val())) {
       errors.zipcode = '<p>Please fix your zipcode.</p>';
-    if (!$('[name=homeAddress]').val())
+    }
+    if (!$('[name=homeAddress]').val()) {
       errors.name = '<p>Please add your home address.</p>';
-    if (!$('[name=workAddress]').val())
+    }
+    if (!$('[name=workAddress]').val()) {
       errors.name = '<p>Please add your work address.</p>';
-    if (!$('[name=stock]').val())
+    }
+    if (!$('[name=stock]').val()) {
       errors.stock = '<p>Please enter stock symbol.</p>';
-    console.log('checked ', $('[name=agree-terms]').prop('checked'))
-    if (!$('[name=agree-terms]').prop('checked'))
+    }
+    if (!$('[name=agree-terms]').prop('checked')) {
       errors.stock = '<p>Please accept the terms and conditions.</p>';
+    }
     return _.isEmpty(errors);
   }
-  // query Yahoo Finance for a list of stocks
-  $("#stock").autocomplete({
-    source: function (request, response) {
-      var YAHOO = window.YAHOO = { util: { ScriptNodeDataSource: {} } };
-      YAHOO.util.ScriptNodeDataSource.callbacks = function (data) {
-        var mapped = $.map(data.ResultSet.Result, function (e, i) {
-          return {
-            label: e.symbol + ' (' + e.name + ')',
-            value: e.symbol
-          };
-        });
-        response(mapped);
-      };
-      var url = ["https://s.yimg.com/aq/autoc?query=" + request.term + "&region=CA&lang=en-CA&callback=YAHOO.util.ScriptNodeDataSource.callbacks"];
-      $.getScript(url + "");
+  // Query Yahoo Finance for a list of stocks.
+  $('#stock').autocomplete({
+    'source': function(request, response) {
+      var url = ['https://s.yimg.com/aq/autoc?query=' + request.term + '&region=US&lang=en-US'];
+      $.ajax({
+        'url': url,
+        'success': function(data) {
+          console.log('data: ', data);
+          var mapped = $.map(data.ResultSet.Result, function(e, i) {
+            return {
+              'label': e.symbol + ' (' + e.name + ')',
+              'value': e.symbol
+            };
+          });
+          response(mapped);
+        }
+      });
     },
-    minLength: 1
+    'minLength': 1
   });
+
   function getErrors() {
     return _.values(errors);
   }
-  $('form').on('submit', function (event) {
+
+  $('form').on('submit', function(event) {
     if (!validateInputs()) {
       console.log(errors);
       $('#form-errors').html(getErrors()[0]);
       $('#form-errors').show();
-    } else {
+    }
+    else {
       $.ajax({
-        url: '/create',
-        type: 'POST',
-        data: $('form').serialize(),
-        success: function (body) {
-          window.location.href = '/face/' + JSON.parse(body);
+        'url': '/create',
+        'type': 'POST',
+        'data': $('form').serialize(),
+        'success': function(body) {
+          location.href = '/face/' + JSON.parse(body);
         }
       });
     }
     return false;
   });
-})()
+}());

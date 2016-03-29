@@ -1,27 +1,35 @@
-var detectionInterval = 33; // 33ms is fastest, 200ms is default
-var minConfidence = 0.5; // Minimum confidence level for successful face authentication, range from 0 to 1
+'use strict';
+
+// 33ms is fastest, 200ms is default.
+var detectionInterval = 33;
+
+// Minimum confidence level for successful face authentication, range from 0 to 1.
+var minConfidence = 0.5;
 var minFaceThresholds = {
-  width: 20,
-  height: 50
+  'width': 20,
+  'height': 50
 };
+
 var faceThresholds = {
-  width: 40
-  , height: 100
+  'width': 40,
+  'height': 100
 };
+
 var mirroring = true;
+
 // Reserved for high end devices:
 var cycles = 30;
 var maxDistance = 40;
 var maxChange = 5;
-var logoutTime = 5000; // in milliseconds
+var logoutTime = 5000; // In milliseconds.
 
-// State variables
-var authenticating = false
-var authenticated = false
-var faceDetected = false
-var checkEmotion = true
+// State variables.
+var authenticating = false;
+var authenticated = false;
+var faceDetected = false;
+var checkEmotion = false;
 
-// Initializations
+// Initializations.
 var buttonAddFace, mediaCapture, message, prevMessage, snapshot, timeLeft, logoutTimeout, quotePane, quoteText, quoteAuthor;
 
 var Capture = Windows.Media.Capture;
@@ -41,35 +49,35 @@ function isStable(face) {
     stabilizationCounter = 0;
     return true;
   }
-  
   var curX = face.x;
   var curY = face.y;
   var curWidth = face.width;
   var curHeight = face.height;
-  
+
   stabilizationCounter++;
-  
+
   if (prevX) {
     var distance = Math.sqrt(Math.pow(curX - prevX, 2) + Math.pow(curY - prevY, 2));
-    if (distance > maxDistance || Math.abs(curWidth - prevWidth) > maxChange || Math.abs(curHeight - prevHeight) > maxChange) { 
+    if (distance > maxDistance ||
+        Math.abs(curWidth - prevWidth) > maxChange ||
+        Math.abs(curHeight - prevHeight) > maxChange) {
       stabilizationCounter = 0;
     }
   }
-  
   prevX = curX;
   prevY = curY;
   prevWidth = curWidth;
   prevHeight = curHeight;
-  
+
   return false;
 }
 
 function updateCountdown() {
-  $(".timer .text").html(timeLeft--);
-  $(".timer .circle").css("stroke-dashoffset", Math.round((timeLeft / (logoutTime / 1000)) * 100) - 100);
+  $('.timer .text').html(timeLeft--);
+  $('.timer .circle').css('stroke-dashoffset', Math.round((timeLeft / (logoutTime / 1000)) * 100) - 100);
   if (timeoutSet) {
-    setTimeout(function () {
-      $(".timer .text").textContent = timeLeft;
+    setTimeout(function() {
+      $('.timer .text').textContent = timeLeft;
       requestAnimationFrame(updateCountdown);
     }, 1000);
   }
@@ -77,7 +85,7 @@ function updateCountdown() {
 
 var Authenticate = {};
 
-Authenticate.findCameraDeviceByPanelAsync = function (panel) {
+Authenticate.findCameraDeviceByPanelAsync = function(panel) {
   var deviceInfo;
   return DeviceEnumeration.DeviceInformation.findAllAsync(DeviceEnumeration.DeviceClass.videoCapture).then(
     function(devices) {
@@ -106,98 +114,96 @@ Authenticate.takePhoto = function(addFace) {
       var dataReader = Storage.Streams.DataReader.fromBuffer(buffer);
       var byteArray = new Uint8Array(buffer.length);
       dataReader.readBytes(byteArray);
-      // Detect the face to get a face ID
+
+      // Detect the face to get a face ID.
       $.ajax({
-        url: '/face/authenticate',
-        beforeSend: function(xhrObj) {
+        'url': '/face/authenticate',
+        'beforeSend': function(xhrObj) {
           xhrObj.setRequestHeader('Content-Type', 'application/octet-stream');
         },
-        type: 'POST',
-        data: byteArray,
-        processData: false
+        'type': 'POST',
+        'data': byteArray,
+        'processData': false
       })
-      .done(function(result) {    
+      .done(function(result) {
         var resultObj = JSON.parse(result);
-        if(resultObj.authenticated){
-          console.log('inside the authenticated')
+        if (resultObj.authenticated) {
           authenticated = true;
           authenticating = false;
-          Authenticate.user = { 
-            name: resultObj.name
+          Authenticate.user = {
+            'name': resultObj.name
           };
-          document.dispatchEvent(new CustomEvent("mirrorstatechange", {
-            detail: MIRROR_STATES.LOGGED_IN
+          document.dispatchEvent(new CustomEvent('mirrorstatechange', {
+            'detail': MIRROR_STATES.LOGGED_IN
           }));
           authenticated = true;
           authenticating = false;
           Stock.init(resultObj.stock);
           Traffic.init(resultObj.homeAddress,resultObj.workAddress);
-                       
-        } else {
-          //If authenticated is false, then there was no match so start fresh
+        }
+        else {
+          // If authenticated is false, then there was no match so start fresh.
           Authenticate.logout();
-          document.dispatchEvent(new CustomEvent("mirrorstatechange", {
-            detail: MIRROR_STATES.NOT_DETECTED
+          document.dispatchEvent(new CustomEvent('mirrorstatechange', {
+            'detail': MIRROR_STATES.NOT_DETECTED
           }));
         }
       })
       .fail(function(e) {
         console.error(e);
       });
-
     });
   },
   function error(e) {
     console.error(e);
   });
-}
+};
 
 Authenticate.determineEmotion = function() {
   checkEmotion = false;
   var Storage = Windows.Storage;
   var stream = new Storage.Streams.InMemoryRandomAccessStream();
   mediaCapture.capturePhotoToStreamAsync(Windows.Media.MediaProperties.ImageEncodingProperties.createJpeg(), stream)
-  .then(function () {
+  .then(function() {
     var buffer = new Storage.Streams.Buffer(stream.size);
     stream.seek(0);
-    stream.readAsync(buffer, stream.size, 0).done(function () {
+    stream.readAsync(buffer, stream.size, 0).done(function() {
       var dataReader = Storage.Streams.DataReader.fromBuffer(buffer);
       var byteArray = new Uint8Array(buffer.length);
       dataReader.readBytes(byteArray);
-      console.log("Determining emotion");
+
       $.ajax({
-        url: '/face/determineEmotion',
-        beforeSend: function (xhrObj) {
-          xhrObj.setRequestHeader('Content-Type', 'application/octet-stream')
+        'url': '/face/determineEmotion',
+        'beforeSend': function(xhrObj) {
+          xhrObj.setRequestHeader('Content-Type', 'application/octet-stream');
         },
-        type: 'POST',
-        data: byteArray,
-        processData: false
+        'type': 'POST',
+        'data': byteArray,
+        'processData': false
       })
-      .done(function (result) {
-        console.log("successfully determined emotion");
+      .done(function(result) {
+        console.log('successfully determined emotion');
         var parsed = JSON.parse(result);
         if (parsed && parsed.quote && parsed.author) {
-          quoteText.innerText = "\"" + parsed.quote + "\"";
-          quoteAuthor.innerText = "- " + parsed.author;
-          quotePane.style.display = "block";
+          quoteText.innerText = '"' + parsed.quote + '"';
+          quoteAuthor.innerText = '- ' + parsed.author;
+          quotePane.style.display = 'block';
         } else {
-          quotePane.style.display = "none";
+          quotePane.style.display = 'none';
         }
-        console.log("setting timeout");
-        setTimeout(function () {
+        setTimeout(function() {
           checkEmotion = true;
-          quotePane.style.display = "none";
+          quotePane.style.display = 'none';
         }, 20000);
       })
-      .fail(function (e) {
+      .fail(function(e) {
         console.error(e);
         checkEmotion = true;
-        quotePane.style.display = "none";
+        quotePane.style.display = 'none';
       });
     });
   });
-}
+};
 
 Authenticate.handleFaces = function(args) {
   var detectedFaces = args.resultFrame.detectedFaces;
@@ -206,37 +212,33 @@ Authenticate.handleFaces = function(args) {
     if (authenticated && timeoutSet) {
       timeoutSet = false;
       clearTimeout(logoutTimeout);
-      document.dispatchEvent(new CustomEvent("mirrorstatechange", {
-        detail: MIRROR_STATES.LOGGED_IN
+      document.dispatchEvent(new CustomEvent('mirrorstatechange', {
+        'detail': MIRROR_STATES.LOGGED_IN
       }));
     }
-
     var face;
-
     for (var i = 0; i < numFaces; i++) {
       face = detectedFaces.getAt(i).faceBox;
-
       var sufficientDimensions = false;
 
       if (!authenticated) {
         if (face.width > minFaceThresholds.width && face.height > minFaceThresholds.height) {
           if (!faceDetected) {
             faceDetected = true;
-            document.dispatchEvent(new CustomEvent("mirrorstatechange", {
-              detail: MIRROR_STATES.FACE_CLOSE
+            document.dispatchEvent(new CustomEvent('mirrorstatechange', {
+              'detail': MIRROR_STATES.FACE_CLOSE
             }));
           }
         }
         else {
           if (faceDetected) {
             faceDetected = false;
-            document.dispatchEvent(new CustomEvent("mirrorstatechange", {
-              detail: MIRROR_STATES.BLANK
+            document.dispatchEvent(new CustomEvent('mirrorstatechange', {
+              'detail': MIRROR_STATES.BLANK
             }));
           }
         }
-
-        if(i == 0 && face.width > faceThresholds.width && face.height > faceThresholds.height) {
+        if (i == 0 && face.width > faceThresholds.width && face.height > faceThresholds.height) {
           sufficientDimensions = true;
           if (!authenticating && isStable(face)) {
             authenticating = true;
@@ -244,11 +246,10 @@ Authenticate.handleFaces = function(args) {
           }
         }
       }
-
     }
     if (checkEmotion) {
-        if (isStable(face)) {
-            // Authenticate.determineEmotion()
+      if (isStable(face)) {
+        Authenticate.determineEmotion();
       }
     }
   }
@@ -256,38 +257,41 @@ Authenticate.handleFaces = function(args) {
     if (authenticated && !timeoutSet) {
       timeoutSet = true;
       timeLeft = logoutTime / 1000;
-      $(".timer .text").html(timeLeft);
-      $(".timer .circle").css("stroke-dashoffset", Math.round((timeLeft / (logoutTime / 1000)) * 100) - 100);
+      $('.timer .text').html(timeLeft);
+      $('.timer .circle').css('stroke-dashoffset', Math.round((timeLeft / (logoutTime / 1000)) * 100) - 100);
       requestAnimationFrame(updateCountdown);
       logoutTimeout = setTimeout(Authenticate.logout, logoutTime);
-      document.dispatchEvent(new CustomEvent("mirrorstatechange", {
-        detail: MIRROR_STATES.LOGGING_OUT
+      document.dispatchEvent(new CustomEvent('mirrorstatechange', {
+        'detail': MIRROR_STATES.LOGGING_OUT
       }));
     }
-    else if (!authenticated) {        
+    else if (!authenticated) {
       if (faceDetected) {
         faceDetected = false;
-        document.dispatchEvent(new CustomEvent("mirrorstatechange", {
-          detail: MIRROR_STATES.BLANK
+        document.dispatchEvent(new CustomEvent('mirrorstatechange', {
+          'detail': MIRROR_STATES.BLANK
         }));
       }
     }
   }
 };
-Authenticate.logout = function () {
+
+Authenticate.logout = function() {
   authenticating = false;
   authenticated = false;
   timeoutSet = false;
   logoutTimeout = null;
-  document.dispatchEvent(new CustomEvent("mirrorstatechange", {
-    detail: MIRROR_STATES.BLANK
+  document.dispatchEvent(new CustomEvent('mirrorstatechange', {
+    'detail': MIRROR_STATES.BLANK
   }));
 };
-Authenticate.mirrorPreview= function () {
+
+Authenticate.mirrorPreview = function() {
   var props = mediaCapture.videoDeviceController.getMediaStreamProperties(Capture.MediaStreamType.videoPreview);
   props.properties.insert('C380465D-2271-428C-9B83-ECEA3B4A85C1', 0);
   return mediaCapture.setEncodingPropertiesAsync(Capture.MediaStreamType.videoPreview, props, null);
 };
+
 Authenticate.init = function() {
   if (typeof Windows == 'undefined') {
     console.log('Windows is not available');
@@ -297,7 +301,7 @@ Authenticate.init = function() {
   quotePane = document.getElementById('quotePane');
   quoteText = document.getElementById('quoteText');
   quoteAuthor = document.getElementById('quoteAuthor');
-  Authenticate.findCameraDeviceByPanelAsync(DeviceEnumeration.Panel.back).then(
+  Authenticate.findCameraDeviceByPanelAsync(DeviceEnumeration.Panel.front).then(
     function(camera) {
       if (!camera) {
         console.error('No camera device found!');
@@ -311,15 +315,15 @@ Authenticate.init = function() {
           mediaCapture.addVideoEffectAsync(effectDefinition, mediaStreamType).done(
             function complete(result) {
               result.desiredDetectionInterval = detectionInterval;
-              result.addEventListener('facedetected', Authenticate.handleFaces);                                      
+              result.addEventListener('facedetected', Authenticate.handleFaces);
             },
             function error(e) {
               console.error(e);
             }
           );
           displayRequest.requestActive();
-          var preview = document.getElementById('cameraPreview');
 
+          var preview = document.getElementById('cameraPreview');
           if (mirroring) {
             preview.style.transform = 'scale(-1, 1)';
             preview.addEventListener('playing', Authenticate.mirrorPreview);
@@ -335,4 +339,5 @@ Authenticate.init = function() {
     }
   );
 };
+
 window.Authenticate = Authenticate;
