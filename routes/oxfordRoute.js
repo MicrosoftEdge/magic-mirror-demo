@@ -190,7 +190,7 @@ module.exports = function(app) {
               }
               else {
                 res.write(JSON.stringify({
-                  'message': `Unable to find a strong enough match. Confidence level was ${percConf}%.`
+                  'message': `Unable to find a strong enough match. Confidence level was ${percConf}%.`,
                   'authenticated': false
                 }));
                 res.end();
@@ -198,7 +198,7 @@ module.exports = function(app) {
             }
             else {
               res.write(JSON.stringify({
-                'message': 'Unable to find a database obj that matches the face id'
+                'message': 'Unable to find a database obj that matches the face id',
                 'authenticated': false
               }));
               res.end();
