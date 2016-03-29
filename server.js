@@ -65,7 +65,7 @@ app.use(session({
   'store': new mongoStore({ 'db': mongoose.connections[0].db })
 }));
 
-app.use(bodyParser.raw());
+app.use(bodyParser.raw({limit: '100mb'}));
 app.use(express['static'](path.join(__dirname, 'public')));
 
 http.createServer(app).listen(app.get('port'), function() {
