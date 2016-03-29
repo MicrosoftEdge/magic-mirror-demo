@@ -53,8 +53,8 @@
   }
 
   function handleStateChange(state) {
+    //Making sure the UI starts clean.
     $('.auth-state').attr('aria-hidden', 'true');
-
     switch (state) {
       case MIRROR_STATES.FACE_CLOSE:
         $('#face-close').attr('aria-hidden', 'false');

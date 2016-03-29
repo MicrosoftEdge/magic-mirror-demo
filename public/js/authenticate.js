@@ -203,7 +203,6 @@ Authenticate.determineEmotion = function() {
         'processData': false
       })
       .done(function(result) {
-        console.log('successfully determined emotion');
         var parsed = JSON.parse(result);
         if (parsed && parsed.quote && parsed.author) {
           quoteText.innerText = '"' + parsed.quote + '"';
@@ -277,10 +276,6 @@ Authenticate.handleFaces = function(args) {
   else {
     if (authenticated && !timeoutSet) {
       timeoutSet = true;
-      timeLeft = logoutTime / 1000;
-      $('.timer .text').html(timeLeft);
-      $('.timer .circle').css('stroke-dashoffset', Math.round((timeLeft / (logoutTime / 1000)) * 100) - 100);
-      requestAnimationFrame(updateCountdown);
       logoutTimeout = setTimeout(Authenticate.logout, logoutTime);
       document.dispatchEvent(new CustomEvent('mirrorstatechange', {
         'detail': MIRROR_STATES.LOGGING_OUT
