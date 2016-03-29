@@ -49,7 +49,6 @@ module.exports = function(app) {
   });
   
   mirrorRouter.get('/getStockSymbols', function(req, res, next) {
-        console.log('Mirror Route - Get Stocks ', req.query.term);
         var model = mongoose.model('Person');
         request.get({
             'url': 'https://s.yimg.com/aq/autoc?query=' + req.query.term + '&region=US&lang=en-US',            
