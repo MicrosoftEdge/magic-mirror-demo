@@ -34,21 +34,21 @@
   }
   // Query Yahoo Finance for a list of stocks.
   $('#stock').autocomplete({
-    'source': function(request, response) {      
+    'source': function(request, response) {
       var url = ['https://s.yimg.com/aq/autoc?query=' + request.term + '&region=US&lang=en-US'];
-        $.ajax({
-            'url': url,       
-            'success': function(data) {
-                console.log('data: ', data);                    
-                var mapped = $.map(data.ResultSet.Result, function(e, i) {
-                    return {
-                        'label': e.symbol + ' (' + e.name + ')',
-                        'value': e.symbol
-                    };
-                });
-                response(mapped);
-            }
-      });    
+      $.ajax({
+        'url': url,
+        'success': function(data) {
+          console.log('data: ', data);
+          var mapped = $.map(data.ResultSet.Result, function(e, i) {
+            return {
+              'label': e.symbol + ' (' + e.name + ')',
+              'value': e.symbol
+            };
+          });
+          response(mapped);
+        }
+      });
     },
     'minLength': 1
   });
