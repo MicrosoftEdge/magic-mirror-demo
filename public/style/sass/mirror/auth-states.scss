@@ -3,9 +3,9 @@
 
 .auth-state {
   opacity: 1;
-  transition: opacity 400ms ease-in-out;
   font-family: $font-light;
   text-align: center;
+  transition: opacity 400ms ease-in-out;
 }
 
 .auth-state-title {
