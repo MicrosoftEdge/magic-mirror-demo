@@ -34,12 +34,13 @@
   }
   // Query Yahoo Finance for a list of stocks.
   $('#stock').autocomplete({
-    'source': function(request, response) {      
-      var url = ['https://s.yimg.com/aq/autoc?query=' + request.term + '&region=US&lang=en-US'];
+    'source': function(request, response) {
+        var url = '/mirror/getStockSymbols?term=' + request.term;
         $.ajax({
             'url': url,       
             'success': function(data) {
-                console.log('data: ', data);                    
+                console.log('data: ', data);  
+                JSON.stringify(data);                  
                 var mapped = $.map(data.ResultSet.Result, function(e, i) {
                     return {
                         'label': e.symbol + ' (' + e.name + ')',
@@ -48,7 +49,7 @@
                 });
                 response(mapped);
             }
-      });    
+       }); 
     },
     'minLength': 1
   });
