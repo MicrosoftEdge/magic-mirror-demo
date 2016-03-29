@@ -10,7 +10,7 @@ module.exports = function(app) {
       quotes = JSON.parse(fs.readFileSync('quotes.json', 'utf8')),
       oxfordKey = nconf.get('OXFORD_SECRET_KEY'), // Subscription key for Project Oxford.
       oxfordEmotionKey = nconf.get('OXFORD_EMOTION_SECRET_KEY'),
-      oxfordList = 'magic-mirror-list-using-msft-employee-key',
+      oxfordList = 'build_final_face_list',
       minConfidence = 0.5,
       mongoose = require('mongoose'),
       bandname = require('bandname');
@@ -34,12 +34,12 @@ module.exports = function(app) {
         'Content-Type': 'application/octet-stream',
         'Ocp-Apim-Subscription-Key': oxfordKey
       },
-      'json': true,
       'body': req.body
     },
     function(error, response, body) {
-      if (error) {
-        console.log(error);
+      body = JSON.parse(body);
+      if (body.error) {
+        console.log(body.error);
       }
       else {
         var model = mongoose.model('Person');
@@ -63,8 +63,7 @@ module.exports = function(app) {
         'Content-Type': 'application/octet-stream',
         'Ocp-Apim-Subscription-Key': oxfordEmotionKey
       },
-      'json': true,
-      'body': req.body
+      'body': JSON.stringify(req.body)
     },
     function(error, response, body) {
       if (error) {
@@ -105,15 +104,14 @@ module.exports = function(app) {
         'Content-Type': 'application/octet-stream',
         'Ocp-Apim-Subscription-Key': oxfordKey
       },
-      'json': true,
       'body': req.body
     },
     function(error, response, body) {
+      body = JSON.parse(body);
       if (body.length > 0) {
         // There should only be one face, but in the event there are more,
         // the largest one is returned first.
         var faceId = body[0].faceId;
-
         // Specifying the face id and the faceList Id for Project Oxford's REST API's.
         var req = {
           'faceId': faceId,
@@ -126,8 +124,8 @@ module.exports = function(app) {
       }
       else {
         var message = 'Unable to find a face in the picture.';
-        if (error) {
-          console.log(error);
+        if (body.error) {
+          console.log(body.error);
           message = 'Error from project oxford';
         }
         res.write(JSON.stringify({
@@ -147,7 +145,6 @@ module.exports = function(app) {
         'Content-Type': 'application/json',
         'Ocp-Apim-Subscription-Key': oxfordKey
       },
-      'json': true,
       'body': JSON.stringify(req)
     },
     function(error, response, body) {
@@ -160,11 +157,11 @@ module.exports = function(app) {
         res.end();
       }
       else {
+        body = JSON.parse(body);
         if (body.length > 0) {
           var face_id = body[0].persistedFaceId;
           var confidence = body[0].confidence;
           var model = mongoose.model('Person');
-
           model.findOne({ 'face_id': face_id }, function(err, user) {
             if (err) {
               console.log(err);

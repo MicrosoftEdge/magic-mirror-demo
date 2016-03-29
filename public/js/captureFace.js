@@ -58,7 +58,7 @@
         var dataReader = Storage.Streams.DataReader.fromBuffer(buffer);
         var byteArray = new Uint8Array(buffer.length);
         dataReader.readBytes(byteArray);
-
+        
         var base64 = Uint8ToBase64(byteArray);
 
         $.ajax({

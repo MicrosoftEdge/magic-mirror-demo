@@ -30,12 +30,14 @@
           else {
             trafficElement = document.getElementById('trafficElement');
           }
-          trafficElement.innerText = `${(travelDuration / 60).toFixed(0) } minutes ${trafficCongestion == 'None' ? '' : `(including ${trafficCongestion} traffic)`}`;
-
+          if(travelDuration && trafficCongestion){
+            trafficElement.innerText = `${(travelDuration / 60).toFixed(0) } minutes ${trafficCongestion == 'None' ? '' : `(including ${trafficCongestion} traffic)`}`;  
+          }
           if (!initialized) {
             traffic.appendChild(trafficElement);
             initialized = true;
           }
+         
           refresh = setTimeout(getTravelDuration, refreshRate);
         }
       });

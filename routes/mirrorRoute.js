@@ -40,7 +40,6 @@ module.exports = function(app) {
 
           // This can say 'Heavy' or other congestion levels.
           var trafficCongestion = _.get(body, 'resourceSets[0].resources[0].trafficCongestion');
-
           res.send({ 'travelDuration': travelDuration, 'trafficCongestion': trafficCongestion });
         }
       }
