@@ -24,8 +24,8 @@
   margin-bottom: 3.5em;
   padding-left: 48px; /* Left padding = affordance for icons */
   font: 1em $font-bold;
-  text-transform: uppercase;
   letter-spacing: .05em;
+  text-transform: uppercase;
 }
 
 #logged-in-name {
@@ -36,8 +36,8 @@
 @media (min-width: $bp-m) {
   .low-pri-block {
     display: inline-block;
-    vertical-align: top;
     padding: 0 2em 0 48px; /* Left padding = affordance for icons */
+    vertical-align: top;
     width: 49%;
     font-size: 2.25em;
 
@@ -50,8 +50,8 @@
     position: relative;
 
     &:before {
-      margin-top: -17px;
       left: -48px;
+      margin-top: -17px;
       width: 35px;
       height: 35px;
       opacity: .5;

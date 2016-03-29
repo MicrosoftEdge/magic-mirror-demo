@@ -26,9 +26,9 @@
   position: relative;
 
   &:before {
-    margin-top: -12px;
-    left: -40px;
     @extend %icon;
+    left: -40px;
+    margin-top: -12px;
     width: 20px;
     height: 24px;
   }

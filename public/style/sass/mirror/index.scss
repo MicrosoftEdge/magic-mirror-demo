@@ -4,11 +4,11 @@
 .mirror {
   position: relative;
   padding: 3em;
+  overflow: hidden;
   background: $color-mirror-bg;
   color: $color-mirror-body;
   font-size: 100%;
   line-height: 1.25;
-  overflow: hidden;
 
   p {
     line-height: 1.5;
@@ -38,19 +38,22 @@
   .mirror,
   .auth-state {
     display: flex;
+
     align-items: center;
     justify-content: center;
   }
 
   .mirror {
-    min-height: 100vh;
     flex-direction: column;
+    min-height: 100vh;
+
     justify-content: space-between;
   }
 
   .eyelevel {
-    align-self: flex-start;
     width: 100%;
+
+    align-self: flex-start;
   }
 
   .auth-state {
@@ -62,8 +65,9 @@
   }
 
   .low-pri-content {
-    align-self: flex-end;
     width: 100%;
+
+    align-self: flex-end;
   }
 
   #weather {
