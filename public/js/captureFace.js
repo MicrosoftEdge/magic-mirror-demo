@@ -115,18 +115,7 @@
         captureSettings.streamingCaptureMode = Capture.StreamingCaptureMode.video;
         mediaCapture.initializeAsync(captureSettings).then(
           function fulfilled(result) {
-            // Attempt to use the target camera settings
-            var controller = mediaCapture.videoDeviceController;
-            var availableProps = controller.getAvailableMediaStreamProperties(mediaStreamType);
-            availableProps.forEach(function(prop) {
-              if (prop.height == targetResolutionHeight && prop.frameRate.numerator == 30) {
-                controller.setMediaStreamPropertiesAsync(mediaStreamType, prop);
-                return;
-              }
-            });
-
-            // Get the current camera settings.
-            props = mediaCapture.videoDeviceController.getMediaStreamProperties(mediaStreamType);
+            
 
             mediaCapture.addVideoEffectAsync(effectDefinition, mediaStreamType).done(
               function complete(result) {
