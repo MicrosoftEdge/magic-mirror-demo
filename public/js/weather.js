@@ -1,4 +1,4 @@
-var isModule = typeof module !== "undefined" && module.exports;
+var isModule = typeof module !== 'undefined' && module.exports;
 
 if (isModule) {
   http = require('http');
@@ -11,7 +11,7 @@ var Weather = {
   Utils: {}
 };
 
-Weather.VERSION = "0.0.2";
+Weather.VERSION = '0.0.2';
 
 var jsonp = Weather.Utils.jsonp = function(uri, callback) {
   return new Promise(function(resolve, reject) {
@@ -32,7 +32,7 @@ var jsonp = Weather.Utils.jsonp = function(uri, callback) {
     script.id = id;
     script.addEventListener('error', reject);
     el.appendChild(script);
-  } );
+  });
 };
 
 Weather.kelvinToFahrenheit = function(value) {
@@ -45,30 +45,31 @@ Weather.kelvinToCelsius = function(value) {
 
 Weather.getCurrent = function(city, callback) {
 
-  var url = "http://api.openweathermap.org/data/2.5/weather?zip=" + encodeURIComponent(city) + "&cnt=1&appid=" + Weather.AppID;
+  var url = 'http://api.openweathermap.org/data/2.5/weather?zip=' + encodeURIComponent(city) + '&cnt=1&appid=' + Weather.AppID;
 
   return this._getJSON(url, function(data) {
     callback(new Weather.Current(data));
-  } );
+  });
 };
 
 Weather.getForecast = function(city, callback) {
 
-  var url = "http://api.openweathermap.org/data/2.5/forecast?zip=" + encodeURIComponent(city) + "&cnt=1&appid=" + Weather.AppID;
+  var url = 'http://api.openweathermap.org/data/2.5/forecast?zip=' + encodeURIComponent(city) + '&cnt=1&appid=' + Weather.AppID;
 
   return this._getJSON(url, function(data) {
     callback(new Weather.Forecast(data));
   });
 };
 
-Weather._getJSON = function( url, callback, retries ) {
+Weather._getJSON = function(url, callback, retries) {
   var that = this;
   retries = retries === undefined ? Weather.MAX_RETRIES : retries;
   if (isModule) {
     return http.get(URL.parse(url), function(response) {
       return callback(response.body);
-    } );
-  } else if (retries) {
+    });
+  }
+  if (retries) {
     jsonp(url).then(callback).catch(function(e) {
       console.log(e);
       that._getJSON(url, callback, --retries);
@@ -93,8 +94,8 @@ var maxBy = Weather.Utils.maxBy = function(list, iterator) {
 };
 
 Weather.Utils.getIcon = function(icon) {
-  var res
-  switch(icon) {
+  var res;
+  switch (icon) {
     case '01d':
       res = '01d.svg';
       break;
@@ -181,21 +182,23 @@ Weather.Forecast.prototype.day = function(date) {
 };
 
 Weather.Forecast.prototype.low = function() {
-  if (this.data.list.length === 0) return;
-
+  if (this.data.list.length === 0) {
+    return;
+  }
   var output = minBy(this.data.list, function(item) {
     return item.main.temp_min;
-  } );
+  });
 
   return output.main.temp_min;
 };
 
 Weather.Forecast.prototype.high = function() {
-  if (this.data.list.length === 0) return;
-
-  var output = maxBy( this.data.list, function(item) {
+  if (this.data.list.length === 0) {
+    return;
+  }
+  var output = maxBy(this.data.list, function(item) {
     return item.main.temp_max;
-  } );
+  });
 
   return output.main.temp_max;
 };

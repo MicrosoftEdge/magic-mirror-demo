@@ -25,7 +25,6 @@ module.exports = function(app) {
   });
 
   mirrorRouter.get('/getTraffic', function(req, res, next) {
-    console.log('Mirror Route - Traffic Post ', req.session.data);
     var model = mongoose.model('Person');
     request.get({
       'url': `http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=${req.query.homeAddress}&wp.1=${req.query.workAddress}&optmz=timeWithTraffic&key=${bingApiKey}`,
@@ -48,6 +47,24 @@ module.exports = function(app) {
       res.end();
     });
   });
+  
+  mirrorRouter.get('/getStockSymbols', function(req, res, next) {
+        var model = mongoose.model('Person');
+        request.get({
+            'url': 'https://s.yimg.com/aq/autoc?query=' + req.query.term + '&region=US&lang=en-US',            
+            'json': true
+        },
+        function(error, response, body) {
+            if (error) {
+                console.log(error);
+        }
+        else {            
+            res.send(body);
+        }      
+      res.end();
+    });
+  });
+
 
   app.use('/mirror', mirrorRouter);
 };

@@ -6,7 +6,6 @@
     return DeviceEnumeration.DeviceInformation.findAllAsync(DeviceEnumeration.DeviceClass.videoCapture).then(
       function(devices) {
         devices.forEach(function(cameraDeviceInfo) {
-          console.log(cameraDeviceInfo)
           if (cameraDeviceInfo.enclosureLocation != null && cameraDeviceInfo.enclosureLocation.panel === panel) {
             deviceInfo = cameraDeviceInfo;
             return;
@@ -25,7 +24,6 @@
     var numFaces = detectedFaces.length;
     if (numFaces > 0) {
       var face;
-
       for (var i = 0; i < numFaces; i++) {
         face = detectedFaces.getAt(i).faceBox;
         context.beginPath();
@@ -51,6 +49,7 @@
     isAuthenticated = true;
     var Storage = Windows.Storage;
     var stream = new Storage.Streams.InMemoryRandomAccessStream();
+
     mediaCapture.capturePhotoToStreamAsync(Windows.Media.MediaProperties.ImageEncodingProperties.createJpeg(), stream)
     .then(function() {
       var buffer = new Storage.Streams.Buffer(stream.size);
@@ -61,15 +60,15 @@
         dataReader.readBytes(byteArray);
 
         var base64 = Uint8ToBase64(byteArray);
-        
+
         $.ajax({
-          url: '/face/addFace',
-          beforeSend: function(xhrObj) {
+          'url': '/face/addFace',
+          'beforeSend': function(xhrObj) {
             xhrObj.setRequestHeader('Content-Type', 'application/octet-stream');
           },
-          type: 'POST',
-          data: byteArray,
-          processData: false
+          'type': 'POST',
+          'data': byteArray,
+          'processData': false
         })
         .done(function(result) {
           message.innerText = result;
@@ -101,8 +100,10 @@
     facesCanvas = document.getElementById('facesCanvas');
     message = document.getElementById('message');
     video = document.getElementById('video');
+
     facesCanvas.width = video.offsetWidth;
     facesCanvas.height = video.offsetHeight;
+
     findCameraDeviceByPanelAsync(DeviceEnumeration.Panel.front).then(
       function(camera) {
         if (!camera) {
@@ -114,21 +115,19 @@
         captureSettings.streamingCaptureMode = Capture.StreamingCaptureMode.video;
         mediaCapture.initializeAsync(captureSettings).then(
           function fulfilled(result) {
-            
             // Attempt to use the target camera settings
             var controller = mediaCapture.videoDeviceController;
             var availableProps = controller.getAvailableMediaStreamProperties(mediaStreamType);
-            availableProps.forEach(function (prop) {
-                if (prop.height == targetResolutionHeight && prop.frameRate.numerator == 30) {
-                    controller.setMediaStreamPropertiesAsync(mediaStreamType, prop);
-                    return;
-                }
+            availableProps.forEach(function(prop) {
+              if (prop.height == targetResolutionHeight && prop.frameRate.numerator == 30) {
+                controller.setMediaStreamPropertiesAsync(mediaStreamType, prop);
+                return;
+              }
             });
 
-            // Get the current camera settings
+            // Get the current camera settings.
             props = mediaCapture.videoDeviceController.getMediaStreamProperties(mediaStreamType);
 
-            
             mediaCapture.addVideoEffectAsync(effectDefinition, mediaStreamType).done(
               function complete(result) {
                 result.addEventListener('facedetected', handleFaces);
@@ -169,13 +168,12 @@
   var minConfidence = 0.5; // Minimum confidence level for successful face authentication, range from 0 to 1
   var mirroring = true; // If true, video preview will show you as you see yourself in the mirror
   var faceThresholds = {
-    width: 40,
-    height: 100
+    'width': 40,
+    'height': 100
   };
-  // Height of target video resolution (e.g. 480, 720, 1080) at 30fps. 
+  // Height of target video resolution (e.g. 480, 720, 1080) at 30fps.
   // It will fall back to device default if target setting not found.
-  var targetResolutionHeight = 480; 
-
+  var targetResolutionHeight = 480;
 
   // Initializations
   var buttonAddFace, buttonAuthenticate, mediaCapture, facesCanvas, video, message, prevMessage, snapshot, props;
@@ -187,6 +185,6 @@
   var effectDefinition = new Windows.Media.Core.FaceDetectionEffectDefinition();
   var isAuthenticated = false;
   var mediaStreamType = Capture.MediaStreamType.videoRecord;
-  
+
   document.addEventListener('DOMContentLoaded', init);
 }());
