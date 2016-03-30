@@ -35,7 +35,7 @@
   }
 
   function updateWeather() {
-    Weather.getCurrent('98052', function(current) {
+    Weather.getCurrent('94103', function(current) {
       var desc = current.conditions();
       var city = current.city();
       var icon = Weather.Utils.getIcon(current.icon());
