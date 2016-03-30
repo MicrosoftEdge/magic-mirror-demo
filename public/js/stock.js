@@ -25,28 +25,23 @@
             var tickerPrice;
             var tickerChange;
 
+            $('#watchList').empty()
             // Set up initial ticker item.
-            if (!initialized) {
-              ticker = document.createElement('li');
-              ticker.classList.add('ticker');
-              ticker.id = symbol;
 
-              symbolLabel = document.createElement('span');
-              symbolLabel.classList.add('symbol');
-              symbolLabel.innerText = symbol + ': ';
+            ticker = document.createElement('li');
+            ticker.classList.add('ticker');
+            ticker.id = symbol;
 
-              tickerPrice = document.createElement('span');
-              tickerPrice.classList.add('price');
+            symbolLabel = document.createElement('span');
+            symbolLabel.classList.add('symbol');
+            symbolLabel.innerText = symbol + ': ';
 
-              tickerChange = document.createElement('span');
-              tickerChange.classList.add('price-change');
-            }
-            else {
-              ticker = document.getElementById(symbol);
-              tickerPrice = ticker.childNodes[1];
-              tickerChange = ticker.childNodes[2];
-            }
-            // Update price and change values.
+            tickerPrice = document.createElement('span');
+            tickerPrice.classList.add('price');
+
+            tickerChange = document.createElement('span');
+            tickerChange.classList.add('price-change');
+
             tickerPrice.innerText = lastPrice;
             tickerChange.innerText = ' (' + changePercentage + '%)';
 
@@ -59,20 +54,17 @@
               ticker.classList.add('neg-change');
               ticker.classList.remove('pos-change');
             }
-            // Add initial ticker item.
-            if (!initialized) {
-              watchList.appendChild(ticker);
-              ticker.appendChild(symbolLabel);
-              ticker.appendChild(tickerPrice);
-              ticker.appendChild(tickerChange);
-            }
+
+            watchList.appendChild(ticker);
+            ticker.appendChild(symbolLabel);
+            ticker.appendChild(tickerPrice);
+            ticker.appendChild(tickerChange);
+
           });
         }
       })
       .done(function() {
-        if (!initialized) {
-          initialized = true;
-        }
+
         refresh = setTimeout(getQuotes, refreshRate);
       });
     }
