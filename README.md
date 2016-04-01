@@ -2,7 +2,7 @@
 
 ##Overview
 
-The Magic Mirror looks like a common mirror except it can also display simple UI elements. We took the magic mirror concept a step further by enabling user recognition. The smart mirror can recognize registered users and personalize the experience accordingly.
+We took the magic mirror concept a step further by enabling user recognition. The smart mirror can recognize registered users and personalize the experience accordingly.
 
 The Magic Mirror is a fun weekend IoT project that showcases the power of [Universal Windows Platform (UWP) hosted web apps](https://microsoftedge.github.io/WebAppsDocs/en-US/win10/HWA.htm). The client side was coded with standard web technologies (CSS, HTML, JS), and the back-end leverages the power of NodeJS and Mongo hosted by Azure.
 
