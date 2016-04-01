@@ -68,9 +68,7 @@ This will install/update all the node packages and create a local node server. T
 
 On the prompt, you will see that the there is a warning regarding connecting to the database. To solve this, you need to add local environment variables to your project.
 
-For MSFT folks, you can do this by saving the following file to the root folder: `\\\\iefs\Users\apavia\WebApps\magicMirror`
-
-Otherwise, you will have to make your own environment.json file. Instructions for doing this will be provided soon
+You will have to make your own environment.json file. Instructions for doing this will be provided soon.
 
 ###Making a UWP hosted web app
 

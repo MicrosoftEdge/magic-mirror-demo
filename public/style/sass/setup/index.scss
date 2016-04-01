@@ -12,19 +12,19 @@
 .anim-button {
   display: none;
   margin-bottom: 2em;
-  border: 2px solid #000;
   padding: .25em;
+  opacity: .6;
+  border: 2px solid #000;
   background: transparent;
   font: 400 normal .625em $font-bold;
-  text-transform: uppercase;
   letter-spacing: .05em;
-  opacity: .6;
+  text-transform: uppercase;
 }
 
 .anim-button:hover {
+  opacity: 1;
   background: #000;
   color: #fff;
-  opacity: 1;
 }
 
 
@@ -36,36 +36,54 @@
 /* Allow user to toggle animations */
 .setup.anim-active {
   -webkit-animation: gradientAnim 20s ease infinite;
-  -moz-animation: gradientAnim 20s ease infinite;
-  animation: gradientAnim 20s ease infinite;
+     -moz-animation: gradientAnim 20s ease infinite;
+          animation: gradientAnim 20s ease infinite;
 }
 
 @-webkit-keyframes gradientAnim {
-  0%{background-position:93% 0%}
-  50%{background-position:0% 100%}
-  100%{background-position:93% 0%}
+  0% {
+    background-position: 93% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 93% 0%;
+  }
 }
 
 @-moz-keyframes gradientAnim {
-  0%{background-position:93% 0%}
-  50%{background-position:0% 100%}
-  100%{background-position:93% 0%}
+  0% {
+    background-position: 93% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 93% 0%;
+  }
 }
 
 @keyframes gradientAnim {
-  0%{background-position:93% 0%}
-  50%{background-position:0% 100%}
-  100%{background-position:93% 0%}
+  0% {
+    background-position: 93% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 93% 0%;
+  }
 }
 
 .setup-content {
   position: relative;
   margin: 0 auto;
   padding: 1em;
-  background: #fff;
   width: 100%;
   max-width: 40em;
   border-top: 8px solid #efefef;
+  background: #fff;
   text-align: left;
 
   a {
@@ -81,9 +99,7 @@
       border-bottom: 0;
       color: $color-setup-link-active;
     }
-
   }
-
 }
 
 .setup-content::before {
@@ -93,21 +109,21 @@
   left: 0;
   width: 0;
   height: 8px;
-  content: '';
   background: #000;
+  content: "";
 }
 
 .setup-pagination {
   margin: 0 auto 1em;
-  text-align: center;
   color: #5b5b5b;
+  text-align: center;
 }
 
 .pagination-title {
   margin: 0 0 .5em;
   font: 400 normal 1em/1 $font-bold;
-  text-transform: uppercase;
   letter-spacing: .05em;
+  text-transform: uppercase;
 }
 
 .pagination-title + p {
@@ -121,12 +137,13 @@ fieldset {
   border: none;
 }
 
-input, button {
+input,
+button {
   padding: .5em;
   border: 0;
   outline: 0;
-  font-size: 1em;
   font-family: $font-regular;
+  font-size: 1em;
 }
 
 label {
@@ -136,8 +153,8 @@ label {
 input[type="text"],
 input[type="email"] {
   display: block;
-  border: 2px solid #777;
   width: 100%;
+  border: 2px solid #777;
   color: #5b5b5b;
 }
 
@@ -149,7 +166,8 @@ input[type="email"]:focus {
   color: #000;
 }
 
-input[type="submit"], button {
+input[type="submit"],
+button {
   cursor: pointer;
 }
 
@@ -162,7 +180,6 @@ input[type="submit"], button {
     padding: 1em;
     border: 2px solid;
   }
-
 }
 
 .field-item {
@@ -180,9 +197,7 @@ input[type="submit"], button {
       width: 1em;
       height: 1em;
     }
-
   }
-
 }
 
 .submit-wrapper {
@@ -192,10 +207,10 @@ input[type="submit"], button {
 .back-btn,
 .forward-btn {
   position: relative;
-  background: transparent;
   padding: .5em 0;
-  text-decoration: none;
+  background: transparent;
   color: #000;
+  text-decoration: none;
 
   &:before {
     @extend %icon;
@@ -203,7 +218,6 @@ input[type="submit"], button {
     width: 40px;
     height: 40px;
   }
-
 }
 
 /* Reset link styles */
@@ -225,7 +239,6 @@ a.back-btn:active {
   &:hover:before {
     left: -40px;
   }
-
 }
 
 .forward-btn {
@@ -239,11 +252,9 @@ a.back-btn:active {
   &:hover:before {
     right: -40px;
   }
-
 }
 
 @media (min-width: $bp-m) {
-
   .setup-title {
     font-size: 3.5em;
   }
@@ -269,7 +280,6 @@ a.back-btn:active {
   }
 
   .field-item {
-
     label,
     input {
       display: inline-block;
@@ -294,7 +304,6 @@ a.back-btn:active {
       border-width: 0;
       border-bottom-width: 2px;
     }
-
   }
 
   .submit-wrapper {
@@ -302,10 +311,9 @@ a.back-btn:active {
     margin-left: auto;
     width: 90%;
   }
-
 }
 
 /* SUBSECTIONS OF ACCOUNT SETUP */
-@import 'create-profile';
-@import 'capture-face';
-@import 'tos'; /* Terms of Service */
+@import "create-profile";
+@import "capture-face";
+@import "tos"; /* Terms of Service */

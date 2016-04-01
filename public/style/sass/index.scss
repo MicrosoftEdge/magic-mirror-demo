@@ -8,15 +8,15 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: $font-regular;
   font-size: 125%;
   line-height: 1.333;
-  font-family: $font-regular;
 }
 
 .clear:after {
-  content: "";
   display: table;
   clear: both;
+  content: "";
 }
 
 /* TEXT STYLES */
@@ -27,11 +27,9 @@ h1 {
 }
 
 @media (min-width: $bp-m) {
-
   body {
     font-size: 150%;
   }
-
 }
 
 /* ICONS */
@@ -41,7 +39,7 @@ h1 {
   display: block;
   position: absolute;
   top: 50%;
-  background-image: url('../icons/icons.svg');
+  background-image: url("../icons/icons.svg");
   background-size: 160px 80px;
-  content: '';
+  content: "";
 }

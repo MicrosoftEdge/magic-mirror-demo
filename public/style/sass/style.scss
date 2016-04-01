@@ -3,13 +3,13 @@
  */
 
 /* Variables, mixins, functions, etc. */
-@import 'sass-helpers';
+@import "sass-helpers";
 
 /* Global CSS */
-@import 'index';
+@import "index";
 
 /* Account setup UIs */
-@import 'setup/index';
+@import "setup/index";
 
 /* Mirror UI */
-@import 'mirror/index';
+@import "mirror/index";
