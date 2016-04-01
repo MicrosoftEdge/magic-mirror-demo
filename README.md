@@ -6,7 +6,7 @@ The Magic Mirror is a great weekend IoT project. It leverages a Universal Window
 
 ##Building Materials
 
-You will need the following materials to build the Magic Mirror:
+You will need the following materials to assemble the Magic Mirror:
 
 * [2-Way Mirrored Acrylic Sheets](http://www.tapplastics.com/product/plastics/cut_to_size_plastic/two_way_mirrored_acrylic/558)
 * [Medicine Cabinet](http://www.homedepot.com/p/Glacier-Bay-15-1-4-in-x-26-in-Surface-Mount-Framed-Mirrored-Swing-Door-Medicine-Cabinet-in-White-S1627-12-B/100576352)
@@ -36,11 +36,11 @@ Steps:
 
 1. In Visual Studio, click File > New Project > JavaScript Templates > Windows > Hosted Web Apps
 2. Go to Solution explorer, click on package.appxmanifest > Application and set http://webreflections.azurewebsites.net/mirror as the start page
-3. Within the package.appxmanifest view, click the Content URIs tab and insert http://webreflections.azurewebsites.net/ with ALL WinRT Access
-4. Click the Capabilities tab and select Webcam
-5. Change the taget architecture to ARM
+3. Within the package.appxmanifest view, click the Content URIs tab and insert http://webreflections.azurewebsites.net/ with WinRT Access *All*
+4. Click the Capabilities tab and select *Webcam*
+5. On the ribbon, Change the taget architecture from *Any CPU* to *ARM*
 6. Click play (it should say *Remote Machine*)
-7. A prompt should appear asking you for the *Machine Name*. Set IPv4 of your RP as the *Machine Name* and select *Universal* for the *Require Authentication*
+7. A prompt should appear asking you for the *Machine Name*. Set the IPv4 of your RP as the *Machine Name* and select *Universal* for the *Require Authentication*
 8. and voilà... You have succesfully installed the Magic Mirror hosted web app in your RP running Windows IoT core.
 
 If you want a tutorial with pretty pictures, you can find it [here](https://microsoftedge.github.io/WebAppsDocs/en-US/win10/DeployToPiWithVS.htm).
