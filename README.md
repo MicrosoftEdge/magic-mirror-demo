@@ -32,7 +32,7 @@ Coming soon...
 
 Once the mirror is assembled and wired up, you can install the Magic Mirror app on your Raspberry Pi (RP). Don't worry if you don't have a PC, you can also do it with a Mac.
 
-###Deploying with a PC
+###Deploying on a PC
 
 Prerequisites:
 
@@ -52,7 +52,7 @@ Steps:
 
 If you want a tutorial with pretty pictures, you can find it [here](https://microsoftedge.github.io/WebAppsDocs/en-US/win10/DeployToPiWithVS.htm).
 
-###Deploying with a Mac
+###Deploying on a Mac
 
 Coming soon...
 
