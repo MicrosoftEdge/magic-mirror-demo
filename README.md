@@ -11,7 +11,7 @@ The client side was coded against standard web technologies (CSS, HTML, JS) :hea
 Since a mirror device doesn't generally receive input from a keyboard and mouse, our web app provides a view that allows users to personalize the experience. 
 
 
-##Building Materials :tools:
+##Building Materials :tool:
 
 You will need the following materials to assemble the Magic Mirror:
 
