@@ -28,10 +28,12 @@ Once the mirror is assembled and wired up, you can install the Magic Mirror app 
 ###Deploying with a PC
 
 Prerequisites:
+
 * Visual Studio (2013+)
 * Windows 10 SDK installed in Visual Stuido
 
 Steps:
+
 1. In Visual Studio, click File > New Project > JavaScript Templates > Windows > Hosted Web Apps
 2. Go to Solution explorer, click on package.appxmanifest > Application and set http://webreflections.azurewebsites.net/mirror as the start page
 3. Within the package.appxmanifest view, click the Content URIs tab and insert http://webreflections.azurewebsites.net/ with ALL WinRT Access
