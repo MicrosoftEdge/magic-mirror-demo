@@ -2,7 +2,7 @@
 
 ##Overview
 
-The Magic Mirror project is a great IoT & maker project to get started in making a Windows 10 Universal Windows Platform (UWP) hosted web application. This web application will be powered by an Azure website that talks directly to different Windows 10 clients. Since a mirror device doesn't generally recieve input from a keyboard and mouse, our website will provide a screen that will run great on a laptop or phone device to setup a users profile. The login experience will be driven by the [Project Oxford APIs](https://www.projectoxford.ai/). We will be using a client side Windows API ([mediaCapture](https://msdn.microsoft.com/en-us/library/windows/apps/windows.media.capture.aspx)) to detect faces from the devices camera, and the [Oxford Face API](https://www.projectoxford.ai/face) service to do the actually match Faces to profiles.
+The Magic Mirror project is a great weekend IoT & maker project. It leverages a Windows 10 Universal Windows Platform (UWP) hosted web application powered by Azure website services. Since a mirror device doesn't generally recieve input from a keyboard and mouse, our website will provide a screen that will run great on a laptop or phone device to setup a users profile. The login experience will be driven by the [Project Oxford APIs](https://www.projectoxford.ai/). We will be using a client side Windows API ([mediaCapture](https://msdn.microsoft.com/en-us/library/windows/apps/windows.media.capture.aspx)) to detect faces from the devices camera, and the [Oxford Face API](https://www.projectoxford.ai/face) service to do the actually match Faces to profiles.
 
 ##Building Materials
 
