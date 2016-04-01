@@ -8,7 +8,7 @@ The Magic Mirror is a fun weekend IoT project that showcases the power of [Unive
 
 The client side implements Windows API ([mediaCapture](https://msdn.microsoft.com/en-us/library/windows/apps/windows.media.capture.aspx)) to detect faces from the devices camera, and the [Microsoft's Cognitive Services Face API](https://www.projectoxford.ai/face) service to match Faces to profiles.
 
-Since a mirror device doesn't generally receive input from a keyboard and mouse, our web app provides a view that allows users to personalize the experience. When a registered user is recognized by the mirror, the
+Since a mirror device doesn't generally receive input from a keyboard and mouse, our web app provides a view that allows users to personalize the experience. 
 
 
 ##Building Materials
