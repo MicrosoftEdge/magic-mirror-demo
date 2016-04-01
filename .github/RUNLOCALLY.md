@@ -15,9 +15,24 @@ node server.js
 ```
 This will install/update all the node packages and create a local node server. Take note of the port that the server is using. Go to your browser and type: `http://localhost:your-port-number/` to verify it is working.
 
-On the prompt, you will see that the there is a warning regarding connecting to the database. To solve this, you need to add local environment variables to your project.
+On the prompt, you will see that the there is a warning regarding connecting to the database. To solve this, you need to add local environment variables to your project. 
 
-You will have to make your own environment.json file. Instructions for doing this will be provided soon.
+Create a *environment.json* file in the root folder and add the following snippet:
+
+```
+{
+  "CUSTOMCONNSTR_MONGOLAB_URI": "your-mongo-connection-string",
+  "OXFORD_SECRET_KEY": "your-face-api-secret-oxford-key",
+  "OXFORD_EMOTION_SECRET_KEY":"your-emotion-api-secret-oxford-key",
+  "BING_API_KEY": "your-bing-api-secret-oxford-key",
+  "SESSION_SECRET_STRING": "your-secret-string", 
+}
+```
+
+You can obtain your own secret keys respectively in the following links:
+* [Cognitive Services Emotion and Face API keys](https://www.microsoft.com/cognitive-services/en-us/sign-up)
+* [Bing API key](https://msdn.microsoft.com/en-us/library/mt712546(v=bsynd.50).aspx)
+* [mLab connection string](https://mlab.com/signup/)
 
 ##Making a UWP hosted web app
 
