@@ -4,7 +4,7 @@
 
 We took the magic mirror concept a step further by enabling user recognition. The mirror can recognize registered users and personalize the experience accordingly.
 
-The Magic Mirror is a fun weekend IoT project that showcases the power of [Universal Windows Platform (UWP) hosted web apps](https://microsoftedge.github.io/WebAppsDocs/en-US/win10/HWA.htm). 
+The Magic Mirror is a fun weekend IoT project that showcases the power of [Universal Windows Platform (UWP) hosted web apps](https://microsoftedge.github.io/WebAppsDocs/en-US/win10/HWA.htm). Please check out the instructions below to see how you can build it yourself :rocket:.
 
 The client side was coded against standard web technologies (CSS, HTML, JS), and the back-end leverages the power of NodeJS and Mongo hosted on Azure. The client side implements Windows API ([mediaCapture](https://msdn.microsoft.com/en-us/library/windows/apps/windows.media.capture.aspx)) to detect faces from the devices camera, and the [Microsoft's Cognitive Services Face API](https://www.projectoxford.ai/face) service to match Faces to profiles.
 
