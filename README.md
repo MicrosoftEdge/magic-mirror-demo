@@ -48,7 +48,7 @@ Steps:
 5. On the ribbon, Change the taget architecture from *Any CPU* to *ARM*
 6. Click play (it should say *Remote Machine*)
 7. A prompt should appear asking you for the *Machine Name*. Set the IPv4 of your RP as the *Machine Name* and select *Universal* for the *Require Authentication*
-8. and voilà... You have succesfully installed the Magic Mirror hosted web app in your RP running Windows IoT core.
+8. and voilà :beaker:! You have succesfully installed the Magic Mirror hosted web app in your RP running Windows IoT core.
 
 If you want a tutorial with pretty pictures, you can find it [here](https://microsoftedge.github.io/WebAppsDocs/en-US/win10/DeployToPiWithVS.htm).
 
