@@ -2,7 +2,7 @@
 
 ##Overview
 
-The Magic Mirror is a great weekend IoT project. It leverages a Universal Windows Platform (UWP) hosted web app powered by Azure website services. Since a mirror device doesn't generally receive input from a keyboard and mouse, our web app provides a view that allow users to personalize the experience. The client side implements Windows API ([mediaCapture](https://msdn.microsoft.com/en-us/library/windows/apps/windows.media.capture.aspx)) to detect faces from the devices camera, and the [Microsoft's Cognitive Services Face API](https://www.projectoxford.ai/face) service to match Faces to profiles.
+The Magic Mirror is a great weekend IoT project. It leverages a Universal Windows Platform (UWP) hosted web app powered by Azure website services. Since a mirror device doesn't generally receive input from a keyboard and mouse, our web app provides a view that allows users to personalize the experience. The client side implements Windows API ([mediaCapture](https://msdn.microsoft.com/en-us/library/windows/apps/windows.media.capture.aspx)) to detect faces from the devices camera, and the [Microsoft's Cognitive Services Face API](https://www.projectoxford.ai/face) service to match Faces to profiles.
 
 ##Building Materials
 
