@@ -2,11 +2,11 @@
 
 ##Overview
 
-The magic mirror project is a great IoT & maker project to get started in making a Windows 10 UWP web application. This web application will be powered by an Azure website that talks directly to different Windows 10 clients. Since a mirror device doesn't generally recieve input from a keyboard and mouse, our website will provide a screen that will run great on a laptop or phone device to setup a users profile. The login experience will be driven by the [Project Oxford APIs](https://www.projectoxford.ai/). We will be using a client side Windows API ([mediaCapture](https://msdn.microsoft.com/en-us/library/windows/apps/windows.media.capture.aspx)) to detect faces from the devices camera, and the [Oxford Face API](https://www.projectoxford.ai/face) service to do the actually match Faces to profiles.
+The Magic Mirror project is a great IoT & maker project to get started in making a Windows 10 UWP web application. This web application will be powered by an Azure website that talks directly to different Windows 10 clients. Since a mirror device doesn't generally recieve input from a keyboard and mouse, our website will provide a screen that will run great on a laptop or phone device to setup a users profile. The login experience will be driven by the [Project Oxford APIs](https://www.projectoxford.ai/). We will be using a client side Windows API ([mediaCapture](https://msdn.microsoft.com/en-us/library/windows/apps/windows.media.capture.aspx)) to detect faces from the devices camera, and the [Oxford Face API](https://www.projectoxford.ai/face) service to do the actually match Faces to profiles.
 
 ##Building Materials
 
-You will need the following materials to build the magic mirror:
+You will need the following materials to build the Magic Mirror:
 
 * [2-Way Mirrored Acrylic Sheets](http://www.tapplastics.com/product/plastics/cut_to_size_plastic/two_way_mirrored_acrylic/558)
 * [Medicine Cabinet](http://www.homedepot.com/p/Glacier-Bay-15-1-4-in-x-26-in-Surface-Mount-Framed-Mirrored-Swing-Door-Medicine-Cabinet-in-White-S1627-12-B/100576352)
