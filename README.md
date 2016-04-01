@@ -44,7 +44,7 @@ Steps:
 1. In Visual Studio, click File > New Project > JavaScript Templates > Windows > Hosted Web Apps
 2. Go to Solution explorer, click on package.appxmanifest > Application and set http://webreflections.azurewebsites.net/mirror as the start page
 3. Within the package.appxmanifest view, click the Content URIs tab and insert http://webreflections.azurewebsites.net/ with WinRT Access *All*
-4. Click the Capabilities tab and select *Webcam*
+4. Click the Capabilities tab and select *Webcam* :camera:
 5. On the ribbon, Change the taget architecture from *Any CPU* to *ARM*
 6. Click play (it should say *Remote Machine*)
 7. A prompt should appear asking you for the *Machine Name*. Set the IPv4 of your RP as the *Machine Name* and select *Universal* for the *Require Authentication*
