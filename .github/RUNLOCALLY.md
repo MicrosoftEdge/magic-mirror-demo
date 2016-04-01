@@ -30,9 +30,9 @@ Create a *environment.json* file in the root folder and add the following snippe
 ```
 
 You can obtain your own secret keys respectively in the following links:
-* [Cognitive Services Emotion and Face API keys](https://www.microsoft.com/cognitive-services/en-us/sign-up)
-* [Bing API key](https://msdn.microsoft.com/en-us/library/mt712546(v=bsynd.50).aspx)
-* [mLab connection string](https://mlab.com/signup/)
+* [Cognitive Services Emotion and Face API keys](https://www.microsoft.com/cognitive-services/en-us/sign-up) 
+* [Bing API key](https://msdn.microsoft.com/en-us/library/mt712546(v=bsynd.50).aspx) give us access to traffic info
+* [mLab connection string](https://mlab.com/signup/) is necessary to communicate with the Mongo database. You could also use another MongoDB service.
 
 ##Making a UWP hosted web app
 
