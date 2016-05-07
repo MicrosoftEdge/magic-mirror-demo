@@ -8,10 +8,10 @@ The Magic Mirror is a fun weekend IoT project that showcases the power of [Unive
 
 The client side was coded against standard web technologies (CSS, HTML, JS) :heart:, and the back-end leverages the power of NodeJS and Mongo hosted on Azure. The client side implements Windows API ([mediaCapture](https://msdn.microsoft.com/en-us/library/windows/apps/windows.media.capture.aspx)) to detect faces from the devices camera, and the [Microsoft's Cognitive Services Face API](https://www.projectoxford.ai/face) to match Faces to profiles.
 
-Since a mirror device doesn't generally receive input from a keyboard and mouse, our web app provides a view that allows users to personalize the experience. 
+Since a mirror device doesn't generally receive input from a keyboard and mouse, our web app provides a view that allows users to personalize the experience.
 
 
-##Building Materials 
+##Building Materials
 
 You will need the following materials to assemble the Magic Mirror:
 
@@ -28,7 +28,7 @@ You will need the following materials to assemble the Magic Mirror:
 
 Coming soon...
 
-##Installing the app 
+##Installing the app
 
 Once the mirror is assembled and wired up, you can install the Magic Mirror app on your Raspberry Pi (RP). Don't worry if you don't have a PC, you can also do it with a Mac.
 
@@ -64,4 +64,6 @@ For guidelines on contributing to this project, please refer to [.github/CONTRIB
 
 To run the project locally, please see [.github/RUNLOCALLY.md](.github/RUNLOCALLY.md).
 
+## Credits
 
+The [weather icons](https://thenounproject.com/Yorlmar%20Campos/collection/good-weather/) were created by [Yorlmar Campos](http://www.rnsfonts.com/) under a [Creative Commons Attribution 3.0 license](http://creativecommons.org/licenses/by/3.0/us/).

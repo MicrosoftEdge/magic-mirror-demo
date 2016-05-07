@@ -313,6 +313,23 @@ a.back-btn:active {
   }
 }
 
+.attribution {
+  display: block;
+  margin: 4em auto 0;
+  max-width: 30em;
+  font-size: .5em;
+  line-height: 1.5;
+
+  a {
+    color: inherit;
+  }
+
+  a:hover {
+    opacity: .6;
+  }
+
+}
+
 /* SUBSECTIONS OF ACCOUNT SETUP */
 @import "create-profile";
 @import "capture-face";
