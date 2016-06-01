@@ -37,7 +37,7 @@ Remove the outer casing of the monitor without damaging the touch sensor as seen
 
 ![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/naked_monitor.JPG)
 
-Cover the edges of the naked monitor with the black tape.
+The edge of the monitor are grey so you can see them through the mirror. Cover them with the black tape.
 
 ![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/tape_monitor.jpg)
 
@@ -45,7 +45,7 @@ Cover the edges of the naked monitor with the black tape.
 
 The monitor legs place the mirror as close to the mirror as possible. You can find the 3D model of the legs here. 
 
-You can 3d print the legs on [3D Hubs](https://www.3dhubs.com/), or, if you have a 3D printer, you can print them yourself. If you don't want to 3D print anything, you use toilet paper rolls. Cut them so they are 3 inches tall. 
+You can 3d print the legs on [3D Hubs](https://www.3dhubs.com/), or, if you have a 3D printer, you can print them yourself. If you don't want to print the legs, you can use toilet paper rolls. They should be 3 inches tall. 
 
 The cabinet has holes along the sides. Use the screws to secure the monitor legs to the cabinets using those holes. 
 
@@ -61,7 +61,7 @@ Power the Pi with the USB cord (1) and connect the Pi to the monitor through HDM
 
 Tape the camera to the top of the cabinet and connect it to the Pi through USB.
 
-![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/tape_camera.JPG)
+![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/tape_camera.jpg)
 
 
 
