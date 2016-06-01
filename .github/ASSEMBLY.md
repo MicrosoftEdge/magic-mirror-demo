@@ -39,25 +39,25 @@ Remove the outer casing of the monitor without damaging the touch sensor as seen
 
 Cover the edges of the naked monitor with the black tape.
 
+![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/tape_monitor.jpg)
+
 ##Step 4: Supporting the monitor
 
-The monitor legs place the mirror as close as possible to the mirror. You can find the 3D model of the legs here. 
+The monitor legs place the mirror as close to the mirror as possible. You can find the 3D model of the legs here. 
 
-You can 3d print the legs on [3D Hubs](https://www.3dhubs.com/). If you have a 3D printer, you can print them yourself. 
-
-If you don't want to 3D print anything, you use toilet paper rolls. Cut them so they are 3 inches tall. 
-
-![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/magic_mirror_leg.JPG)
+You can 3d print the legs on [3D Hubs](https://www.3dhubs.com/), or, if you have a 3D printer, you can print them yourself. If you don't want to 3D print anything, you use toilet paper rolls. Cut them so they are 3 inches tall. 
 
 The cabinet has holes along the sides. Use the screws to secure the monitor legs to the cabinets using those holes. 
 
-![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/screw_leg.JPG)
+![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/leg_screw.png)
 
 ##Step 5: Adding the brain
 
 Power the Pi with the USB cord (1) and connect the Pi to the monitor through HDMI (2).
 
 ![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/rpi2-inst.png)
+
+##Step 6: Connecting the camera
 
 Tape the camera to the top of the cabinet and connect it to the Pi through USB.
 
