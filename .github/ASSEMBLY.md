@@ -1,6 +1,6 @@
 #Assembly Process
 
-The assembly process of the mirror should take around 2 hours. It requires manual work so please make sure you're taking the appropriate safety measures.
+The assembly process requires manual work so please make sure you take the appropriate safety measures.
 
 ##Building Materials
 
@@ -23,6 +23,10 @@ You will need the following materials to assemble the Magic Mirror:
 
 ##Step 1: Cabinet + 2-way mirror
 
+The frame of the medical cabinet is held together by staples. You can use the screwdriver to take them off. Please be careful not to shater the mirror. Once the staples on all corners are off, you can remove the one-way mirror and replace it with the two-way mirror. Glue together the corners again as picture below.
+
+![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/frame.JPG)
+
 ##Step 2: Drilling
 
 Drill a hole on the top of the cabinet for the camera as displayed in the image below. Make sure the hole is big enough for the USB end to go through.  
@@ -37,7 +41,7 @@ Remove the outer casing of the monitor without damaging the touch sensor as seen
 
 ![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/naked_monitor.JPG)
 
-The edge of the monitor are grey so you can see them through the mirror. Cover them with the black tape.
+The edge of the monitor is grey so you can see them through the mirror. Cover them with the black tape.
 
 ![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/tape_monitor.jpg)
 
