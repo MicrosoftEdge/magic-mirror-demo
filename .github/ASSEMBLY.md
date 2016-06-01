@@ -25,7 +25,7 @@ You will need the following materials to assemble the Magic Mirror:
 
 The frame of the medical cabinet is held together by staples. You can use the screwdriver to take them off. Please be careful not to shater the mirror. Once the staples are gone, you can remove the one-way mirror and replace it with the two-way mirror. Glue each corner together as seen on the picture below.
 
-![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/frame.JPG)
+![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/frame.jpg)
 
 ##Step 2: Drilling
 
@@ -66,6 +66,8 @@ Power the Pi with the USB cord (1) and connect the Pi to the monitor through HDM
 Tape the camera to the top of the cabinet and connect it to the Pi through USB.
 
 ![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/tape_camera.jpg)
+
+##Step 7: 
 
 
 
