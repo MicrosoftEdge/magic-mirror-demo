@@ -67,7 +67,9 @@ Tape the camera to the top of the cabinet and connect it to the Pi through USB.
 
 ![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/tape_camera.jpg)
 
-##Step 7: 
+##Step 7: Enjoy
+
+We hope you enjoy the Magic Mirror! Please let us know if you have any issues.
 
 
 
