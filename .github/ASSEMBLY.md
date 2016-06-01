@@ -23,7 +23,7 @@ You will need the following materials to assemble the Magic Mirror:
 
 ##Step 1: Cabinet + 2-way mirror
 
-The frame of the medical cabinet is held together by staples. You can use the screwdriver to take them off. Please be careful not to shater the mirror. Once the staples on all corners are off, you can remove the one-way mirror and replace it with the two-way mirror. Glue together the corners again as picture below.
+The frame of the medical cabinet is held together by staples. You can use the screwdriver to take them off. Please be careful not to shater the mirror. Once the staples are gone, you can remove the one-way mirror and replace it with the two-way mirror. Glue each corner together as seen on the picture below.
 
 ![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/frame.JPG)
 
