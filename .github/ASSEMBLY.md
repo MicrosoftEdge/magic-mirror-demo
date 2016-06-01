@@ -29,11 +29,11 @@ The frame of the medical cabinet is held together by staples. You can use the sc
 
 ##Step 2: Drilling
 
-Drill a hole on the top of the cabinet for the camera as displayed in the image below. Make sure the hole is big enough for the USB end to go through.  
+Drill a hole on top of the cabinet as displayed in the image below. Make sure the hole is big enough for the Camera's USB end to go through.  
 
 ![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/drill_magic_mirror.JPG)
 
-On the back of the cabinet almost at the botom, drill another hole so you can pass the power cables through.
+At the botom of the back of the cabinet, drill another hole so you can pass the power cables through.
 
 ##Step 3: Making the monitor lean
 
@@ -41,7 +41,7 @@ Remove the outer casing of the monitor without damaging the touch sensor as seen
 
 ![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/naked_monitor.JPG)
 
-The edge of the monitor is grey so you can see them through the mirror. Cover them with the black tape.
+The edge of the monitor is grey so cover it with the black tape.
 
 ![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/tape_monitor.jpg)
 
@@ -49,7 +49,7 @@ The edge of the monitor is grey so you can see them through the mirror. Cover th
 
 The monitor legs place the mirror as close to the mirror as possible. You can find the 3D model of the legs here. 
 
-You can 3d print the legs on [3D Hubs](https://www.3dhubs.com/), or, if you have a 3D printer, you can print them yourself. If you don't want to print the legs, you can use toilet paper rolls. They should be 3 inches tall. 
+You can 3d print the legs on [3D Hubs](https://www.3dhubs.com/), or, if you have a 3D printer, you can print them yourself. If you don't want to print the legs, you can use toilet paper rolls as a replacement. Cut the rolls so they are 3 inches tall. This is a great time to use your Kindergarten skills.
 
 The cabinet has holes along the sides. Use the screws to secure the monitor legs to the cabinets using those holes. 
 
