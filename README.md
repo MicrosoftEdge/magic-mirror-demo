@@ -48,7 +48,7 @@ For guidelines on contributing to this project, please refer to the [contributin
 
 ##Run Locally
 
-To run the project locally, please see the [run locally section](.github/RUNLOCALLY.md).
+Please see the [run locally section](.github/RUNLOCALLY.md).
 
 ## Credits
 
