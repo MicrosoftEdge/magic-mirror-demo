@@ -26,7 +26,7 @@ You will need the following materials to assemble the Magic Mirror:
 
 ##Assembly Process
 
-Coming soon...
+Please see the [assembly process section](.github/ASSEMBLY.md)
 
 ##Installing the app
 
@@ -58,11 +58,11 @@ Coming soon...
 
 ## Contributing
 
-For guidelines on contributing to this project, please refer to [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md).
+For guidelines on contributing to this project, please refer to the [contributing section](.github/CONTRIBUTING.md).
 
 ##Run Locally
 
-To run the project locally, please see [.github/RUNLOCALLY.md](.github/RUNLOCALLY.md).
+To run the project locally, please see the [run locally section](.github/RUNLOCALLY.md).
 
 ## Credits
 

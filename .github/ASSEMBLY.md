@@ -29,7 +29,7 @@ The frame of the medical cabinet is held together by staples. You can use the sc
 
 ##Step 2: Drilling
 
-Drill a hole on top of the cabinet as displayed in the image below. Make sure the hole is big enough for the Camera's USB end to go through.  
+Drill a hole on top of the cabinet. Make sure the hole is big enough for the Camera's USB end to go through.  
 
 ![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/drill_magic_mirror.JPG)
 
@@ -47,7 +47,7 @@ The edge of the monitor is grey so cover it with the black tape.
 
 ##Step 4: Supporting the monitor
 
-The monitor legs place the mirror as close to the mirror as possible. You can find the 3D model of the legs here. 
+The monitor legs place the mirror as close to the mirror as possible. You can find the 3D model of the legs [here](https://s3-us-west-2.amazonaws.com/magicmirrordemo/UniversalClip.stl). 
 
 You can 3d print the legs on [3D Hubs](https://www.3dhubs.com/), or, if you have a 3D printer, you can print them yourself. If you don't want to print the legs, you can use toilet paper rolls as a replacement. Cut the rolls so they are 3 inches tall. This is a great time to use your Kindergarten skills.
 
