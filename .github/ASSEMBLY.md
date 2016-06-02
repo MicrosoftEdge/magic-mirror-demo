@@ -55,6 +55,10 @@ The cabinet has holes along the sides. Use the screws to secure the monitor legs
 
 ![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/leg_screw.png)
 
+Below is an image showing how the monitor should rest on the legs.
+
+![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/monitor_in_place.jpg)
+
 ##Step 5: Adding the brain
 
 Power the Pi with the USB cord (1) and connect the Pi to the monitor through HDMI (2).
