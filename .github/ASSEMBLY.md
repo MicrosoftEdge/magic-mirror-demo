@@ -33,7 +33,7 @@ Drill a hole on top of the cabinet. Make sure the hole is big enough for the Cam
 
 ![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/drill_magic_mirror.JPG)
 
-At the botom of the back of the cabinet, drill another hole so you can pass the power cables through.
+At the bottom of the back of the cabinet, drill another hole so you can pass the power cables through.
 
 ##Step 3: Making the monitor lean
 
