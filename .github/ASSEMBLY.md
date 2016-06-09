@@ -7,7 +7,7 @@ The assembly process requires manual work so please make sure you take the appro
 You will need the following materials to assemble the Magic Mirror:
 
 * [2-Way Mirrored Acrylic Sheets](http://www.tapplastics.com/product/plastics/cut_to_size_plastic/two_way_mirrored_acrylic/558)
-  * Thickness: 1/8
+  * Thickness: 1/8"
   * Width: 13”
   * Length: 23 5/8”
 * [Medicine Cabinet](http://www.homedepot.com/p/Glacier-Bay-15-1-4-in-x-26-in-Surface-Mount-Framed-Mirrored-Swing-Door-Medicine-Cabinet-in-White-S1627-12-B/100576352)
