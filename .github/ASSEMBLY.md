@@ -65,13 +65,18 @@ Power the Pi with the USB cord (1) and connect the Pi to the monitor through HDM
 
 ![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/rpi2-inst.png)
 
+
 ##Step 6: Connecting the camera
 
 Tape the camera to the top of the cabinet and connect it to the Pi through USB.
 
 ![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/tape_camera.jpg)
 
+![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/finished+mirror.JPG)
+
 ##Step 7: Enjoy
+
+![alt tag](https://s3-us-west-2.amazonaws.com/magicmirrordemo/kevinMirror.png)
 
 We hope you enjoy the Magic Mirror! Please let us know if you have any issues.
 
