@@ -38,6 +38,14 @@ Steps:
 
 If you want a tutorial with pretty pictures, you can find it [here](https://microsoftedge.github.io/WebAppsDocs/en-US/win10/DeployToPiWithVS.htm).
 
+Steps to add a profile:
+
+1. In Visual Studio, go to Solution explorer, click on package.appxmanifest > Application and set http://webreflections.azurewebsites.net/create as the start page
+2. On the ribbon, change the target architecture to match that of your PC (e.g. x64)
+3. Set the debugging target to "Local machine" (changing the architecture in step 2 probably did this for you)
+4. Click play to start the app running on your local machine
+5. Follow the prompts on the create experience to save a profile for yourself
+
 ###Deploying on a Mac
 
 Coming soon...
