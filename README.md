@@ -8,7 +8,11 @@ The Magic Mirror is a fun weekend IoT project that showcases the power of [Unive
 
 The client side was coded against standard web technologies (CSS, HTML, JS) :heart:, and the back-end leverages the power of NodeJS and Mongo hosted on Azure. The client side implements Windows API ([mediaCapture](https://msdn.microsoft.com/en-us/library/windows/apps/windows.media.capture.aspx)) to detect faces from the devices camera, and the [Microsoft's Cognitive Services Face API](https://www.projectoxford.ai/face) to match Faces to profiles.
 
-Since a mirror device doesn't generally receive input from a keyboard and mouse, our web app provides a view that allows users to personalize the experience.
+##User Flow
+
+Before using the magic mirror, users need to create a profile using the desktop app. During profile creation, users can add their profiles and take a picture of themselves. 
+
+Once users have a profile, they can be recognized by the magic mirror.
 
 ##Assembly Process
 
@@ -25,9 +29,19 @@ Prerequisites:
 * Visual Studio (2013+)
 * Windows 10 SDK installed in Visual Stuido
 
-Steps:
+You have to deploy two Hosted Web apps (HWA). The first HWA allows you to create your profile and is meant to run on your desktop. The second HWA powers the Magic Mirror UI that runs on the Raspberry Pi 2/3.
 
-1. In Visual Studio, click File > New Project > JavaScript Templates > Windows > Hosted Web Apps
+Steps to deploy the Profile Creator app:
+
+1. In Visual Studio, go to Solution explorer, click on package.appxmanifest > Application and set http://webreflections.azurewebsites.net/create as the start page
+2. On the ribbon, change the target architecture to match that of your PC (e.g. x64)
+3. Set the debugging target to "Local machine" (changing the architecture in step 2 probably did this for you)
+4. Click play to start the app running on your local machine
+5. Follow the prompts on the create experience to save a profile for yourself
+
+Steps to deploy the Magic Mirror app to the Raspberry Pi 2:
+
+1. In Visual Studio, click File > New Project > JavaScript Templates > Windows > Hosted Web apps
 2. Go to Solution explorer, click on package.appxmanifest > Application and set http://webreflections.azurewebsites.net/mirror as the start page
 3. Within the package.appxmanifest view, click the Content URIs tab and insert http://webreflections.azurewebsites.net/ with WinRT Access *All*
 4. Click the Capabilities tab and select *Webcam* :camera:
@@ -36,15 +50,7 @@ Steps:
 7. A prompt should appear asking you for the *Machine Name*. Set the IPv4 of your RP as the *Machine Name* and select *Universal* for the *Require Authentication*
 8. and voilà! :gift: You have succesfully installed the Magic Mirror hosted web app in your RP running Windows IoT core.
 
-If you want a tutorial with pretty pictures, you can find it [here](https://microsoftedge.github.io/WebAppsDocs/en-US/win10/DeployToPiWithVS.htm).
-
-Steps to add a profile:
-
-1. In Visual Studio, go to Solution explorer, click on package.appxmanifest > Application and set http://webreflections.azurewebsites.net/create as the start page
-2. On the ribbon, change the target architecture to match that of your PC (e.g. x64)
-3. Set the debugging target to "Local machine" (changing the architecture in step 2 probably did this for you)
-4. Click play to start the app running on your local machine
-5. Follow the prompts on the create experience to save a profile for yourself
+You can find a tutorial of how to deploy HWA using Visual Studio [here](https://microsoftedge.github.io/WebAppsDocs/en-US/win10/DeployToPiWithVS.htm).
 
 ###Deploying on a Mac
 
