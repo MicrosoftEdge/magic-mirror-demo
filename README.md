@@ -10,9 +10,7 @@ The client side was coded against standard web technologies (CSS, HTML, JS) :hea
 
 ##User Flow
 
-Before using the magic mirror, users need to create a profile using the desktop app. During profile creation, users can add their profiles and take a picture of themselves. 
-
-Once users have a profile, they can be recognized by the magic mirror.
+Before using the magic mirror, users need to create a profile using the desktop app. You need a profile so the mirror can recognize you and adapt to your needs.
 
 ##Assembly Process
 
