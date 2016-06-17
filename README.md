@@ -27,8 +27,6 @@ Prerequisites:
 * Visual Studio (2013+)
 * Windows 10 SDK installed in Visual Stuido
 
-You have to deploy two Hosted Web apps (HWA). The first HWA allows you to create your profile and is meant to run on your desktop. The second HWA powers the Magic Mirror UI that runs on the Raspberry Pi 2/3.
-
 Steps to deploy the Profile Creator app to your desktop:
 
 1. In Visual Studio, go to Solution explorer, click on package.appxmanifest > Application and set http://webreflections.azurewebsites.net/create as the start page
