@@ -16,9 +16,9 @@ Before using the magic mirror, users need to create a profile using the desktop 
 
 Please see the [assembly process section](.github/ASSEMBLY.md).
 
-##Installing the app
+##Installing the apps
 
-Once the mirror is assembled and wired up, you can install the Magic Mirror app on your Raspberry Pi (RP). Don't worry if you don't have a PC, you can also do it with a Mac.
+You have to deploy two Hosted Web apps (HWA). The first HWA allows you to create your profile and is meant to run on your desktop. The second HWA powers the Magic Mirror UI that runs on the Raspberry Pi 2/3.
 
 ###Deploying on a PC
 
@@ -29,7 +29,7 @@ Prerequisites:
 
 You have to deploy two Hosted Web apps (HWA). The first HWA allows you to create your profile and is meant to run on your desktop. The second HWA powers the Magic Mirror UI that runs on the Raspberry Pi 2/3.
 
-Steps to deploy the Profile Creator app:
+Steps to deploy the Profile Creator app to your desktop:
 
 1. In Visual Studio, go to Solution explorer, click on package.appxmanifest > Application and set http://webreflections.azurewebsites.net/create as the start page
 2. On the ribbon, change the target architecture to match that of your PC (e.g. x64)
