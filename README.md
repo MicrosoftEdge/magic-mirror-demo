@@ -63,3 +63,6 @@ Please see the [run locally section](.github/RUNLOCALLY.md).
 ## Credits
 
 The [weather icons](https://thenounproject.com/Yorlmar%20Campos/collection/good-weather/) were created by [Yorlmar Campos](http://www.rnsfonts.com/) under a [Creative Commons Attribution 3.0 license](http://creativecommons.org/licenses/by/3.0/us/).
+
+##Code of Conduct
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
