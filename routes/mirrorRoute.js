@@ -48,18 +48,18 @@ module.exports = function(app) {
   });
   
   mirrorRouter.get('/getStockSymbols', function(req, res, next) {
-        var model = mongoose.model('Person');
-        request.get({
-            'url': 'https://s.yimg.com/aq/autoc?query=' + req.query.term + '&region=US&lang=en-US',            
-            'json': true
-        },
-        function(error, response, body) {
-            if (error) {
-                console.log(error);
-        }
-        else {            
-            res.send(body);
-        }      
+    var model = mongoose.model('Person');
+    request.get({
+      'url': 'https://s.yimg.com/aq/autoc?query=' + req.query.term + '&region=US&lang=en-US',            
+      'json': true
+    },
+    function(error, response, body) {
+      if (error) {
+          console.log(error);
+      }
+      else {            
+          res.send(body);
+      }      
       res.end();
     });
   });
