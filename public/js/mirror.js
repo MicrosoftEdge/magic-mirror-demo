@@ -35,7 +35,7 @@
   }
 
   function updateWeather() {
-    Weather.getCurrent('94103', function(current) {
+    Weather.getCurrent('98261', function(current) {
       var desc = current.conditions();
       var city = current.city();
       var icon = Weather.Utils.getIcon(current.icon());
@@ -47,7 +47,7 @@
       weathericon.attr('src', icon);
     });
 
-    Weather.getForecast('98052', function(forecast) {
+    Weather.getForecast('98261', function(forecast) {
       fcast.html('Forecast High in ' + Weather.kelvinToFahrenheit(forecast.high()).toFixed(0) + '\xB0');
     });
   }
