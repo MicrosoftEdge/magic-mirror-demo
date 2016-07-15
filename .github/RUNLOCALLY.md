@@ -25,7 +25,7 @@ Create a *environment.json* file in the root folder and add the following snippe
   "OXFORD_SECRET_KEY": "your-face-api-secret-oxford-key",
   "OXFORD_EMOTION_SECRET_KEY":"your-emotion-api-secret-oxford-key",
   "BING_API_KEY": "your-bing-api-secret-oxford-key",
-  "SESSION_SECRET_STRING": "your-secret-string", 
+  "SESSION_SECRET_STRING": "your-secret-string"
 }
 ```
 
