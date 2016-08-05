@@ -219,6 +219,20 @@ Weather.Current = function(data) {
   this.data = data;
 };
 
+Weather.Current.prototype.reminder = function() {
+  var conditionID = this.data.weather[0].id;
+  var firstDigit = conditionID.toString()[0];
+  var reminder;
+  var sunny = "Don't worry, it's gonna be a sunny day!"
+  var rain = "Don't forget to bring an umbrella!";
+  if (firstDigit != '8') {
+    reminder = rain;
+  } else {
+    reminder = sunny;
+  }
+  return reminder;
+}
+
 Weather.Current.prototype.temperature = function() {
   return this.data.main.temp;
 };
