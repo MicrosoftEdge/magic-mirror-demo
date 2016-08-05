@@ -1,5 +1,6 @@
 ;(function() {
   'use strict';
+  
 
   var time, date, day, fcast, temp, weatherDesc, loc, weathericon;
 
