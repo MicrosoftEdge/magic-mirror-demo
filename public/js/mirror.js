@@ -40,7 +40,7 @@
       var desc = current.conditions();
       var city = current.city();
       var icon = Weather.Utils.getIcon(current.icon());
-      var rem = Weather.Reminder();
+      var rem = current.reminder();
 
       reminder.html(rem);
 
