@@ -225,8 +225,7 @@ Weather.Current.prototype.reminder = function() {
   var reminder;
   var sunny = "Don't worry, it's gonna be a sunny day!"
   var rain = "Don't forget to bring an umbrella!";
-  if (firstDigit != 8) {
-    console.log("The digit is " + firstDigit);
+  if (firstDigit != '8') {
     reminder = rain;
   } else {
     reminder = sunny;
