@@ -2,7 +2,7 @@
   'use strict';
   
 
-  var time, date, day, fcast, temp, weatherDesc, loc, weathericon;
+  var time, date, day, fcast, temp, weatherDesc, loc, reminder, weathericon;
 
   var MIRROR_STATES = {
     BLANK: 'blank', // Basic state. No face detected in screen. No one logged in.
@@ -40,6 +40,9 @@
       var desc = current.conditions();
       var city = current.city();
       var icon = Weather.Utils.getIcon(current.icon());
+      var rem = Weather.Reminder();
+
+      reminder.html(rem);
 
       temp.html(Weather.kelvinToFahrenheit(current.temperature()).toFixed(0) + '\xB0');
       weatherDesc.html(desc);
@@ -100,6 +103,7 @@
     temp = $('.temperature');
     weatherDesc = $('.conditions span');
     loc = $('.weather-location');
+    reminder = $('.weather-reminder');
     weathericon = $('#weather-icon');
     updateTime();
     updateWeather();

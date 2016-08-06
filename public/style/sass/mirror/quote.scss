@@ -1,0 +1,29 @@
+/* MIRROR UI: WEATHER
+--------------------------------------------- */
+
+#weather {
+  position: relative;
+  font-family: $font-bold;
+}
+
+#weather-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 96px;
+  height: 120px;
+}
+
+.temperature {
+  padding-right: 104px;
+  font-size: 5em;
+}
+
+.conditions {
+  font-size: 2.5em;
+}
+
+.weather-location {
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}

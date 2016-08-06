@@ -219,6 +219,11 @@ Weather.Current = function(data) {
   this.data = data;
 };
 
+Weather.Reminder = function() {
+  var rain = "Don't forget to bring an umbrella!";
+  return rain;
+}
+
 Weather.Current.prototype.temperature = function() {
   return this.data.main.temp;
 };
