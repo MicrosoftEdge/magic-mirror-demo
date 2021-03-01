@@ -1,3 +1,5 @@
+# This repository is not actively maintained by anyone. Services associated with running magic mirror have been shutoff.
+
 # :zap:Magic Mirror:zap:
 
 ##Overview
