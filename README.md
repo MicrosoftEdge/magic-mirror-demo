@@ -2,7 +2,7 @@
 
 # :zap:Magic Mirror:zap:
 
-##Overview
+## Overview
 
 We took the magic mirror concept a step further by enabling user recognition :smiley:. The mirror can recognize registered users and personalize the experience accordingly.
 
@@ -10,19 +10,19 @@ The Magic Mirror is a fun weekend IoT project that showcases the power of [Unive
 
 The client side was coded against standard web technologies (CSS, HTML, JS) :heart:, and the back-end leverages the power of NodeJS and Mongo hosted on Azure. The client side implements Windows API ([mediaCapture](https://msdn.microsoft.com/en-us/library/windows/apps/windows.media.capture.aspx)) to detect faces from the devices camera, and the [Microsoft's Cognitive Services Face API](https://www.projectoxford.ai/face) to match Faces to profiles.
 
-##User Flow
+## User Flow
 
 Before using the magic mirror, users need to create a profile using the desktop app. You need a profile so the mirror can recognize you and adapt to your needs.
 
-##Assembly Process
+## Assembly Process
 
 Please see the [assembly process section](.github/ASSEMBLY.md).
 
-##Installing the apps
+## Installing the apps
 
 You have to deploy two Hosted Web apps (HWA). The first HWA allows you to create your profile and is meant to run on your desktop. The second HWA powers the Magic Mirror UI that runs on the Raspberry Pi 2/3.
 
-###Deploying on a PC
+### Deploying on a PC
 
 Prerequisites:
 
@@ -50,7 +50,7 @@ Steps to deploy the Magic Mirror app to the Raspberry Pi 2:
 
 You can find a tutorial of how to deploy HWA using Visual Studio [here](https://microsoftedge.github.io/WebAppsDocs/en-US/win10/DeployToPiWithVS.htm).
 
-###Deploying on a Mac
+### Deploying on a Mac
 
 Coming soon...
 
@@ -58,7 +58,7 @@ Coming soon...
 
 For guidelines on contributing to this project, please refer to the [contributing section](.github/CONTRIBUTING.md).
 
-##Run Locally
+## Run Locally
 
 Please see the [run locally section](.github/RUNLOCALLY.md).
 
@@ -66,5 +66,5 @@ Please see the [run locally section](.github/RUNLOCALLY.md).
 
 The [weather icons](https://thenounproject.com/Yorlmar%20Campos/collection/good-weather/) were created by [Yorlmar Campos](http://www.rnsfonts.com/) under a [Creative Commons Attribution 3.0 license](http://creativecommons.org/licenses/by/3.0/us/).
 
-##Code of Conduct
+## Code of Conduct
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
